@@ -2,12 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AwesomeGame._02_Scripts.SeesawCatapult;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class HumanManager : MonoBehaviour
 {
     [SerializeField] private Catapult _Catapult;
+    [SerializeField] private Human _ThinHumanPrefab;
+    [SerializeField] private Human _FatHumanPrefab;
+    [SerializeField] private Team _Team;
+    [SerializeField] private Transform _SpawnPos;
     [Space]
     [SerializeField] private List<Human> _Humans;
     [Space]
@@ -22,6 +27,9 @@ public class HumanManager : MonoBehaviour
     [Space]
     [SerializeField] private float _HumanToCatapultWaitDuration;
     [SerializeField] private float _HumanToSeesawWaitDuration;
+    [SerializeField] private int _WaitDurationBeforeNewHuman;
+    [SerializeField] private int _HumansToCreate;
+    
 
     public List<Human> HumansOnRandomMove { get; } = new List<Human>();
 
@@ -33,16 +41,84 @@ public class HumanManager : MonoBehaviour
         {
             HumansOnRandomMove.Add(human);
         }
+        
+        CreateNewHumans();
+        
         MoveHumansRandomly();
         MoveHumansToCatapult();
     }
-
+    
     private void Update()
     {
-        foreach (var human in HumansOnOtherSide.Where(human => human.GetState() == HumanState.OnOtherSide))
+        foreach (var human in HumansOnOtherSide)
         {
-            human.SetState(HumanState.IsMovingToSeesaw);
-            MoveHumanToNearestSeesaw(human);
+            var state = human.GetState();
+            switch (state)
+            {
+                case HumanState.OnOtherSide:
+                    
+                    human.SetState(HumanState.IsMovingToSeesaw);
+                    MoveHumanToNearestSeesaw(human);
+                    
+                    break;
+                
+                case HumanState.OnSameSide:
+                    HumansOnOtherSide.Remove(human);
+                    
+                    MoveNewHumanRandomly(human);
+
+                    break;
+                
+                default:
+                    continue;
+            }
+        }
+    }
+
+    private void CreateNewHumans()
+    {
+        StartCoroutine(CreateNewHumansRoutine(_WaitDurationBeforeNewHuman));
+    }
+    
+    private IEnumerator CreateNewHumansRoutine(int waitTime)
+    {
+        while (_HumansToCreate > 0)
+        {
+            yield return new WaitForSeconds(waitTime);
+
+            _HumansToCreate--;
+
+            var number = Random.Range(0, 51);
+            var prefab = number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
+            var pos = new Vector3(Random.Range(_MinX, _MaxX), 0, Random.Range(_MinZ, _MaxZ));
+
+            var newHuman = Instantiate(prefab, pos, Quaternion.identity);
+            newHuman.Team = _Team;
+            
+            MoveNewHumanRandomly(newHuman);
+        }
+    }
+    
+    private void MoveNewHumanRandomly(Human human)
+    {
+        if (HumansOnRandomMove.Any())
+        {
+            MoveTheHumanRandomly();
+        }
+        else
+        {
+            MoveTheHumanRandomly();
+            MoveHumansToCatapult();
+        }
+
+        void MoveTheHumanRandomly()
+        {
+            human.SetState(HumanState.RandomMove);
+            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, _MinHumanSpeed, _MaxHumanSpeed);
+            StartCoroutine(human.MoveRandomLocation());
+            
+            
+            HumansOnRandomMove.Add(human);
         }
     }
 
@@ -75,7 +151,8 @@ public class HumanManager : MonoBehaviour
     private void MoveHumanToNearestSeesaw(Human human)
     {
         human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, _MinHumanSpeed, _MaxHumanSpeed);
-        StartCoroutine(DoAfter(_HumanToSeesawWaitDuration, () =>
+        
+        StartCoroutine(DoAfterCoroutine.DoAfter(_HumanToSeesawWaitDuration, () =>
         {
             var humanPos = human.transform.position;
             var nearestSeesaw = GetNearestSeesaw(humanPos);
@@ -87,29 +164,29 @@ public class HumanManager : MonoBehaviour
         }));
     }
 
-    private SeesawBranch GetNearestSeesaw(Vector3 humanPos)
+    private SeesawSeat GetNearestSeesaw(Vector3 humanPos)
     {
-        SeesawBranch nearestSeesaw = null;
+        var availableSeats = CheckAvailableSeats();
+        SeesawSeat nearestSeat = null;
         var closestDistanceSqr = Mathf.Infinity;
         
-        foreach(var seesawBranch in _SeesawBranches)
+        foreach(var seat in availableSeats)
         {
-            var directionToTarget = seesawBranch.GetSeesawPad().transform.position - humanPos;
+            var directionToTarget = seat.transform.position - humanPos;
             var dSqrToTarget = directionToTarget.sqrMagnitude;
 
             if (!(dSqrToTarget < closestDistanceSqr)) continue;
             
             closestDistanceSqr = dSqrToTarget;
-            nearestSeesaw = seesawBranch;
+            nearestSeat = seat;
+            nearestSeat.IsSeatFull = true;
         }
-     
-        return nearestSeesaw;
+
+        return nearestSeat;
     }
 
-    private IEnumerator DoAfter(float waitTime, Action callback)
+    private List<SeesawSeat> CheckAvailableSeats()
     {
-        yield return new WaitForSeconds(waitTime);
-            
-        callback?.Invoke();
+        return _SeesawBranches.Select(seesawBranch => seesawBranch.GetSeesawSeat()).Where(seesawSeat => seesawSeat != null).ToList();
     }
 }

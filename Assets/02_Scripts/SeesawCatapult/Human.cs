@@ -17,6 +17,9 @@ public class Human : MonoBehaviour
     [SerializeField] private float _Mass;
     [SerializeField] private float _ColliderRadiusMin;
     [SerializeField] private float _ColliderRadiusMax;
+    [SerializeField] private float _MinScale;
+    [SerializeField] private float _MaxScale;
+    [SerializeField] private float _ScaleChangeDuration;
     [Space]
     [ShowInInspector, ReadOnly] private HumanState _state = HumanState.Idle;
 
@@ -32,9 +35,14 @@ public class Human : MonoBehaviour
 
     public Human Prefab => _Prefab;
     public HumanType Type => _Type;
-    public Team Team => _Team;
     public Rigidbody Rigidbody => _Rigidbody;
     public float Mass => _Mass;
+
+    public Team Team
+    {
+        get => _Team;
+        set => _Team = value;
+    }
 
     public void MoveToCatapult(Catapult catapult)
     {
@@ -53,21 +61,26 @@ public class Human : MonoBehaviour
         });
     }
     
-    public void MoveToSeesaw(SeesawBranch seesawBranch)
+    public void MoveToSeesaw(SeesawSeat seat)
     {
         _state = HumanState.IsMovingToSeesaw;
         
         if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
 
         var pos = transform.position;
-        var newPos = seesawBranch.GetSeesawPad().transform.position;
+        var newPos = seat.transform.position;
         var moveDuration = Vector3.Distance(pos, newPos) / _maxMoveSpeed;
+        
+        
         
         LeanTween.move(gameObject, newPos, moveDuration).setOnComplete(() =>
         {
             _state = HumanState.OnSeesaw;
-            seesawBranch.AddHuman(this);
-            transform.SetParent(seesawBranch.GetComponentInParent<Seesaw>().transform);
+            
+            var branch = seat.GetComponentInParent<SeesawBranch>();
+            branch.AddHuman(this);
+            
+            transform.SetParent(branch.GetComponentInParent<Seesaw>().transform);
         });
     }
     
@@ -92,11 +105,9 @@ public class Human : MonoBehaviour
     public void MakeColliderSmaller()
     {
         _CapsuleCollider.radius = _ColliderRadiusMin;
-        //_CapsuleCollider.enabled = false;
     }
     public void MakeColliderBigger()
     {
-        //_CapsuleCollider.enabled = true;
         _CapsuleCollider.radius = _ColliderRadiusMax;
     }
 
@@ -132,11 +143,21 @@ public class Human : MonoBehaviour
         
         if (!board) return;
         if (_state != HumanState.IsFlying) return;
-        if (board.Team != _Team) return; // TODO: Work on the situation where human falls to same side.
-        
-        
+        if (board.Team != Team)
+        {
+            _state = HumanState.OnSameSide;
+            return;
+        }
+            
         _state = HumanState.OnOtherSide;
         MakeColliderBigger();
     }
 
+    public void DestroySelf()
+    {
+        LeanTween.scale(gameObject, Vector3.one * _MinScale, _ScaleChangeDuration).setOnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
+    }
 }

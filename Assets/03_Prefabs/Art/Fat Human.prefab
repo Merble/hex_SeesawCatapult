@@ -1231,6 +1231,9 @@ MonoBehaviour:
   _Mass: 2
   _ColliderRadiusMin: 0.1
   _ColliderRadiusMax: 0.5
+  _MinScale: 0.16
+  _MaxScale: 1.25
+  _ScaleChangeDuration: 1.5
 --- !u!95 &3701032028128859147
 Animator:
   serializedVersion: 3

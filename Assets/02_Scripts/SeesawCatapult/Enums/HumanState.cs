@@ -5,6 +5,7 @@
     IsMovingToCatapult,
     OnCatapult,
     IsFlying,
+    OnSameSide,
     OnOtherSide,
     IsMovingToSeesaw,
     OnSeesaw

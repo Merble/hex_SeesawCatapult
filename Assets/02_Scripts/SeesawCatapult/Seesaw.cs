@@ -1,10 +1,12 @@
+using System;
+using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
+using Unity.Collections;
 using UnityEngine;
 
 public class Seesaw : MonoBehaviour
 {
-    // public event Action PlayerDidWin;
-    // public event Action EnemyDidWin;
-
+    public event Action DidBalanceChange;
+    
     [SerializeField] private SeesawBranch _PlayerSeesawBranch;
     [SerializeField] private SeesawBranch _EnemySeesawBranch;
     [Space]
@@ -12,10 +14,16 @@ public class Seesaw : MonoBehaviour
     [SerializeField] private float _MaxRotationAngle;
     [SerializeField] private float _BalanceValue;   // Between (0, 1)
     [SerializeField] private float _RotationSpeed;
+    [Space]
+    [SerializeField, ReadOnly]private SeesawState _State;
+    public SeesawState State => _State;
+
 
     private void Awake()
     {
+        _State = SeesawState.Balance;
         _BalanceValue = .5f;
+        
         _PlayerSeesawBranch.DidMassChange += BalanceChange;
         _EnemySeesawBranch.DidMassChange += BalanceChange;
     }
@@ -26,16 +34,6 @@ public class Seesaw : MonoBehaviour
         _BalanceValue = Mathf.Clamp(_BalanceValue, 0, 1);
         
         RotateBoardToCurrentBalance();
-            
-        // if (_BalanceValue >= 1f)
-        // {
-        //     PlayerDidWin?.Invoke();
-        // }
-        //     
-        // if (_BalanceValue <= 0)
-        // {
-        //     EnemyDidWin?.Invoke();
-        // }
     }
 
     private void RotateBoardToCurrentBalance()
@@ -52,6 +50,29 @@ public class Seesaw : MonoBehaviour
         var rotationEuler = new Vector3(newAngle, 0, 0);
         
         LeanTween.cancel(gameObject);
-        LeanTween.rotate(gameObject, rotationEuler, angleDistance);
+        LeanTween.rotate(gameObject, rotationEuler, angleDistance).setOnComplete(CheckBalanceAfterRotate);
+    }
+
+    private void CheckBalanceAfterRotate()
+    {
+        if (_BalanceValue > .5f)
+        {
+            _State = SeesawState.PlayerWins;
+        }
+        else if (_BalanceValue < .5f)
+        {
+            _State = SeesawState.EnemyWins;
+        }
+        else
+        {
+            if (_PlayerSeesawBranch.GetSeesawSeat() != null || _EnemySeesawBranch.GetSeesawSeat() != null)  return;
+
+            _State = SeesawState.Balance;
+            
+            _PlayerSeesawBranch.ClearSeats();
+            _EnemySeesawBranch.ClearSeats();
+        }
+
+        DidBalanceChange?.Invoke();
     }
 }

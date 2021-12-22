@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AwesomeGame._02_Scripts.SeesawCatapult;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -102,19 +103,12 @@ public class PowerUpManager : MonoBehaviour
         // Scale down the human collider to avoid flying humans
         newHuman.MakeColliderSmaller();
 
-        StartCoroutine(DoAfter(_ColliderSizeChangeWaitDuration, () =>
+        StartCoroutine(DoAfterCoroutine.DoAfter(_ColliderSizeChangeWaitDuration, () =>
         {
             // Scale up the human collider for normality
             newHuman.MakeColliderBigger();
         }));
         
         return instantiatedHumans;
-    }
-    
-    private IEnumerator DoAfter(float waitTime, Action callback)
-    {
-        yield return new WaitForSeconds(waitTime);
-            
-        callback?.Invoke();
     }
 }
