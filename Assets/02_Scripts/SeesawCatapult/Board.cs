@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+namespace AwesomeGame._02_Scripts.SeesawCatapult
 {
-    [SerializeField] private Team _Team;
+    public class Board : MonoBehaviour
+    {
+        [SerializeField] private Team _Team;
 
-    public Team Team => _Team;
+        public Team Team => _Team;
+    }
 }

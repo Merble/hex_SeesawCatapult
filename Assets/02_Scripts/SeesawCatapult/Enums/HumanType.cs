@@ -1,5 +1,8 @@
-﻿public enum HumanType
+﻿namespace AwesomeGame._02_Scripts.SeesawCatapult.Enums
 {
-    Fat,
-    Thin
+    public enum HumanType
+    {
+        Fat,
+        Thin
+    }
 }

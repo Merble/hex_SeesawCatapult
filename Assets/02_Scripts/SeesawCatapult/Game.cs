@@ -18,6 +18,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         private void Awake()
         {
             _SeesawManager.DidBalanceChange += OnWinPoint;
+            _EnemyAI.RivalHumanManager = _Player.HumanManager;
         }
         
         private void OnWinPoint(int playerPoint, int enemyPoint)
@@ -53,13 +54,13 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
             _CountdownText.gameObject.SetActive(false);
             
-            /*if (countdown <= 0)
+            if (countdown <= 0)
             {
-                if(isPlayerWin)
-                    // TODO: Player Wins
-                else 
-                    // TODO: Enemy Wins
-            }*/
+                if (isPlayerWin)
+                    Debug.Log("Player Won");     // TODO: Player Wins
+                else
+                    Debug.Log("Player Won");     // TODO: Enemy Wins
+            }
             
             _isCountdownStop = false;
         }

@@ -1,5 +1,8 @@
-﻿public enum PowerUpType
+﻿namespace AwesomeGame._02_Scripts.SeesawCatapult.Enums
 {
-    Multiplication,
-    Addition
+    public enum PowerUpType
+    {
+        Multiplication,
+        Addition
+    }
 }

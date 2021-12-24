@@ -1,5 +1,8 @@
-public enum Team
+namespace AwesomeGame._02_Scripts.SeesawCatapult.Enums
 {
-    PlayerTeam,
-    EnemyTeam
+    public enum Team
+    {
+        PlayerTeam,
+        EnemyTeam
+    }
 }

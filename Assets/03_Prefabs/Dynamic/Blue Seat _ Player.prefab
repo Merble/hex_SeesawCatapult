@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f46489c8edd9ea4f976513337e098f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MaxHumanToSit: 2
+  _SatHumans: 0
+  _IsSeatFull: 0
 --- !u!33 &4756292208288485918
 MeshFilter:
   m_ObjectHideFlags: 0

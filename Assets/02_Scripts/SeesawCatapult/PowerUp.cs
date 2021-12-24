@@ -1,25 +1,29 @@
 using System;
+using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour
+namespace AwesomeGame._02_Scripts.SeesawCatapult
 {
-    public event Action<Human, PowerUpType, Vector3, int> DidUsePowerUp;
-    
-    [SerializeField] private Team _Team;
-    [SerializeField] private PowerUpType _PowerUpType;
-    [Space]
-    [SerializeField] private int _PowerUpEffectNumber;
-
-
-    private void OnTriggerEnter(Collider other)
+    public class PowerUp : MonoBehaviour
     {
-        var human = other.GetComponentInParent<Human>();
-        
-        if (!human) return;
+        public event Action<Human, PowerUpType, Vector3, int> DidUsePowerUp;
+    
+        [SerializeField] private Team _Team;
+        [SerializeField] private PowerUpType _PowerUpType;
+        [Space]
+        [SerializeField] private int _PowerUpEffectNumber;
 
-        if (human.Team != _Team) return;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var human = other.GetComponentInParent<Human>();
         
-        DidUsePowerUp?.Invoke(human, _PowerUpType, transform.position,_PowerUpEffectNumber);
-        gameObject.SetActive(false);
+            if (!human) return;
+
+            if (human.Team != _Team) return;
+        
+            DidUsePowerUp?.Invoke(human, _PowerUpType, transform.position,_PowerUpEffectNumber);
+            gameObject.SetActive(false);
+        }
     }
 }

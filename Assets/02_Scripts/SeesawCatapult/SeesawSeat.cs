@@ -1,10 +1,30 @@
+using Unity.Collections;
 using UnityEngine;
 
-public class SeesawSeat : MonoBehaviour
+namespace AwesomeGame._02_Scripts.SeesawCatapult
 {
-    private bool _isSeatFull;
+    public class SeesawSeat : MonoBehaviour
+    {
+        [SerializeField] private int _MaxHumanToSit;
+        [SerializeField, ReadOnly] private int _SatHumans;
+        [Space]
+        [SerializeField, ReadOnly] private bool _IsSeatFull;
+        
+        public bool IsSeatFull => _IsSeatFull;
 
-    public bool IsSeatFull { get; set; }
-    
-    
+        public void HumanAddedToSeat()
+        {
+            _SatHumans++;
+
+            if (_SatHumans >= _MaxHumanToSit)
+                _IsSeatFull = true;
+        }
+
+        public void ClearSeat()
+        {
+            _SatHumans = 0;
+            _IsSeatFull = false;
+        }
+        
+    }
 }

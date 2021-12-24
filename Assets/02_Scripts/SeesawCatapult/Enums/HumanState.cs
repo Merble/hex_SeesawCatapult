@@ -1,12 +1,15 @@
-﻿public enum HumanState
+﻿namespace AwesomeGame._02_Scripts.SeesawCatapult.Enums
 {
-    Idle,
-    RandomMove,
-    IsMovingToCatapult,
-    OnCatapult,
-    IsFlying,
-    OnSameSide,
-    OnOtherSide,
-    IsMovingToSeesaw,
-    OnSeesaw
+    public enum HumanState
+    {
+        Idle,
+        RandomMove,
+        IsMovingToCatapult,
+        OnCatapult,
+        IsFlying,
+        OnSameSide,
+        OnOtherSide,
+        IsMovingToSeesaw,
+        OnSeesaw
+    }
 }
