@@ -152,6 +152,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         
             if (!board) return;
             if (_state != HumanState.IsFlying) return;
+            
             if (board.Team != Team)
             {
                 _state = HumanState.OnSameSide;

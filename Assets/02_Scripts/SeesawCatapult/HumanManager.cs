@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +30,15 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [SerializeField] private float _HumanToSeesawWaitDuration;
         [SerializeField] private float _WaitDurationBeforeNewHuman;
         [SerializeField] private int _HumansToCreate;
-        
+
         public Catapult Catapult { get; set; }
         public int HumansToCreate => _HumansToCreate;
 
         public List<Human> HumansOnRandomMove { get; } = new List<Human>();
 
         public List<Human> HumansOnOtherSide { get; } = new List<Human>();
+        
+        private readonly List<int> _humansToRemoveIndices = new List<int>();
 
         private void Awake()
         {
@@ -52,27 +55,44 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
     
         private void Update()
         {
-            foreach (var human in HumansOnOtherSide)
+            CheckHumanSideChange();
+        }
+
+        private void CheckHumanSideChange() // TODO: Rename
+        {
+            for (var index = 0; index < HumansOnOtherSide.Count; index++)
             {
+                var human = HumansOnOtherSide[index];
                 var state = human.GetState();
                 switch (state)
                 {
+                    case HumanState.Idle:
+                    case HumanState.RandomMove:
+                    case HumanState.IsMovingToCatapult:
+                    case HumanState.OnCatapult:
+                    case HumanState.IsFlying:
+                    case HumanState.IsMovingToSeesaw:
+                    case HumanState.OnSeesaw:
+                        break;
                     case HumanState.OnOtherSide:
-                    
+
                         human.SetState(HumanState.IsMovingToSeesaw);
                         MoveHumanToNearestSeesaw(human);
-                    
                         break;
-                
+
                     case HumanState.OnSameSide:
-                        HumansOnOtherSide.Remove(human);
+                        _humansToRemoveIndices.Add(index);
+                        // HumansOnOtherSide.Remove(human);
                         MoveNewHumanRandomly(human);
-                        
                         break;
-                
                     default:
-                        continue;
+                        throw new ArgumentOutOfRangeException();
                 }
+            }
+
+            foreach (var humanIndex in _humansToRemoveIndices)
+            {
+                HumansOnOtherSide.RemoveAt(humanIndex);
             }
         }
 
