@@ -53,15 +53,15 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             MoveAllHumansRandomly();
             MoveHumansToCatapult();
             
-            CheckHumansSideSituation(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration);
+            CheckHumansSituation(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration);
         }
         
-        private void CheckHumansSideSituation(float waitTime)
+        private void CheckHumansSituation(float waitTime)
         {
-            StartCoroutine(CheckHumansSideSituationRoutine(waitTime));
+            StartCoroutine(CheckHumansSituationRoutine(waitTime));
         }
         
-        private IEnumerator CheckHumansSideSituationRoutine(float waitTime)
+        private IEnumerator CheckHumansSituationRoutine(float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
             
@@ -108,7 +108,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 _humansOnOtherSide.RemoveAt(humanIndex);
             }
             
-            StartCoroutine(CheckHumansSideSituationRoutine(_HumanSideCheckWaitDuration));
+            StartCoroutine(CheckHumansSituationRoutine(_HumanSideCheckWaitDuration));
         }
 
         private void CreateNewHumans()
