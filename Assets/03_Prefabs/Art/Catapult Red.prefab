@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6433572589010548002}
   - component: {fileID: 9171153057132381610}
   - component: {fileID: 2630095657920712124}
-  - component: {fileID: 904747326846064266}
+  - component: {fileID: 675358946605190293}
   m_Layer: 0
   m_Name: Catapult Arm
   m_TagString: Untagged
@@ -167,7 +167,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &904747326846064266
+--- !u!95 &675358946605190293
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -231,8 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a0f763860517a4092e380141c39926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ThrowForce: 12
-  _DirectionValueY: 1.1
+  _CatapultAnimator: {fileID: 675358946605190293}
+  _CatapultSeat: {fileID: 8646217772828261437}
+  _ThrowForce: 9
+  _DirectionValueY: 1
 --- !u!1 &8646217772828261426
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +246,7 @@ GameObject:
   - component: {fileID: 8646217772828261437}
   - component: {fileID: 8646217772828261436}
   - component: {fileID: 8646217772828261427}
+  - component: {fileID: 8393603945360562255}
   m_Layer: 0
   m_Name: Seat
   m_TagString: Untagged
@@ -314,3 +317,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8393603945360562255
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646217772828261426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.2021067, y: 2.2491224, z: 0.30932176}
+  m_Center: {x: -0.03225489, y: 0.0032611317, z: 0.0067400625}

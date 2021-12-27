@@ -30,10 +30,10 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             _Catapult.DidThrowHumans += humans =>
             {
                 _PowerUpManager.HumanGroupList.Add(humans);
-                _HumanManager.HumansOnOtherSide.AddRange(humans.ToList());
+                _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
             };
 
-            _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSide.AddRange(humans); };
+            _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
         }
     
         private void OnHumanArriveCatapult(Human human)

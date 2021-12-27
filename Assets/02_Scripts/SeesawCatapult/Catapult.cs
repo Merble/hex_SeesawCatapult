@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace AwesomeGame._02_Scripts.SeesawCatapult
@@ -10,11 +9,15 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
     {
         public event Action<Human> HumanDidComeToCatapult;
         public event Action<Human[]> DidThrowHumans;
-    
+        
+        [SerializeField] private Animator _CatapultAnimator;
+        [SerializeField] private Transform _CatapultSeat;
+        [Space]
         [SerializeField] private float _ThrowForce;
         [SerializeField] private float _DirectionValueY;
 
         private readonly float _gravity = Math.Abs(Physics.gravity.y);
+        private static readonly int Throw = Animator.StringToHash("Throw");
 
         public List<Human> HumansOnCatapult { get; } = new List<Human>();
 
@@ -31,8 +34,12 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 human.SetState(HumanState.IsFlying);
                 //human.MakeColliderSmaller();
             }
+            
+            _CatapultAnimator.SetTrigger(Throw);
+            
             DidThrowHumans?.Invoke(HumansOnCatapult.ToArray());
             HumansOnCatapult.Clear();
+            
         }
         public Vector3 FindTrajectoryFinishPosition(Vector2 direction)
         {
@@ -46,11 +53,10 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             return finishPos;
         }
     
-        [Button]
-        public void ThrowHumansByPosition(Vector3 position)
+        public void ThrowHumansByPosition(Vector3 position, float waitTime)
         {
             var direction = FindDirectionFromFinishPosition(position);
-            ThrowHumansByDirection(direction);
+            StartCoroutine(DoAfterCoroutine.DoAfter(waitTime, () => { ThrowHumansByDirection(direction); }));
         }
 
         private Vector2 FindDirectionFromFinishPosition(Vector3 position)
@@ -58,24 +64,20 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             var forceY = _DirectionValueY * _ThrowForce; 
             var time = (forceY * 2) /_gravity;
             var tempPos  = (position - transform.position);
-            var direction = new Vector2(tempPos.x, tempPos.z) / (time * _ThrowForce); // * Mathf.Sqrt(2);
+            var direction = new Vector2(tempPos.x, tempPos.z) / (time * _ThrowForce);
 
             return direction;
-        
-            // var forceY = _DirectionValueY * _ThrowForce;
-            // var time = (forceY * 2) /_gravity;
-            // var distance = time * direction.magnitude * _ThrowForce;
-            //
-            // var groundDirection = new Vector3(direction.x, 0, direction.y);
-            // var finishPos = transform.position + (distance * groundDirection);
-            //
-            //return finishPos;
         }
     
 
         public void AddHuman(Human human)
         {
             HumansOnCatapult.Add(human);
+        }
+
+        public Vector3 GetSeatPosition()
+        {
+            return _CatapultSeat.position;
         }
     }
 }

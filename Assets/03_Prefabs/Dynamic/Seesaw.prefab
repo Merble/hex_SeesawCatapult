@@ -228,9 +228,10 @@ MonoBehaviour:
   _PlayerSeesawBranch: {fileID: 455672645783845010}
   _EnemySeesawBranch: {fileID: 1711825169071060384}
   _MassEffectOnBalance: 0.1
-  _MaxRotationAngle: 30
+  _MaxRotationAngle: 25
   _BalanceValue: 0.5
   _RotationSpeed: 10
+  _State: 0
 --- !u!1001 &6536319055515397913
 PrefabInstance:
   m_ObjectHideFlags: 0

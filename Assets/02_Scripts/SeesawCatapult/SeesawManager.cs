@@ -24,7 +24,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         {
             var playerWinCount = 0;
             var enemyWinCount = 0;
-            //var balanceCount = 0;
         
             foreach (var seesaw in _Seesaws)
             {
@@ -39,11 +38,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                         
                         enemyWinCount++;
                         break;
-                
-                    // case SeesawState.Balance:
-                    //     
-                    //     balanceCount++;
-                    //     break;
                 }
             }
             DidBalanceChange?.Invoke(playerWinCount, enemyWinCount);
@@ -57,29 +51,5 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         {
             return _Seesaws.Where(seesaw => seesaw.State == SeesawState.Balance).ToList();
         }
-    
-        /*public List<Seesaw> GetLosingSeesawsForPlayer(bool isPlayer)
-    {
-        return _Seesaws.Where(seesaw => seesaw.State == SeesawState.EnemyWins).ToList();
-        
-        
-        List<Seesaw> playerLoseList = new List<Seesaw>();
-        List<Seesaw> enemyLoseList = new List<Seesaw>();
-        
-        foreach (var seesaw in _Seesaws)
-        {
-            switch (seesaw.State)
-            {
-                case SeesawState.EnemyWins:
-                    playerLoseList.Add(seesaw);
-                    break;
-                case SeesawState.PlayerWins:
-                    enemyLoseList.Add(seesaw);
-                    break;
-            }
-        }
-
-        return isPlayer ? playerLoseList : enemyLoseList;
-    }*/
     }
 }

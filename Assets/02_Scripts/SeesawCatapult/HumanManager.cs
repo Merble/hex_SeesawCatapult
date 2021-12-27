@@ -29,16 +29,17 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [SerializeField] private float _HumanToCatapultWaitDuration;
         [SerializeField] private float _HumanToSeesawWaitDuration;
         [SerializeField] private float _WaitDurationBeforeNewHuman;
+        [SerializeField] private float _HumanSideCheckWaitDuration;
         [SerializeField] private int _HumansToCreate;
-
-        public Catapult Catapult { get; set; }
-        public int HumansToCreate => _HumansToCreate;
-
-        public List<Human> HumansOnRandomMove { get; } = new List<Human>();
-
-        public List<Human> HumansOnOtherSide { get; } = new List<Human>();
         
+        private List<Human> _humansOnOtherSide= new List<Human>();
         private readonly List<int> _humansToRemoveIndices = new List<int>();
+        
+        public Catapult Catapult { get; set; }
+        public List<Human> HumansOnRandomMove { get; } = new List<Human>();
+        
+        public List<Human> HumansOnOtherSideWaitList { get; } = new List<Human>();
+        public int HumansToCreate => _HumansToCreate;
 
         private void Awake()
         {
@@ -49,40 +50,53 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         
             CreateNewHumans();
         
-            MoveHumansRandomly();
+            MoveAllHumansRandomly();
             MoveHumansToCatapult();
+            
+            CheckHumansSituation(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration);
         }
-    
-        private void Update()
+        
+        private void CheckHumansSituation(float waitTime)
         {
-            CheckHumanSideChange();
+            StartCoroutine(CheckHumansSituationRoutine(waitTime));
         }
-
-        private void CheckHumanSideChange() // TODO: Rename
+        
+        private IEnumerator CheckHumansSituationRoutine(float waitTime)
         {
-            for (var index = 0; index < HumansOnOtherSide.Count; index++)
+            yield return new WaitForSeconds(waitTime);
+            
+            if (HumansOnOtherSideWaitList.Any())
             {
-                var human = HumansOnOtherSide[index];
+                _humansOnOtherSide.AddRange(HumansOnOtherSideWaitList);
+                HumansOnOtherSideWaitList.Clear();
+            }
+
+            for (var index = 0; index < _humansOnOtherSide.Count; index++)
+            {
+                var human = _humansOnOtherSide[index];
                 var state = human.GetState();
+                
                 switch (state)
                 {
                     case HumanState.Idle:
-                    case HumanState.RandomMove:
                     case HumanState.IsMovingToCatapult:
                     case HumanState.OnCatapult:
                     case HumanState.IsFlying:
                     case HumanState.IsMovingToSeesaw:
                     case HumanState.OnSeesaw:
                         break;
+                    
+                    case HumanState.RandomMove:
+                        if(HumansOnRandomMove.Any())
+                            MoveAllHumansRandomly();
+                        break;
                     case HumanState.OnOtherSide:
-
                         human.SetState(HumanState.IsMovingToSeesaw);
                         MoveHumanToNearestSeesaw(human);
                         break;
 
                     case HumanState.OnSameSide:
                         _humansToRemoveIndices.Add(index);
-                        // HumansOnOtherSide.Remove(human);
                         MoveNewHumanRandomly(human);
                         break;
                     default:
@@ -90,10 +104,14 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 }
             }
 
+            _humansToRemoveIndices.Reverse();
+            
             foreach (var humanIndex in _humansToRemoveIndices)
             {
-                HumansOnOtherSide.RemoveAt(humanIndex);
+                _humansOnOtherSide.RemoveAt(humanIndex);
             }
+            
+            StartCoroutine(CheckHumansSituationRoutine(_HumanSideCheckWaitDuration));
         }
 
         private void CreateNewHumans()
@@ -115,8 +133,9 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 var newHuman = Instantiate(prefab, _SpawnPos.position, Quaternion.identity);
                 newHuman.Team = _Team;
             
-                MoveNewHumanRandomly(newHuman);
+                HumansOnRandomMove.Add(newHuman);
             }
+            MoveAllHumansRandomly();
         }
     
         private void MoveNewHumanRandomly(Human human)
@@ -133,26 +152,26 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
             void MoveTheHumanRandomly()
             {
-                human.SetState(HumanState.RandomMove);
-                human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, _MinHumanSpeed, _MaxHumanSpeed);
-                StartCoroutine(human.MoveRandomLocation());
-            
-            
-                HumansOnRandomMove.Add(human);
+                MoveHumanRandomly(human);
             }
         }
 
-        private void MoveHumansRandomly()
+        private void MoveAllHumansRandomly()
         {
             foreach (var human in HumansOnRandomMove)
             {
-                human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, _MinHumanSpeed, _MaxHumanSpeed);
-
-                human.SetState(HumanState.RandomMove);
-                StartCoroutine(human.MoveRandomLocation());
+                MoveHumanRandomly(human);
             }
         }
-    
+
+        private void MoveHumanRandomly(Human human)
+        {
+            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, _MinHumanSpeed, _MaxHumanSpeed);
+
+            human.SetState(HumanState.RandomMove);
+            StartCoroutine(human.MoveRandomLocation());
+        }
+
         public void MoveHumansToCatapult()
         {
             StartCoroutine(MoveHumansToCatapultRoutine(_HumanToCatapultWaitDuration));
@@ -175,16 +194,16 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             StartCoroutine(DoAfterCoroutine.DoAfter(_HumanToSeesawWaitDuration, () =>
             {
                 var humanPos = human.transform.position;
-                var nearestSeesaw = GetNearestSeesaw(humanPos);
-
-                human.MoveToSeesaw(nearestSeesaw);
+                var nearestSeesawSeat = GetNearestSeesawSeat(humanPos);
+                
+                human.MoveToSeesaw(nearestSeesawSeat);
             
                 human.Rigidbody.isKinematic = true;
                 human.MakeColliderSmaller();
             }));
         }
 
-        private SeesawSeat GetNearestSeesaw(Vector3 humanPos)
+        private SeesawSeat GetNearestSeesawSeat(Vector3 humanPos)
         {
             var availableSeats = CheckAvailableSeats();
             SeesawSeat nearestSeat = null;

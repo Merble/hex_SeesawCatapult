@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
 using Sirenix.OdinInspector;
@@ -8,11 +9,12 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 {
     public class Human : MonoBehaviour
     {
-    
-    
         [SerializeField] private CapsuleCollider _CapsuleCollider;
         [SerializeField] private Rigidbody _Rigidbody;
         [SerializeField] private Human _Prefab;
+        [SerializeField] private Transform _TopPoint;
+        [SerializeField] private Animator _Animator;
+        [SerializeField] private ParticleSystem _DestroyEffect;
         [Space]
         [SerializeField] private HumanType _Type;
         [SerializeField] private Team _Team;
@@ -20,13 +22,11 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [SerializeField] private float _Mass;
         [SerializeField] private float _ColliderRadiusMin;
         [SerializeField] private float _ColliderRadiusMax;
-        [SerializeField] private float _MinScale;
         [SerializeField] private float _MaxScale;
         [SerializeField] private float _ScaleChangeDuration;
         [Space]
         [ShowInInspector, ReadOnly] private HumanState _state = HumanState.Idle;
 
-        private int? _randomMoveTweenId;
         private Vector3 _moveSpot;
 
         private float _minMoveSpeed;
@@ -35,16 +35,31 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         private float _minX;
         private float _maxZ;
         private float _minZ;
+        
+        private static readonly int Running = Animator.StringToHash("IsRunning");
+        private static readonly int Sit = Animator.StringToHash("Sit");
+        private static readonly int Fall = Animator.StringToHash("Fall");
+        private int? _randomMoveTweenId;
+
+        private bool IsRunning => (_state == HumanState.RandomMove) || 
+                                  (_state == HumanState.IsMovingToCatapult) ||
+                                  (_state == HumanState.IsMovingToSeesaw);
 
         public Human Prefab => _Prefab;
         public HumanType Type => _Type;
         public Rigidbody Rigidbody => _Rigidbody;
+        public Vector3 TopPoint => _TopPoint.position;
         public float Mass => _Mass;
 
         public Team Team
         {
             get => _Team;
             set => _Team = value;
+        }
+
+        private void Awake()
+        {
+            _Animator.SetBool(Running, IsRunning);
         }
 
         public void MoveToCatapult(Catapult catapult)
@@ -54,12 +69,15 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
         
             var position = transform.position;
-            var catapultPos = catapult.transform.position;
-            var newPos = new Vector3(catapultPos.x, position.y, catapultPos.z);
-            var moveDuration = Vector3.Distance(position, newPos) / _maxMoveSpeed;
+            var catapultPos = catapult.GetSeatPosition();
+            var moveDuration = Vector3.Distance(position, catapultPos) / _maxMoveSpeed;
+            
+            transform.LookAt(catapultPos);
 
-            LeanTween.move(gameObject, newPos, moveDuration).setOnComplete(() =>
+            LeanTween.move(gameObject, catapultPos, moveDuration).setOnComplete(() =>
             {
+                _Animator.SetTrigger(Sit);
+                transform.LookAt(Vector3.back);
                 catapult.DidHumanCome(this);
             });
         }
@@ -77,15 +95,20 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             }
             
             var pos = transform.position;
-            var newPos = seat.transform.position;
-            var moveDuration = Vector3.Distance(pos, newPos) / _maxMoveSpeed;
+            var seatPos = seat.GetSeatPosition();
+            var moveDuration = Vector3.Distance(pos, seatPos) / _maxMoveSpeed;
         
+            //transform.LookAt(seatPos);
+            transform.LookAt(Vector3.back);
         
-        
-            LeanTween.move(gameObject, newPos, moveDuration).setOnComplete(() =>
+            LeanTween.move(gameObject, seatPos, moveDuration).setOnComplete(() =>
             {
                 _state = HumanState.OnSeesaw;
-            
+                
+                _Animator.SetTrigger(Sit);
+                
+                seat.SetSeatPosition(TopPoint.y);
+                
                 var branch = seat.GetComponentInParent<SeesawBranch>();
                 branch.AddHuman(this);
             
@@ -101,16 +124,18 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             var posX = Random.Range(_minX, _maxX);
             var posZ = Random.Range(_minZ, _maxZ);
             _moveSpot = new Vector3(posX, position.y, posZ);
-            
+
             var moveSpeed = Random.Range(_minMoveSpeed, _maxMoveSpeed);
             var moveDuration = Vector3.Distance(position, _moveSpot) / moveSpeed;
 
+            transform.LookAt(_moveSpot);
+            
             _randomMoveTweenId = LeanTween.move(gameObject, _moveSpot, moveDuration).id;
 
             yield return new WaitForSeconds(moveDuration);
             StartCoroutine(MoveRandomLocation());
         }
-    
+        
         public void MakeColliderSmaller()
         {
             _CapsuleCollider.radius = _ColliderRadiusMin;
@@ -153,6 +178,8 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             if (!board) return;
             if (_state != HumanState.IsFlying) return;
             
+            _Animator.SetTrigger(Fall);
+            
             if (board.Team != Team)
             {
                 _state = HumanState.OnSameSide;
@@ -165,8 +192,9 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
         public void DestroySelf()
         {
-            LeanTween.scale(gameObject, Vector3.one * _MinScale, _ScaleChangeDuration).setOnComplete(() =>
+            LeanTween.scale(gameObject, Vector3.one * _MaxScale, _ScaleChangeDuration).setOnComplete(() =>
             {
+                _DestroyEffect.Play();
                 Destroy(gameObject);
             });
         }

@@ -13,7 +13,8 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [Space] 
         [SerializeField] private float _HumanThrowPointRadiusMultiplier;
         [SerializeField] private int _HumanNumberToThrow;
-    
+        [SerializeField] private float _HumanThrowWaitDuration;
+        
         public HumanManager RivalHumanManager { get; set; }
         
         private void Awake()
@@ -24,10 +25,10 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             _Catapult.DidThrowHumans += humans =>
             {
                 _PowerUpManager.HumanGroupList.Add(humans);
-                _HumanManager.HumansOnOtherSide.AddRange(humans.ToList());
+                _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
             };
         
-            _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSide.AddRange(humans); };
+            _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
         }
     
         private void OnHumanArriveCatapult(Human human)
@@ -39,7 +40,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
             _Catapult.AddHuman(human);
             if( (_Catapult.HumansOnCatapult.Count >= _HumanNumberToThrow) || (_HumanManager.HumansToCreate <= 0) )
-                _Catapult.ThrowHumansByPosition(FindProperPointForThrow()); 
+                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), _HumanThrowWaitDuration); 
         
             _HumanManager.HumansOnRandomMove.Remove(human);
             _HumanManager.MoveHumansToCatapult();
@@ -60,8 +61,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 var pos =  losingSeesaws[Random.Range(0, losingSeesaws.Count)].transform.position;
                 return HumanThrowPointRadius(pos);
             }
-
-
+            
             if (_PowerUpManager.PowerUps.Any())
             {
                 var pos = _PowerUpManager.PowerUps[Random.Range(0, _PowerUpManager.PowerUps.Count)].transform.position;
