@@ -26,28 +26,26 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 _Indicator.SetActive(false);
             };
 
-            _Catapult.HumanDidComeToCatapult += OnHumanArriveCatapult;
+            // _Catapult.HumanDidComeToCatapult += OnHumanArriveCatapult;
             _Catapult.DidThrowHumans += humans =>
             {
                 _PowerUpManager.HumanGroupList.Add(humans);
-                _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
+                // _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
             };
 
-            _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
+            // _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
+            _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }
     
+        /*
         private void OnHumanArriveCatapult(Human human)
         {
-            if (human == null) return;
+            if (!human) return;
 
-            human.SetState(HumanState.OnCatapult);
-            human.MakeColliderSmaller();
 
-            _Catapult.AddHuman(human);
-
-            _HumanManager.HumansOnRandomMove.Remove(human);
-            _HumanManager.MoveHumansToCatapult();
-        }
+            // _HumanManager.HumansOnRandomMove.Remove(human);
+            // _HumanManager.MoveHumansToCatapult();
+        }*/
 
         private void OnDrag(Vector2 direction)
         { 

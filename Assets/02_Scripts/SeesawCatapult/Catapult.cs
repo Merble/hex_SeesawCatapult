@@ -21,8 +21,14 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
         public List<Human> HumansOnCatapult { get; } = new List<Human>();
 
+        
         public void DidHumanCome(Human human)
         {
+            human.SetState(HumanState.OnCatapult);
+            human.MakeColliderSmaller();
+
+            HumansOnCatapult.Add(human);
+            
             HumanDidComeToCatapult?.Invoke(human);
         }
 
@@ -30,9 +36,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         {
             foreach (var human in HumansOnCatapult)
             {
-                human.Rigidbody.AddForce(new Vector3(direction.x, _DirectionValueY, direction.y) * _ThrowForce, ForceMode.VelocityChange);
-                human.SetState(HumanState.IsFlying);
-                //human.MakeColliderSmaller();
+                human.Throw(new Vector3(direction.x, _DirectionValueY, direction.y) * _ThrowForce);
             }
             
             _CatapultAnimator.SetTrigger(Throw);
@@ -68,12 +72,11 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
             return direction;
         }
-    
-
-        public void AddHuman(Human human)
+        
+        /*public void AddHuman(Human human)
         {
             HumansOnCatapult.Add(human);
-        }
+        }*/
 
         public Vector3 GetSeatPosition()
         {

@@ -25,25 +25,27 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             _Catapult.DidThrowHumans += humans =>
             {
                 _PowerUpManager.HumanGroupList.Add(humans);
-                _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
+                // _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
             };
         
-            _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
+            // _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
+            _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }
     
         private void OnHumanArriveCatapult(Human human)
         {
-            if (human == null) return;
+            // if (human == null) return;
         
-            human.SetState(HumanState.OnCatapult);
-            human.MakeColliderSmaller();
+            // human.SetState(HumanState.OnCatapult);
+            // human.MakeColliderSmaller();
 
-            _Catapult.AddHuman(human);
+            // _Catapult.AddHuman(human);
+            
             if( (_Catapult.HumansOnCatapult.Count >= _HumanNumberToThrow) || (_HumanManager.HumansToCreate <= 0) )
                 _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), _HumanThrowWaitDuration); 
         
-            _HumanManager.HumansOnRandomMove.Remove(human);
-            _HumanManager.MoveHumansToCatapult();
+            // _HumanManager.HumansOnRandomMove.Remove(human);
+            // _HumanManager.MoveHumansToCatapult();
         }
 
         private Vector3 FindProperPointForThrow()

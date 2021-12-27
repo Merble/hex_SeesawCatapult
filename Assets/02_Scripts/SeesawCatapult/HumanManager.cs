@@ -32,45 +32,45 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [SerializeField] private float _HumanSideCheckWaitDuration;
         [SerializeField] private int _HumansToCreate;
         
-        private List<Human> _humansOnOtherSide= new List<Human>();
-        private readonly List<int> _humansToRemoveIndices = new List<int>();
+        // private List<Human> _humansOnOtherSide= new List<Human>();
+        // private readonly List<int> _humansToRemoveIndices = new List<int>();
         
         public Catapult Catapult { get; set; }
-        public List<Human> HumansOnRandomMove { get; } = new List<Human>();
         
-        public List<Human> HumansOnOtherSideWaitList { get; } = new List<Human>();
+        // public List<Human> HumansOnRandomMove { get; } = new List<Human>();
+        
+        // public List<Human> HumansOnOtherSideWaitList { get; } = new List<Human>();
         public int HumansToCreate => _HumansToCreate;
 
         private void Awake()
         {
-            foreach (var human in _Humans)
+            /*foreach (var human in _Humans)
             {
                 HumansOnRandomMove.Add(human);
-            }
+            }*/
         
-            CreateNewHumans();
-        
-            MoveAllHumansRandomly();
-            MoveHumansToCatapult();
+            StartCoroutine(CreateNewHumansRoutine());
+            StartCoroutine(MoveHumansToCatapultRoutine());
+            StartCoroutine(MoveHumansToSeesawRoutine());
             
-            CheckHumansSituation(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration);
+            MoveAllHumansRandomly();
+            
+            // StartCoroutine(CheckHumansSituationRoutine(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration));
         }
         
-        private void CheckHumansSituation(float waitTime)
-        {
-            StartCoroutine(CheckHumansSituationRoutine(waitTime));
-        }
-        
+        /*
         private IEnumerator CheckHumansSituationRoutine(float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
             
+            // Add waiting humans
             if (HumansOnOtherSideWaitList.Any())
             {
                 _humansOnOtherSide.AddRange(HumansOnOtherSideWaitList);
                 HumansOnOtherSideWaitList.Clear();
             }
 
+            // Check for human fall 
             for (var index = 0; index < _humansOnOtherSide.Count; index++)
             {
                 var human = _humansOnOtherSide[index];
@@ -87,12 +87,12 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                     case HumanState.OnSeesaw:
                         break;
                     
-                    case HumanState.OnOtherSide:
+                    case HumanState.OnOtherSide:    // Human fell to other side
                         human.SetState(HumanState.IsMovingToSeesaw);
                         MoveHumanToNearestSeesaw(human);
                         break;
 
-                    case HumanState.OnSameSide:
+                    case HumanState.OnSameSide:     // Humans that fell to our side
                         _humansToRemoveIndices.Add(index);
                         MoveNewHumanRandomly(human);
                         break;
@@ -110,17 +110,13 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             
             StartCoroutine(CheckHumansSituationRoutine(_HumanSideCheckWaitDuration));
         }
+        */
 
-        private void CreateNewHumans()
-        {
-            StartCoroutine(CreateNewHumansRoutine(_WaitDurationBeforeNewHuman));
-        }
-    
-        private IEnumerator CreateNewHumansRoutine(float waitTime)
+        private IEnumerator CreateNewHumansRoutine()
         {
             while (_HumansToCreate > 0)
             {
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(_WaitDurationBeforeNewHuman);
 
                 _HumansToCreate--;
 
@@ -130,32 +126,15 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 var newHuman = Instantiate(prefab, _SpawnPos.position, Quaternion.identity);
                 newHuman.Team = _Team;
             
-                HumansOnRandomMove.Add(newHuman);
-            }
-            MoveAllHumansRandomly();
-        }
-    
-        private void MoveNewHumanRandomly(Human human)
-        {
-            if (HumansOnRandomMove.Any())
-            {
-                MoveTheHumanRandomly();
-            }
-            else
-            {
-                MoveTheHumanRandomly();
-                MoveHumansToCatapult();
-            }
-
-            void MoveTheHumanRandomly()
-            {
-                MoveHumanRandomly(human);
+                _Humans.Add(newHuman);
+                // HumansOnRandomMove.Add(newHuman);
+                MoveHumanRandomly(newHuman);
             }
         }
 
         private void MoveAllHumansRandomly()
         {
-            foreach (var human in HumansOnRandomMove)
+            foreach (var human in _Humans)
             {
                 MoveHumanRandomly(human);
             }
@@ -169,19 +148,48 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             StartCoroutine(human.MoveRandomLocation());
         }
 
-        public void MoveHumansToCatapult()
+
+        private IEnumerator MoveHumansToCatapultRoutine()
         {
-            StartCoroutine(MoveHumansToCatapultRoutine(_HumanToCatapultWaitDuration));
+            while(true) {
+                
+                yield return new WaitForSeconds(_HumanToCatapultWaitDuration);
+
+                foreach (var human in _Humans)
+                {
+                    if(human.State != HumanState.RandomMove) continue;
+                    human.MoveToCatapult(Catapult);
+                    break;
+                }
+                
+                /*
+                if (!HumansOnRandomMove.Any())
+                {
+                    var human = HumansOnRandomMove[Random.Range(0, HumansOnRandomMove.Count)];
+                    human.MoveToCatapult(Catapult);
+                }*/
+            }
         }
-
-        private IEnumerator MoveHumansToCatapultRoutine(float waitTime)
-        {
-            yield return new WaitForSeconds(waitTime);
-
-            if (!HumansOnRandomMove.Any()) yield break;
         
-            var human = HumansOnRandomMove[Random.Range(0, HumansOnRandomMove.Count)];
-            human.MoveToCatapult(Catapult);
+        private IEnumerator MoveHumansToSeesawRoutine()
+        {
+            while(true) {
+                
+                yield return new WaitForSeconds(_HumanToCatapultWaitDuration);
+
+                foreach (var human in _Humans)
+                {
+                    if(human.State != HumanState.OnOtherSide) continue;
+                    MoveHumanToNearestSeesaw(human);
+                }
+                
+                /*
+                if (!HumansOnRandomMove.Any())
+                {
+                    var human = HumansOnRandomMove[Random.Range(0, HumansOnRandomMove.Count)];
+                    human.MoveToCatapult(Catapult);
+                }*/
+            }
         }
 
         private void MoveHumanToNearestSeesaw(Human human)
@@ -193,9 +201,13 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 var humanPos = human.transform.position;
                 var nearestSeesawSeat = GetNearestSeesawSeat(humanPos);
                 
+                if (!nearestSeesawSeat)
+                {
+                    return;
+                }
+                
                 human.MoveToSeesaw(nearestSeesawSeat);
             
-                human.Rigidbody.isKinematic = true;
                 human.MakeColliderSmaller();
             }));
         }
@@ -217,9 +229,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 nearestSeat = seat;
             }
 
-            if (nearestSeat is null) return null;
-        
-            nearestSeat.HumanAddedToSeat();
             return nearestSeat;
 
         }
@@ -235,6 +244,11 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             var posZ = Random.Range(_MinZ, _MaxZ);
             
             return new Vector3(posX, 0, posZ);
+        }
+
+        public void AddHumans(List<Human> humans)
+        {
+            _Humans.AddRange(humans);
         }
     }
 }

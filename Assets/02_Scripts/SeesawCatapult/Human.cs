@@ -47,9 +47,10 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
         public Human Prefab => _Prefab;
         public HumanType Type => _Type;
-        public Rigidbody Rigidbody => _Rigidbody;
         public Vector3 TopPoint => _TopPoint.position;
         public float Mass => _Mass;
+
+        public HumanState State => _state;
 
         public Team Team
         {
@@ -65,34 +66,40 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         public void MoveToCatapult(Catapult catapult)
         {
             _state = HumanState.IsMovingToCatapult;
+            SetIsPhysics(false);
         
             if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
         
-            var position = transform.position;
+            var startPos = transform.position;
             var catapultPos = catapult.GetSeatPosition();
-            var moveDuration = Vector3.Distance(position, catapultPos) / _maxMoveSpeed;
+            var moveDuration = Vector3.Distance(startPos, catapultPos) / _maxMoveSpeed;
             
-            transform.LookAt(catapultPos);
-
-            LeanTween.move(gameObject, catapultPos, moveDuration).setOnComplete(() =>
-            {
-                _Animator.SetTrigger(Sit);
-                transform.LookAt(Vector3.back);
-                catapult.DidHumanCome(this);
-            });
+            // Move to seat position
+            LeanTween.value(gameObject, 0, 1, moveDuration)
+                .setOnUpdate(val =>
+                {
+                    var pos = Vector3.Lerp(startPos, catapult.GetSeatPosition(), val);
+                    transform.position = pos;
+                    transform.LookAt(pos);
+                })
+                .setOnComplete(() =>
+                {
+                    _Animator.SetTrigger(Sit);
+                    transform.LookAt(Vector3.back);
+                    catapult.DidHumanCome(this);
+                    
+                });
         }
-    
+
+
         public void MoveToSeesaw(SeesawSeat seat)
         {
             _state = HumanState.IsMovingToSeesaw;
+            SetIsPhysics(false);
+            
+            seat.HumanAddedToSeat();
         
             if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
-
-            if (seat == null)
-            {
-                _state = HumanState.OnOtherSide;
-                return;
-            }
             
             var pos = transform.position;
             var seatPos = seat.GetSeatPosition();
@@ -118,22 +125,22 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
     
         public IEnumerator MoveRandomLocation()
         {
-            if (_state != HumanState.RandomMove) yield break;
-        
-            var position = transform.position;
-            var posX = Random.Range(_minX, _maxX);
-            var posZ = Random.Range(_minZ, _maxZ);
-            _moveSpot = new Vector3(posX, position.y, posZ);
+            while (_state == HumanState.RandomMove)
+            {
+                var position = transform.position;
+                var posX = Random.Range(_minX, _maxX);
+                var posZ = Random.Range(_minZ, _maxZ);
+                _moveSpot = new Vector3(posX, position.y, posZ);
 
-            var moveSpeed = Random.Range(_minMoveSpeed, _maxMoveSpeed);
-            var moveDuration = Vector3.Distance(position, _moveSpot) / moveSpeed;
+                var moveSpeed = Random.Range(_minMoveSpeed, _maxMoveSpeed);
+                var moveDuration = Vector3.Distance(position, _moveSpot) / moveSpeed;
 
-            transform.LookAt(_moveSpot);
+                transform.LookAt(_moveSpot);
             
-            _randomMoveTweenId = LeanTween.move(gameObject, _moveSpot, moveDuration).id;
+                _randomMoveTweenId = LeanTween.move(gameObject, _moveSpot, moveDuration).id;
 
-            yield return new WaitForSeconds(moveDuration);
-            StartCoroutine(MoveRandomLocation());
+                yield return new WaitForSeconds(moveDuration);
+            }
         }
         
         public void MakeColliderSmaller()
@@ -156,11 +163,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             _minMoveSpeed = minSpeed;
             _maxMoveSpeed = maxSpeed;
         }
-    
-        public HumanState GetState()
-        {
-            return _state;
-        }
+
         public void SetState(HumanState newState)
         {
             _state = newState;
@@ -182,12 +185,15 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             
             if (board.Team != Team)
             {
-                _state = HumanState.OnSameSide;
-                return;
+                _state = HumanState.RandomMove;
+                StartCoroutine(MoveRandomLocation());
+            }
+            else
+            {
+                _state = HumanState.OnOtherSide;
+                MakeColliderBigger();
             }
             
-            _state = HumanState.OnOtherSide;
-            MakeColliderBigger();
         }
 
         public void DestroySelf()
@@ -197,6 +203,19 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 _DestroyEffect.Play();
                 Destroy(gameObject);
             });
+        }
+
+        public void Throw(Vector3 throwForce)
+        {
+            SetIsPhysics(true);
+            _Rigidbody.AddForce(throwForce, ForceMode.VelocityChange);
+            _state = HumanState.IsFlying;
+        }
+        
+        private void SetIsPhysics(bool isPhysics)
+        {
+            _Rigidbody.isKinematic = !isPhysics;
+            _CapsuleCollider.enabled = isPhysics;
         }
     }
 }
