@@ -53,15 +53,15 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             MoveAllHumansRandomly();
             MoveHumansToCatapult();
             
-            CheckHumansSituation(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration);
+            CheckHumansSideSituation(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration);
         }
         
-        private void CheckHumansSituation(float waitTime)
+        private void CheckHumansSideSituation(float waitTime)
         {
-            StartCoroutine(CheckHumansSituationRoutine(waitTime));
+            StartCoroutine(CheckHumansSideSituationRoutine(waitTime));
         }
         
-        private IEnumerator CheckHumansSituationRoutine(float waitTime)
+        private IEnumerator CheckHumansSideSituationRoutine(float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
             
@@ -79,6 +79,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 switch (state)
                 {
                     case HumanState.Idle:
+                    case HumanState.RandomMove:
                     case HumanState.IsMovingToCatapult:
                     case HumanState.OnCatapult:
                     case HumanState.IsFlying:
@@ -86,10 +87,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                     case HumanState.OnSeesaw:
                         break;
                     
-                    case HumanState.RandomMove:
-                        if(HumansOnRandomMove.Any())
-                            MoveAllHumansRandomly();
-                        break;
                     case HumanState.OnOtherSide:
                         human.SetState(HumanState.IsMovingToSeesaw);
                         MoveHumanToNearestSeesaw(human);
@@ -111,7 +108,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 _humansOnOtherSide.RemoveAt(humanIndex);
             }
             
-            StartCoroutine(CheckHumansSituationRoutine(_HumanSideCheckWaitDuration));
+            StartCoroutine(CheckHumansSideSituationRoutine(_HumanSideCheckWaitDuration));
         }
 
         private void CreateNewHumans()
