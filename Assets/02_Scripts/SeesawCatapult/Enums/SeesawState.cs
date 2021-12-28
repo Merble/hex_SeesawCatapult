@@ -1,4 +1,4 @@
-﻿namespace AwesomeGame._02_Scripts.SeesawCatapult.Enums
+﻿namespace AwesomeGame.Enums
 {
     public enum SeesawState
     {

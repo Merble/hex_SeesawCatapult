@@ -1,6 +1,6 @@
 using HexGames;
 
-namespace ThisGame
+namespace AwesomeGame.ThisGame.Main
 {
     public class Game: Game<Config, LevelHelper>
     {

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
+using AwesomeGame.Enums;
 using UnityEngine;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class Catapult : MonoBehaviour
     {
@@ -25,7 +25,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         public void DidHumanCome(Human human)
         {
             human.SetState(HumanState.OnCatapult);
-            human.MakeColliderSmaller();
 
             HumansOnCatapult.Add(human);
             
@@ -73,11 +72,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             return direction;
         }
         
-        /*public void AddHuman(Human human)
-        {
-            HumansOnCatapult.Add(human);
-        }*/
-
         public Vector3 GetSeatPosition()
         {
             return _CatapultSeat.position;

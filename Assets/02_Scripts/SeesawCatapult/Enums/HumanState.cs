@@ -1,4 +1,4 @@
-﻿namespace AwesomeGame._02_Scripts.SeesawCatapult.Enums
+﻿namespace AwesomeGame.Enums
 {
     public enum HumanState
     {
@@ -7,7 +7,6 @@
         IsMovingToCatapult,
         OnCatapult,
         IsFlying,
-        OnSameSide,
         OnOtherSide,
         IsMovingToSeesaw,
         OnSeesaw

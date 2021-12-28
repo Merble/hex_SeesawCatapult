@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
+using AwesomeGame.Enums;
 using UnityEngine;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class SeesawManager : MonoBehaviour
     {

@@ -1263,9 +1263,7 @@ MonoBehaviour:
   _Type: 0
   _Team: 0
   _Mass: 2
-  _ColliderRadiusMin: 0.1
-  _ColliderRadiusMax: 0.5
-  _MaxScale: 0
+  _MaxScale: 1.7
   _ScaleChangeDuration: 1.5
 --- !u!95 &3701032028128859147
 Animator:

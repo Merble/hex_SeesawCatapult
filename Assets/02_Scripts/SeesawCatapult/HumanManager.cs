@@ -1,19 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
+using AwesomeGame.Enums;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class HumanManager : MonoBehaviour
     {
         [SerializeField] private Human _ThinHumanPrefab;
         [SerializeField] private Human _FatHumanPrefab;
-        [SerializeField] private Team _Team;
         [SerializeField] private Transform _SpawnPos;
+        [Space]
+        [SerializeField] private Team _Team;
         [Space]
         [SerializeField] private List<Human> _Humans;
         [Space]
@@ -29,90 +29,21 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [SerializeField] private float _HumanToCatapultWaitDuration;
         [SerializeField] private float _HumanToSeesawWaitDuration;
         [SerializeField] private float _WaitDurationBeforeNewHuman;
-        [SerializeField] private float _HumanSideCheckWaitDuration;
         [SerializeField] private int _HumansToCreate;
-        
-        // private List<Human> _humansOnOtherSide= new List<Human>();
-        // private readonly List<int> _humansToRemoveIndices = new List<int>();
-        
+
         public Catapult Catapult { get; set; }
-        
-        // public List<Human> HumansOnRandomMove { get; } = new List<Human>();
-        
-        // public List<Human> HumansOnOtherSideWaitList { get; } = new List<Human>();
         public int HumansToCreate => _HumansToCreate;
 
         private void Awake()
         {
-            /*foreach (var human in _Humans)
-            {
-                HumansOnRandomMove.Add(human);
-            }*/
-        
             StartCoroutine(CreateNewHumansRoutine());
             StartCoroutine(MoveHumansToCatapultRoutine());
             StartCoroutine(MoveHumansToSeesawRoutine());
             
             MoveAllHumansRandomly();
-            
-            // StartCoroutine(CheckHumansSituationRoutine(_HumanToCatapultWaitDuration + _HumanSideCheckWaitDuration));
         }
         
-        /*
-        private IEnumerator CheckHumansSituationRoutine(float waitTime)
-        {
-            yield return new WaitForSeconds(waitTime);
-            
-            // Add waiting humans
-            if (HumansOnOtherSideWaitList.Any())
-            {
-                _humansOnOtherSide.AddRange(HumansOnOtherSideWaitList);
-                HumansOnOtherSideWaitList.Clear();
-            }
-
-            // Check for human fall 
-            for (var index = 0; index < _humansOnOtherSide.Count; index++)
-            {
-                var human = _humansOnOtherSide[index];
-                var state = human.GetState();
-                
-                switch (state)
-                {
-                    case HumanState.Idle:
-                    case HumanState.RandomMove:
-                    case HumanState.IsMovingToCatapult:
-                    case HumanState.OnCatapult:
-                    case HumanState.IsFlying:
-                    case HumanState.IsMovingToSeesaw:
-                    case HumanState.OnSeesaw:
-                        break;
-                    
-                    case HumanState.OnOtherSide:    // Human fell to other side
-                        human.SetState(HumanState.IsMovingToSeesaw);
-                        MoveHumanToNearestSeesaw(human);
-                        break;
-
-                    case HumanState.OnSameSide:     // Humans that fell to our side
-                        _humansToRemoveIndices.Add(index);
-                        MoveNewHumanRandomly(human);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            _humansToRemoveIndices.Reverse();
-            
-            foreach (var humanIndex in _humansToRemoveIndices)
-            {
-                _humansOnOtherSide.RemoveAt(humanIndex);
-            }
-            
-            StartCoroutine(CheckHumansSituationRoutine(_HumanSideCheckWaitDuration));
-        }
-        */
-
-        private IEnumerator CreateNewHumansRoutine()
+        private IEnumerator CreateNewHumansRoutine() 
         {
             while (_HumansToCreate > 0)
             {
@@ -127,7 +58,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 newHuman.Team = _Team;
             
                 _Humans.Add(newHuman);
-                // HumansOnRandomMove.Add(newHuman);
                 MoveHumanRandomly(newHuman);
             }
         }
@@ -151,44 +81,28 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
         private IEnumerator MoveHumansToCatapultRoutine()
         {
-            while(true) {
-                
+            while(true)
+            {
                 yield return new WaitForSeconds(_HumanToCatapultWaitDuration);
 
-                foreach (var human in _Humans)
+                foreach (var human in _Humans.Where(human => human.State == HumanState.RandomMove))
                 {
-                    if(human.State != HumanState.RandomMove) continue;
                     human.MoveToCatapult(Catapult);
                     break;
                 }
-                
-                /*
-                if (!HumansOnRandomMove.Any())
-                {
-                    var human = HumansOnRandomMove[Random.Range(0, HumansOnRandomMove.Count)];
-                    human.MoveToCatapult(Catapult);
-                }*/
             }
         }
         
         private IEnumerator MoveHumansToSeesawRoutine()
         {
-            while(true) {
-                
+            while(true)
+            {
                 yield return new WaitForSeconds(_HumanToCatapultWaitDuration);
 
-                foreach (var human in _Humans)
+                foreach (var human in _Humans.Where(human => human.State == HumanState.OnOtherSide))
                 {
-                    if(human.State != HumanState.OnOtherSide) continue;
                     MoveHumanToNearestSeesaw(human);
                 }
-                
-                /*
-                if (!HumansOnRandomMove.Any())
-                {
-                    var human = HumansOnRandomMove[Random.Range(0, HumansOnRandomMove.Count)];
-                    human.MoveToCatapult(Catapult);
-                }*/
             }
         }
 
@@ -207,8 +121,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 }
                 
                 human.MoveToSeesaw(nearestSeesawSeat);
-            
-                human.MakeColliderSmaller();
             }));
         }
 

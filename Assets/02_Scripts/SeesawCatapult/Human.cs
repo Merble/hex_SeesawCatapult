@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
-using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
+using AwesomeGame.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class Human : MonoBehaviour
     {
@@ -20,8 +19,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [SerializeField] private Team _Team;
         [Space]
         [SerializeField] private float _Mass;
-        [SerializeField] private float _ColliderRadiusMin;
-        [SerializeField] private float _ColliderRadiusMax;
         [SerializeField] private float _MaxScale;
         [SerializeField] private float _ScaleChangeDuration;
         [Space]
@@ -47,7 +44,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
 
         public Human Prefab => _Prefab;
         public HumanType Type => _Type;
-        public Vector3 TopPoint => _TopPoint.position;
         public float Mass => _Mass;
 
         public HumanState State => _state;
@@ -61,12 +57,12 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         private void Awake()
         {
             _Animator.SetBool(Running, IsRunning);
+            SetIsPhysics(false);
         }
 
         public void MoveToCatapult(Catapult catapult)
         {
             _state = HumanState.IsMovingToCatapult;
-            SetIsPhysics(false);
         
             if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
         
@@ -87,40 +83,40 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                     _Animator.SetTrigger(Sit);
                     transform.LookAt(Vector3.back);
                     catapult.DidHumanCome(this);
-                    
                 });
         }
-
-
+        
         public void MoveToSeesaw(SeesawSeat seat)
         {
             _state = HumanState.IsMovingToSeesaw;
-            SetIsPhysics(false);
             
             seat.HumanAddedToSeat();
         
             if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
             
-            var pos = transform.position;
+            var startPos = transform.position;
             var seatPos = seat.GetSeatPosition();
-            var moveDuration = Vector3.Distance(pos, seatPos) / _maxMoveSpeed;
-        
-            //transform.LookAt(seatPos);
-            transform.LookAt(Vector3.back);
-        
-            LeanTween.move(gameObject, seatPos, moveDuration).setOnComplete(() =>
-            {
-                _state = HumanState.OnSeesaw;
-                
-                _Animator.SetTrigger(Sit);
-                
-                seat.SetSeatPosition(TopPoint.y);
-                
-                var branch = seat.GetComponentInParent<SeesawBranch>();
-                branch.AddHuman(this);
+            seat.SetSeatPosition(_TopPoint.localPosition.y);
+            var moveDuration = Vector3.Distance(startPos, seatPos) / _maxMoveSpeed;
             
-                transform.SetParent(branch.GetComponentInParent<Seesaw>().transform);
-            });
+            LeanTween.value(gameObject, 0, 1, moveDuration)
+                .setOnUpdate(val =>
+                {
+                    var pos = Vector3.Lerp(startPos, seatPos, val);
+                    transform.position = pos;
+                    transform.LookAt(pos);
+                })
+                .setOnComplete(() =>
+                {
+                    _state = HumanState.OnSeesaw;
+                
+                    _Animator.SetTrigger(Sit);
+
+                    var branch = seat.GetComponentInParent<SeesawBranch>();
+                    branch.AddHuman(this);
+            
+                    transform.SetParent(branch.GetComponentInParent<Seesaw>().transform);
+                });
         }
     
         public IEnumerator MoveRandomLocation()
@@ -143,15 +139,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             }
         }
         
-        public void MakeColliderSmaller()
-        {
-            _CapsuleCollider.radius = _ColliderRadiusMin;
-        }
-        public void MakeColliderBigger()
-        {
-            _CapsuleCollider.radius = _ColliderRadiusMax;
-        }
-
         public void SetMinAndMaxValues(float minX, float maxX, float minZ, float maxZ, float minSpeed, float maxSpeed)
         {
             _minX = minX;
@@ -181,6 +168,8 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             if (!board) return;
             if (_state != HumanState.IsFlying) return;
             
+            SetIsPhysics(false);
+            
             _Animator.SetTrigger(Fall);
             
             if (board.Team != Team)
@@ -189,11 +178,7 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
                 StartCoroutine(MoveRandomLocation());
             }
             else
-            {
                 _state = HumanState.OnOtherSide;
-                MakeColliderBigger();
-            }
-            
         }
 
         public void DestroySelf()

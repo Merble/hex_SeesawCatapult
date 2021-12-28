@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class SeesawBranch : MonoBehaviour
     {
@@ -15,13 +15,10 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
         [SerializeField, ReadOnly] private List<Human> _Humans = new List<Human>();
         [Space]
         [SerializeField] private bool _IsPlayer;
-        [SerializeField, ReadOnly] private float _TotalMass;
-    
-    
+
+
         public void AddHuman(Human human)
         {
-            _TotalMass += human.Mass;
-        
             _Humans.Add(human);
         
             DidMassChange?.Invoke(human.Mass, _IsPlayer);

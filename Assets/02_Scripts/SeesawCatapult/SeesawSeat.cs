@@ -1,8 +1,7 @@
-using System;
 using Unity.Collections;
 using UnityEngine;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class SeesawSeat : MonoBehaviour
     {

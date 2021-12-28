@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class Game : MonoBehaviour
     {

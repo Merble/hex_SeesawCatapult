@@ -1,9 +1,9 @@
 using System;
-using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
+using AwesomeGame.Enums;
 using Unity.Collections;
 using UnityEngine;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class Seesaw : MonoBehaviour
     {

@@ -1,27 +1,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AwesomeGame._02_Scripts.SeesawCatapult.Enums;
+using AwesomeGame.Enums;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace AwesomeGame._02_Scripts.SeesawCatapult
+namespace AwesomeGame
 {
     public class PowerUpManager : MonoBehaviour
     {
-        public event Action<List<Human>> DidInstantiateHumans; 
+        public event Action<List<Human>> DidInstantiateHumans;
+        
         [SerializeField] private List<PowerUp> _PowerUps = new List<PowerUp>();
         [Space]
         [SerializeField] private float _InstantiateCircleRadius;
-        [SerializeField] private float _ColliderSizeChangeWaitDuration;
+        [SerializeField] private float _PowerUpMinScale;
+        [SerializeField] private float _PowerUpScaleChangeDuration;
 
         public List<PowerUp> PowerUps => _PowerUps;
         public List<Human[]> HumanGroupList { get; } = new List<Human[]>();
+        
+        public struct PowerUpFeatures
+        {
+            public float minScale;
+            public float scaleChangeDuration;
+            //public ParticleSystem destroyEffect;
+        }
 
+        private PowerUpFeatures _generalFeaturesForPowerUps;
+        
         private void Awake()
         {
+            _generalFeaturesForPowerUps.minScale = _PowerUpMinScale;
+            _generalFeaturesForPowerUps.scaleChangeDuration = _PowerUpScaleChangeDuration;
+            
             foreach (var powerUp in _PowerUps)
             {
+                powerUp.GeneralFeatures = _generalFeaturesForPowerUps;
                 powerUp.DidUsePowerUp += OnPowerUpUse;
             }
         }
@@ -101,15 +116,6 @@ namespace AwesomeGame._02_Scripts.SeesawCatapult
             instantiatedHumans.Add(newHuman);
             newHuman.SetState(HumanState.OnOtherSide);
 
-            // Scale down the human collider to avoid flying humans
-            newHuman.MakeColliderSmaller();
-
-            StartCoroutine(DoAfterCoroutine.DoAfter(_ColliderSizeChangeWaitDuration, () =>
-            {
-                // Scale up the human collider for normality
-                newHuman.MakeColliderBigger();
-            }));
-        
             return instantiatedHumans;
         }
     }

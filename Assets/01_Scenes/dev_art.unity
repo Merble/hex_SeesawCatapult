@@ -1495,7 +1495,6 @@ MonoBehaviour:
   _HumanToCatapultWaitDuration: 4
   _HumanToSeesawWaitDuration: 1.5
   _WaitDurationBeforeNewHuman: 5
-  _HumanSideCheckWaitDuration: 1
   _HumansToCreate: 0
 --- !u!4 &695786832
 Transform:
@@ -3188,7 +3187,8 @@ MonoBehaviour:
   - {fileID: 1183705531}
   - {fileID: 100646671}
   _InstantiateCircleRadius: 2
-  _ColliderSizeChangeWaitDuration: 1.5
+  _PowerUpMinScale: 0.15
+  _PowerUpScaleChangeDuration: 1
 --- !u!4 &1319977317
 Transform:
   m_ObjectHideFlags: 0
@@ -3237,7 +3237,8 @@ MonoBehaviour:
   - {fileID: 1256237931}
   - {fileID: 333978726}
   _InstantiateCircleRadius: 2
-  _ColliderSizeChangeWaitDuration: 1.5
+  _PowerUpMinScale: 0.15
+  _PowerUpScaleChangeDuration: 1
 --- !u!4 &1426610977
 Transform:
   m_ObjectHideFlags: 0
@@ -3371,6 +3372,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 15725419157043889, guid: 074636b7483a7714c85a4e174d7b1e11, type: 3}
+      propertyPath: _DirectionValueY
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2126615525112184050, guid: 074636b7483a7714c85a4e174d7b1e11, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -3662,7 +3667,6 @@ MonoBehaviour:
   _HumanToCatapultWaitDuration: 4
   _HumanToSeesawWaitDuration: 1.5
   _WaitDurationBeforeNewHuman: 5
-  _HumanSideCheckWaitDuration: 1
   _HumansToCreate: 5
 --- !u!4 &2129963382
 Transform:
@@ -4932,7 +4936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3109278278921370247, guid: a6ae6b29eceefbc47b7d9b703c394dbd, type: 3}
       propertyPath: _DirectionValueY
-      value: 1
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 3109278278921370247, guid: a6ae6b29eceefbc47b7d9b703c394dbd, type: 3}
       propertyPath: _CatapultAnimator

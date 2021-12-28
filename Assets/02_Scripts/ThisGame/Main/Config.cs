@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using HexGames;
 using UnityEngine;
 
-namespace ThisGame
+namespace AwesomeGame.ThisGame.Main
 {
     [CreateAssetMenu(fileName = "GameConfig", menuName = "Hex/Game Config", order = 0)]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
