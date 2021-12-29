@@ -24,27 +24,11 @@ namespace AwesomeGame
                 _Indicator.SetActive(false);
             };
 
-            // _Catapult.HumanDidComeToCatapult += OnHumanArriveCatapult;
-            _Catapult.DidThrowHumans += humans =>
-            {
-                _PowerUpManager.HumanGroupList.Add(humans);
-                // _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
-            };
+            _Catapult.DidThrowHumans += humans => { _PowerUpManager.HumanGroupList.Add(humans); };
 
-            // _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
             _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }
     
-        /*
-        private void OnHumanArriveCatapult(Human human)
-        {
-            if (!human) return;
-
-
-            // _HumanManager.HumansOnRandomMove.Remove(human);
-            // _HumanManager.MoveHumansToCatapult();
-        }*/
-
         private void OnDrag(Vector2 direction)
         { 
             var finishPos = _Catapult.FindTrajectoryFinishPosition(-direction);

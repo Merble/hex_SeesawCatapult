@@ -10,8 +10,7 @@ namespace AwesomeGame
     {
         public event Action<int, int> DidBalanceChange;
         [SerializeField] private List<Seesaw> _Seesaws;
-    
-    
+        
         private void Awake()
         {
             foreach (var seesaw in _Seesaws)

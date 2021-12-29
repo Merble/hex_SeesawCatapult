@@ -19,8 +19,7 @@ namespace AwesomeGame
         [Space]
         [SerializeField, ReadOnly]private SeesawState _State;
         public SeesawState State => _State;
-
-
+        
         private void Awake()
         {
             _State = SeesawState.Balance;
@@ -28,6 +27,9 @@ namespace AwesomeGame
         
             _PlayerSeesawBranch.DidMassChange += BalanceChange;
             _EnemySeesawBranch.DidMassChange += BalanceChange;
+
+            _PlayerSeesawBranch._ParentSeesaw = this;
+            _EnemySeesawBranch._ParentSeesaw = this;
         }
     
         private void BalanceChange(float mass, bool isPlayer)

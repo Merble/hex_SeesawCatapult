@@ -17,7 +17,7 @@ namespace AwesomeGame
         [SerializeField] private float _DirectionValueY;
 
         private readonly float _gravity = Math.Abs(Physics.gravity.y);
-        private static readonly int Throw = Animator.StringToHash("Throw");
+        private static readonly int ThrowAnimParam = Animator.StringToHash("Throw");
 
         public List<Human> HumansOnCatapult { get; } = new List<Human>();
 
@@ -38,11 +38,10 @@ namespace AwesomeGame
                 human.Throw(new Vector3(direction.x, _DirectionValueY, direction.y) * _ThrowForce);
             }
             
-            _CatapultAnimator.SetTrigger(Throw);
+            _CatapultAnimator.SetTrigger(ThrowAnimParam);
             
             DidThrowHumans?.Invoke(HumansOnCatapult.ToArray());
             HumansOnCatapult.Clear();
-            
         }
         public Vector3 FindTrajectoryFinishPosition(Vector2 direction)
         {
@@ -59,7 +58,7 @@ namespace AwesomeGame
         public void ThrowHumansByPosition(Vector3 position, float waitTime)
         {
             var direction = FindDirectionFromFinishPosition(position);
-            StartCoroutine(DoAfterCoroutine.DoAfter(waitTime, () => { ThrowHumansByDirection(direction); }));
+            StartCoroutine(DoAfterCoroutine.DoAfter(waitTime, () => { ThrowHumansByDirection(-direction); }));
         }
 
         private Vector2 FindDirectionFromFinishPosition(Vector3 position)

@@ -19,7 +19,7 @@ namespace AwesomeGame
         [SerializeField] private Team _Team;
         [Space]
         [SerializeField] private float _Mass;
-        [SerializeField] private float _MaxScale;
+        [SerializeField] private float _MaxScaleRate;
         [SerializeField] private float _ScaleChangeDuration;
         [Space]
         [ShowInInspector, ReadOnly] private HumanState _state = HumanState.Idle;
@@ -33,14 +33,10 @@ namespace AwesomeGame
         private float _maxZ;
         private float _minZ;
         
-        private static readonly int Running = Animator.StringToHash("IsRunning");
-        private static readonly int Sit = Animator.StringToHash("Sit");
-        private static readonly int Fall = Animator.StringToHash("Fall");
+        private static readonly int RunAnimParam = Animator.StringToHash("Run");
+        private static readonly int SitAnimParam = Animator.StringToHash("Sit");
+        private static readonly int FallAnimParam = Animator.StringToHash("Fall");
         private int? _randomMoveTweenId;
-
-        private bool IsRunning => (_state == HumanState.RandomMove) || 
-                                  (_state == HumanState.IsMovingToCatapult) ||
-                                  (_state == HumanState.IsMovingToSeesaw);
 
         public Human Prefab => _Prefab;
         public HumanType Type => _Type;
@@ -56,71 +52,12 @@ namespace AwesomeGame
 
         private void Awake()
         {
-            _Animator.SetBool(Running, IsRunning);
             SetIsPhysics(false);
         }
-
-        public void MoveToCatapult(Catapult catapult)
-        {
-            _state = HumanState.IsMovingToCatapult;
         
-            if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
-        
-            var startPos = transform.position;
-            var catapultPos = catapult.GetSeatPosition();
-            var moveDuration = Vector3.Distance(startPos, catapultPos) / _maxMoveSpeed;
-            
-            // Move to seat position
-            LeanTween.value(gameObject, 0, 1, moveDuration)
-                .setOnUpdate(val =>
-                {
-                    var pos = Vector3.Lerp(startPos, catapult.GetSeatPosition(), val);
-                    transform.position = pos;
-                    transform.LookAt(pos);
-                })
-                .setOnComplete(() =>
-                {
-                    _Animator.SetTrigger(Sit);
-                    transform.LookAt(Vector3.back);
-                    catapult.DidHumanCome(this);
-                });
-        }
-        
-        public void MoveToSeesaw(SeesawSeat seat)
-        {
-            _state = HumanState.IsMovingToSeesaw;
-            
-            seat.HumanAddedToSeat();
-        
-            if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
-            
-            var startPos = transform.position;
-            var seatPos = seat.GetSeatPosition();
-            seat.SetSeatPosition(_TopPoint.localPosition.y);
-            var moveDuration = Vector3.Distance(startPos, seatPos) / _maxMoveSpeed;
-            
-            LeanTween.value(gameObject, 0, 1, moveDuration)
-                .setOnUpdate(val =>
-                {
-                    var pos = Vector3.Lerp(startPos, seatPos, val);
-                    transform.position = pos;
-                    transform.LookAt(pos);
-                })
-                .setOnComplete(() =>
-                {
-                    _state = HumanState.OnSeesaw;
-                
-                    _Animator.SetTrigger(Sit);
-
-                    var branch = seat.GetComponentInParent<SeesawBranch>();
-                    branch.AddHuman(this);
-            
-                    transform.SetParent(branch.GetComponentInParent<Seesaw>().transform);
-                });
-        }
-    
         public IEnumerator MoveRandomLocation()
         {
+            _Animator.SetTrigger(RunAnimParam);
             while (_state == HumanState.RandomMove)
             {
                 var position = transform.position;
@@ -132,7 +69,6 @@ namespace AwesomeGame
                 var moveDuration = Vector3.Distance(position, _moveSpot) / moveSpeed;
 
                 transform.LookAt(_moveSpot);
-            
                 _randomMoveTweenId = LeanTween.move(gameObject, _moveSpot, moveDuration).id;
 
                 yield return new WaitForSeconds(moveDuration);
@@ -151,6 +87,70 @@ namespace AwesomeGame
             _maxMoveSpeed = maxSpeed;
         }
 
+        public void MoveToCatapult(Catapult catapult)
+        {
+            _state = HumanState.IsMovingToCatapult;
+        
+            if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
+        
+            var startPos = transform.position;
+            var catapultPos = catapult.GetSeatPosition();
+            var moveDuration = Vector3.Distance(startPos, catapultPos) / _maxMoveSpeed;
+            
+            // Move to seat position
+            LeanTween.value(gameObject, 0, 1, moveDuration)
+                .setOnUpdate(val =>
+                {
+                    var pos = Vector3.Lerp(startPos, catapult.GetSeatPosition(), val);
+                    transform.position = pos;
+                    transform.LookAt(catapultPos);
+                })
+                .setOnComplete(() =>
+                {
+                    _Animator.SetTrigger(SitAnimParam);
+                    transform.LookAt(Vector3.back);
+                    catapult.DidHumanCome(this);
+                });
+        }
+        
+        public void MoveToSeesaw(SeesawSeat seat)
+        {
+            var cachedTransform = transform;
+            
+            seat.HumanAddedToSeat();
+        
+            if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
+            
+            var startPos = transform.position;
+            var seatPos = seat.GetSeatPosition();
+            seat.SetSeatPosition(_TopPoint.localPosition.y);
+            var moveDuration = Vector3.Distance(startPos, seatPos) / _maxMoveSpeed;
+            
+            var branch = seat._ParentBranch;
+            cachedTransform.SetParent(branch._ParentSeesaw.transform);
+
+            startPos = cachedTransform.localPosition;
+            
+            cachedTransform.LookAt(seatPos);
+            
+            // Move to seat position
+            LeanTween.value(gameObject, 0, 1, moveDuration)
+                .setOnUpdate(val =>
+                {
+                    var pos = Vector3.Lerp(startPos, seatPos, val);
+                    transform.localPosition = pos;
+                })
+                .setOnComplete(() =>
+                {
+                    branch.AddHuman(this);
+
+                    var pos = transform.position;
+                    _state = HumanState.OnSeesaw;
+                    transform.LookAt(new Vector3(pos.x, pos.y ,0));
+                    _Animator.SetTrigger(SitAnimParam);
+                });
+        }
+    
         public void SetState(HumanState newState)
         {
             _state = newState;
@@ -158,19 +158,13 @@ namespace AwesomeGame
 
         private void OnCollisionEnter(Collision other)
         {
-            CheckIfGrounded(other.gameObject);
-        }
-
-        private void CheckIfGrounded(GameObject other)
-        {
-            var board = other.GetComponent<Board>();
-        
+            var board = other.gameObject.GetComponent<Board>();
             if (!board) return;
             if (_state != HumanState.IsFlying) return;
             
             SetIsPhysics(false);
             
-            _Animator.SetTrigger(Fall);
+            _Animator.SetTrigger(FallAnimParam);
             
             if (board.Team != Team)
             {
@@ -183,7 +177,7 @@ namespace AwesomeGame
 
         public void DestroySelf()
         {
-            LeanTween.scale(gameObject, Vector3.one * _MaxScale, _ScaleChangeDuration).setOnComplete(() =>
+            LeanTween.scale(gameObject, Vector3.one * _MaxScaleRate, _ScaleChangeDuration).setOnComplete(() =>
             {
                 _DestroyEffect.Play();
                 Destroy(gameObject);

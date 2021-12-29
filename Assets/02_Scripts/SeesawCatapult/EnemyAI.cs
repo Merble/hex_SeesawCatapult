@@ -21,30 +21,15 @@ namespace AwesomeGame
             _HumanManager.Catapult = _Catapult;
         
             _Catapult.HumanDidComeToCatapult += OnHumanArriveCatapult;
-            _Catapult.DidThrowHumans += humans =>
-            {
-                _PowerUpManager.HumanGroupList.Add(humans);
-                // _HumanManager.HumansOnOtherSideWaitList.AddRange(humans.ToList());
-            };
+            _Catapult.DidThrowHumans += humans => { _PowerUpManager.HumanGroupList.Add(humans); };
         
-            // _PowerUpManager.DidInstantiateHumans += humans => { _HumanManager.HumansOnOtherSideWaitList.AddRange(humans); };
             _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }
     
         private void OnHumanArriveCatapult(Human human)
         {
-            // if (human == null) return;
-        
-            // human.SetState(HumanState.OnCatapult);
-            // human.MakeColliderSmaller();
-
-            // _Catapult.AddHuman(human);
-            
             if( (_Catapult.HumansOnCatapult.Count >= _HumanNumberToThrow) || (_HumanManager.HumansToCreate <= 0) )
-                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), _HumanThrowWaitDuration); 
-        
-            // _HumanManager.HumansOnRandomMove.Remove(human);
-            // _HumanManager.MoveHumansToCatapult();
+                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), _HumanThrowWaitDuration);
         }
 
         private Vector3 FindProperPointForThrow()

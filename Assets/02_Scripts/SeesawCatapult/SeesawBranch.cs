@@ -16,6 +16,15 @@ namespace AwesomeGame
         [Space]
         [SerializeField] private bool _IsPlayer;
 
+        public Seesaw _ParentSeesaw;
+
+        private void Awake()
+        {
+            foreach (var seat in _SeesawSeats)
+            {
+                seat._ParentBranch = this;
+            }
+        }
 
         public void AddHuman(Human human)
         {
