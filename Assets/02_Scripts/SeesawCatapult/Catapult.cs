@@ -58,7 +58,7 @@ namespace AwesomeGame
         public void ThrowHumansByPosition(Vector3 position, float waitTime)
         {
             var direction = FindDirectionFromFinishPosition(position);
-            StartCoroutine(DoAfterCoroutine.DoAfter(waitTime, () => { ThrowHumansByDirection(-direction); }));
+            StartCoroutine(DoAfterCoroutine.DoAfter(waitTime, () => { ThrowHumansByDirection(direction); }));
         }
 
         private Vector2 FindDirectionFromFinishPosition(Vector3 position)

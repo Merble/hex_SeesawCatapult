@@ -728,6 +728,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f46489c8edd9ea4f976513337e098f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &368231254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8831682615307059412, guid: 6db4fc520918bc24b870c242232c9cb0, type: 3}
+  m_PrefabInstance: {fileID: 3701032028069552101}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85322f9c2d681b948bedc8cde105cac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &437505238
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,8 +889,8 @@ MonoBehaviour:
   _PowerUpManager: {fileID: 1319977316}
   _SeesawManager: {fileID: 1256929333}
   _HumanThrowPointRadiusMultiplier: 1
-  _HumanNumberToThrow: 2
-  _HumanThrowWaitDuration: 1
+  _HumanNumberToThrow: 1
+  _HumanThrowWaitDuration: 0.6
 --- !u!4 &441237598
 Transform:
   m_ObjectHideFlags: 0
@@ -1481,7 +1492,9 @@ MonoBehaviour:
   _FatHumanPrefab: {fileID: 8831682615307059412, guid: 6db4fc520918bc24b870c242232c9cb0, type: 3}
   _SpawnPos: {fileID: 1781417338}
   _Team: 1
-  _Humans: []
+  _Humans:
+  - {fileID: 737213019}
+  - {fileID: 368231254}
   _SeesawBranches:
   - {fileID: 669037531}
   - {fileID: 1038624483}
@@ -1492,10 +1505,10 @@ MonoBehaviour:
   _MaxX: 5
   _MinZ: 3
   _MaxZ: 10
-  _HumanToCatapultWaitDuration: 4
-  _HumanToSeesawWaitDuration: 1.5
-  _WaitDurationBeforeNewHuman: 5
-  _HumansToCreate: 0
+  _HumanToCatapultWaitDuration: 2
+  _HumanToSeesawWaitDuration: 1
+  _WaitDurationBeforeNewHuman: 4
+  _HumansToCreate: 6
 --- !u!4 &695786832
 Transform:
   m_ObjectHideFlags: 0
@@ -1668,6 +1681,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6928089999802718976, guid: a8b2206f2439d25428e952ad46663c52, type: 3}
   m_PrefabInstance: {fileID: 2130629281}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &737213019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7075255488938131705, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
+  m_PrefabInstance: {fileID: 1786807179}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85322f9c2d681b948bedc8cde105cac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &796723905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 394295268251769041, guid: a8b2206f2439d25428e952ad46663c52, type: 3}
@@ -3576,7 +3600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266093, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
@@ -3664,9 +3688,9 @@ MonoBehaviour:
   _MaxX: 5
   _MinZ: -10
   _MaxZ: -3
-  _HumanToCatapultWaitDuration: 4
-  _HumanToSeesawWaitDuration: 1.5
-  _WaitDurationBeforeNewHuman: 5
+  _HumanToCatapultWaitDuration: 3
+  _HumanToSeesawWaitDuration: 1
+  _WaitDurationBeforeNewHuman: 4
   _HumansToCreate: 5
 --- !u!4 &2129963382
 Transform:
@@ -4288,7 +4312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3701032028128859145, guid: 6db4fc520918bc24b870c242232c9cb0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3701032028281682217, guid: 6db4fc520918bc24b870c242232c9cb0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

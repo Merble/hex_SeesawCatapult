@@ -41,7 +41,7 @@ namespace AwesomeGame
                 return new Vector3(pos.x + humanThrowPointRadius.x, 0, pos.z + humanThrowPointRadius.y);
             }
         
-            var losingSeesaws = _SeesawManager.GetLosingSeesawsForEnemy();
+            /*var losingSeesaws = _SeesawManager.GetLosingSeesawsForEnemy();
             if (losingSeesaws.Any())
             {
                 var pos =  losingSeesaws[Random.Range(0, losingSeesaws.Count)].transform.position;
@@ -59,7 +59,7 @@ namespace AwesomeGame
             {
                 var pos =  balancedSeesaws[Random.Range(0, balancedSeesaws.Count)].transform.position;
                 return HumanThrowPointRadius(pos);
-            }
+            }*/
 
             return RivalHumanManager.GetRandomPointOnBoard();
         }
