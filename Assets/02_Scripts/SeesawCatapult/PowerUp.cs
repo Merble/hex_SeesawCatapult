@@ -1,8 +1,9 @@
 using System;
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
+using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class PowerUp : MonoBehaviour
     {
@@ -12,8 +13,15 @@ namespace AwesomeGame
         [SerializeField] private PowerUpType _PowerUpType;
         [Space]
         [SerializeField] private int _PowerUpEffectNumber;
+        
+        private float PowerUpMinScale => Game.Config.PowerUpMinScaleRate;
+        private float PowerUpScaleChangeDuration => Game.Config.PowerUpScaleChangeDuration;
 
-        public PowerUpManager.PowerUpFeatures GeneralFeatures;
+        public Team Team
+        {
+            get => _Team;
+            set => _Team = value;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -21,7 +29,7 @@ namespace AwesomeGame
         
             if (!human) return;
 
-            if (human.Team != _Team) return;
+            if (human.Team != Team) return;
         
             DidUsePowerUp?.Invoke(human, _PowerUpType, transform.position,_PowerUpEffectNumber);
             
@@ -30,9 +38,9 @@ namespace AwesomeGame
         
         private void DestroySelf()
         {
-            LeanTween.scale(gameObject, Vector3.one * GeneralFeatures.minScale, GeneralFeatures.scaleChangeDuration).setOnComplete(() =>
+            LeanTween.scale(gameObject, Vector3.one * PowerUpMinScale, PowerUpScaleChangeDuration).setOnComplete(() =>
             {
-                //Features.destroyEffect.Play();
+                // TODO: Destroy Effect
                 Destroy(gameObject);
             });
         }

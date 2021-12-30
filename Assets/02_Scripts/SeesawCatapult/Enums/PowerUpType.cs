@@ -1,4 +1,4 @@
-﻿namespace AwesomeGame.Enums
+﻿namespace SeesawCatapult.Enums
 {
     public enum PowerUpType
     {

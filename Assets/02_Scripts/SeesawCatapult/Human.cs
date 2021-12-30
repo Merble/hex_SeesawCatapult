@@ -1,10 +1,11 @@
 using System.Collections;
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
+using SeesawCatapult.ThisGame.Main;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class Human : MonoBehaviour
     {
@@ -19,8 +20,6 @@ namespace AwesomeGame
         [SerializeField] private Team _Team;
         [Space]
         [SerializeField] private float _Mass;
-        [SerializeField] private float _MaxScaleRate;
-        [SerializeField] private float _ScaleChangeDuration;
         [Space]
         [ShowInInspector, ReadOnly] private HumanState _state = HumanState.Idle;
 
@@ -37,7 +36,10 @@ namespace AwesomeGame
         private static readonly int SitAnimParam = Animator.StringToHash("Sit");
         private static readonly int FallAnimParam = Animator.StringToHash("Fall");
         private int? _randomMoveTweenId;
-
+        
+        private float MAXScale => Game.Config.HumanMaxScaleRate;
+        private float ScaleChangeDuration => Game.Config.HumanScaleChangeDuration;
+        
         public Human Prefab => _Prefab;
         public HumanType Type => _Type;
         public float Mass => _Mass;
@@ -177,7 +179,7 @@ namespace AwesomeGame
 
         public void DestroySelf()
         {
-            LeanTween.scale(gameObject, Vector3.one * _MaxScaleRate, _ScaleChangeDuration).setOnComplete(() =>
+            LeanTween.scale(gameObject, Vector3.one * MAXScale, ScaleChangeDuration).setOnComplete(() =>
             {
                 var destroyEffect = Instantiate(_DestroyEffect,transform.position, Quaternion.identity);
                 destroyEffect.Play();

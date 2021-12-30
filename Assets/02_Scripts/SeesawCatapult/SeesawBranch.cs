@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class SeesawBranch : MonoBehaviour
     {

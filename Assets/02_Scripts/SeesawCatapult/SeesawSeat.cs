@@ -1,15 +1,17 @@
+using SeesawCatapult.ThisGame.Main;
 using Unity.Collections;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class SeesawSeat : MonoBehaviour
     {
-        [SerializeField] private int _MaxHumanToSit;
         [SerializeField, ReadOnly] private int _SatHumans;
-
+        
         private Vector3 _seatPosition;
-        public bool IsSeatFull => _SatHumans >= _MaxHumanToSit;
+        
+        private int MaxHumanToSit => Game.Config._MaxHumanToSitOnSeat;
+        public bool IsSeatFull => _SatHumans >= MaxHumanToSit;
 
         public SeesawBranch _ParentBranch;
         

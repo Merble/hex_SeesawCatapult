@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public static class DoAfterCoroutine
     {

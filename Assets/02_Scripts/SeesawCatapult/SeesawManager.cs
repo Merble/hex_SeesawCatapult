@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class SeesawManager : MonoBehaviour
     {
         public event Action<int, int> DidBalanceChange;
+        
         [SerializeField] private List<Seesaw> _Seesaws;
         
         private void Awake()

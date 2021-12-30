@@ -1,7 +1,7 @@
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class Board : MonoBehaviour
     {

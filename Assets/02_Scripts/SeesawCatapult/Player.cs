@@ -1,24 +1,25 @@
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class Player : MonoBehaviour
     {
         [SerializeField] private HumanManager _HumanManager;
-        [SerializeField] private  VariableJoystick _Joystick;
         [SerializeField] private Catapult _Catapult;
         [SerializeField] private GameObject _Indicator;
         [SerializeField] private PowerUpManager _PowerUpManager;
 
         public HumanManager HumanManager => _HumanManager;
+        private  VariableJoystick _joystick;
     
-        private void Awake()
+        public void Init(VariableJoystick joystick)
         {
+            _joystick = joystick;
             _HumanManager.Catapult = _Catapult;
      
-            _Joystick.DragDidStart += () => { _Indicator.SetActive(true); };
-            _Joystick.DidDrag += OnDrag;
-            _Joystick.DragDidEnd += direction =>
+            _joystick.DragDidStart += () => { _Indicator.SetActive(true); };
+            _joystick.DidDrag += OnDrag;
+            _joystick.DragDidEnd += direction =>
             {
                 _Catapult.ThrowHumansByDirection(-direction);
                 _Indicator.SetActive(false);

@@ -1,9 +1,10 @@
 using System;
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
+using SeesawCatapult.ThisGame.Main;
 using Unity.Collections;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class Seesaw : MonoBehaviour
     {
@@ -12,12 +13,13 @@ namespace AwesomeGame
         [SerializeField] private SeesawBranch _PlayerSeesawBranch;
         [SerializeField] private SeesawBranch _EnemySeesawBranch;
         [Space]
-        [SerializeField] private float _MassEffectOnBalance;
-        [SerializeField] private float _MaxRotationAngle;
-        [SerializeField] private float _BalanceValue;   // Between (0, 1)
-        [SerializeField] private float _RotationSpeed;
-        [Space]
         [SerializeField, ReadOnly]private SeesawState _State;
+        [Space]
+        [SerializeField, ReadOnly] private float _BalanceValue;
+        
+        private float MassEffectOnBalance => Game.Config._MassEffectOnSeesawBalance;
+        private float MaxRotationAngle => Game.Config._MaxRotationAngle;   // Between (0, 1)
+        private float RotationSpeed => Game.Config._RotationSpeed;
         public SeesawState State => _State;
         
         private void Awake()
@@ -34,7 +36,7 @@ namespace AwesomeGame
     
         private void BalanceChange(float mass, bool isPlayer)
         {
-            _BalanceValue += (isPlayer ? 1 : -1) * mass * _MassEffectOnBalance;
+            _BalanceValue += (isPlayer ? 1 : -1) * mass * MassEffectOnBalance;
             _BalanceValue = Mathf.Clamp(_BalanceValue, 0, 1);
         
             RotateBoardToCurrentBalance();
@@ -42,7 +44,7 @@ namespace AwesomeGame
 
         private void RotateBoardToCurrentBalance()
         {
-            var newAngle = Mathf.Lerp(-_MaxRotationAngle, _MaxRotationAngle, _BalanceValue);
+            var newAngle = Mathf.Lerp(-MaxRotationAngle, MaxRotationAngle, _BalanceValue);
             var angle = transform.rotation.eulerAngles.x;
 
             if (angle > 180)
@@ -50,7 +52,7 @@ namespace AwesomeGame
                 angle -= 360;
             }
             
-            var angleDistance = Mathf.Abs(newAngle - angle) / _RotationSpeed;
+            var angleDistance = Mathf.Abs(newAngle - angle) / RotationSpeed;
             var rotationEuler = new Vector3(newAngle, 0, 0);
         
             LeanTween.cancel(gameObject);

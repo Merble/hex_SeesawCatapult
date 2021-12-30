@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
+using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class Catapult : MonoBehaviour
     {
@@ -12,9 +13,9 @@ namespace AwesomeGame
         
         [SerializeField] private Animator _CatapultAnimator;
         [SerializeField] private Transform _CatapultSeat;
-        [Space]
-        [SerializeField] private float _ThrowForce;
-        [SerializeField] private float _DirectionValueY;
+        
+        private float ThrowForce => Game.Config.CatapultThrowForce;
+        private float DirectionValueY => Game.Config.HumanThrowDirectionValueY;
 
         private readonly float _gravity = Math.Abs(Physics.gravity.y);
         private static readonly int ThrowAnimParam = Animator.StringToHash("Throw");
@@ -35,7 +36,7 @@ namespace AwesomeGame
         {
             foreach (var human in HumansOnCatapult)
             {
-                human.Throw(new Vector3(direction.x, _DirectionValueY, direction.y) * _ThrowForce);
+                human.Throw(new Vector3(direction.x, DirectionValueY, direction.y) * ThrowForce);
             }
             
             _CatapultAnimator.SetTrigger(ThrowAnimParam);
@@ -45,9 +46,9 @@ namespace AwesomeGame
         }
         public Vector3 FindTrajectoryFinishPosition(Vector2 direction)
         {
-            var forceY = _DirectionValueY * _ThrowForce;
+            var forceY = DirectionValueY * ThrowForce;
             var time = (forceY * 2) /_gravity;
-            var distance = time * direction.magnitude * _ThrowForce;
+            var distance = time * direction.magnitude * ThrowForce;
         
             var groundDirection = new Vector3(direction.x, 0, direction.y);
             var finishPos = transform.position + (distance * groundDirection);
@@ -63,10 +64,10 @@ namespace AwesomeGame
 
         private Vector2 FindDirectionFromFinishPosition(Vector3 position)
         {
-            var forceY = _DirectionValueY * _ThrowForce; 
+            var forceY = DirectionValueY * ThrowForce; 
             var time = (forceY * 2) /_gravity;
             var tempPos  = (position - transform.position);
-            var direction = new Vector2(tempPos.x, tempPos.z) / (time * _ThrowForce);
+            var direction = new Vector2(tempPos.x, tempPos.z) / (time * ThrowForce);
 
             return direction;
         }

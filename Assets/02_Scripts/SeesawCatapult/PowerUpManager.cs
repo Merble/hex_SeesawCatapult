@@ -1,43 +1,62 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
+using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class PowerUpManager : MonoBehaviour
     {
         public event Action<List<Human>> DidInstantiateHumans;
-        
-        [SerializeField] private List<PowerUp> _PowerUps = new List<PowerUp>();
-        [Space]
-        [SerializeField] private float _InstantiateCircleRadius;
-        [SerializeField] private float _PowerUpMinScale;
-        [SerializeField] private float _PowerUpScaleChangeDuration;
 
+        [SerializeField] private List<PowerUp> _PowerUps = new List<PowerUp>();
+        [SerializeField] private List<Transform> _PowerUpSpawnPositions;
+        [Space] 
+        [SerializeField] private Team _Team;
+
+        private List<PowerUp> PowerUpPrefabs => Game.Config._PowerUpPrefabs;
+        private float InstantiateCircleRadius => Game.Config.PowerUpHumanInstantiateRadius;
+        private float WaitDurationBeforePowerUp => Game.Config._WaitDurationBeforePowerUp;
+        
+        private int PowerUpsToCreate { get; set; }
+        
         public List<PowerUp> PowerUps => _PowerUps;
         public List<Human[]> HumanGroupList { get; } = new List<Human[]>();
-        
-        public struct PowerUpFeatures
-        {
-            public float minScale;
-            public float scaleChangeDuration;
-            //public ParticleSystem destroyEffect;
-        }
 
-        private PowerUpFeatures _generalFeaturesForPowerUps;
-        
         private void Awake()
         {
-            _generalFeaturesForPowerUps.minScale = _PowerUpMinScale;
-            _generalFeaturesForPowerUps.scaleChangeDuration = _PowerUpScaleChangeDuration;
+            PowerUpsToCreate = Game.Config._PowerUpsToCreate;
+            StartCoroutine(CreatePowerUpsRoutine());
             
             foreach (var powerUp in _PowerUps)
             {
-                powerUp.GeneralFeatures = _generalFeaturesForPowerUps;
                 powerUp.DidUsePowerUp += OnPowerUpUse;
+            }
+        }
+
+        private IEnumerator CreatePowerUpsRoutine()
+        {
+            while (PowerUpsToCreate > 0)
+            {
+                yield return new WaitForSeconds(WaitDurationBeforePowerUp);
+
+                PowerUpsToCreate--;
+                
+                // Randomizing initialization
+                var prefab = PowerUpPrefabs[Random.Range(0, PowerUpPrefabs.Count)];
+                var spawnPointTransform = _PowerUpSpawnPositions[Random.Range(0, _PowerUpSpawnPositions.Count)];
+                
+                var powerUp = Instantiate(prefab, spawnPointTransform.position, Quaternion.identity);
+                
+                // Settings
+                powerUp.DidUsePowerUp += OnPowerUpUse;
+                powerUp.Team = _Team;
+                PowerUps.Add(powerUp);
+                _PowerUpSpawnPositions.Remove(spawnPointTransform);
             }
         }
 
@@ -80,6 +99,7 @@ namespace AwesomeGame
         
             DidInstantiateHumans?.Invoke(instantiatedHumans);
         }
+        
         private void AddHumans(Human[] humanGroup, Vector3 powerUpPos, int powerUpEffectNumber)
         {
             var instantiatedHumans = new List<Human>();
@@ -109,7 +129,7 @@ namespace AwesomeGame
         private List<Human> InstantiateHuman(Vector3 powerUpPos, Human humanPrefab)
         {
             var instantiatedHumans = new List<Human>();
-            var pos = Random.insideUnitCircle * _InstantiateCircleRadius;
+            var pos = Random.insideUnitCircle * InstantiateCircleRadius;
             var newPos = new Vector3(powerUpPos.x + pos.x, humanPrefab.transform.position.y, powerUpPos.z + pos.y);
             var newHuman = Instantiate(humanPrefab, newPos, Quaternion.identity);
 

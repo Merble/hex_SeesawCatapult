@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using AwesomeGame.Enums;
+using SeesawCatapult.Enums;
+using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class HumanManager : MonoBehaviour
     {
@@ -19,23 +20,24 @@ namespace AwesomeGame
         [Space]
         [SerializeField] private List<SeesawBranch> _SeesawBranches;
         [Space]
-        [SerializeField] private float _MinHumanSpeed;
-        [SerializeField] private float _MaxHumanSpeed;
         [SerializeField] private float _MinX;
         [SerializeField] private float _MaxX;
         [SerializeField] private float _MinZ;
         [SerializeField] private float _MaxZ;
-        [Space]
-        [SerializeField] private float _HumanToCatapultWaitDuration;
-        [SerializeField] private float _HumanToSeesawWaitDuration;
-        [SerializeField] private float _WaitDurationBeforeNewHuman;
-        [SerializeField] private int _HumansToCreate;
 
         public Catapult Catapult { get; set; }
-        public int HumansToCreate => _HumansToCreate;
-
+        
+        private float MinHumanSpeed => Game.Config._MinHumanSpeed;
+        private float MaxHumanSpeed => Game.Config._MaxHumanSpeed;
+        private float HumanToCatapultWaitDuration => Game.Config._HumanToCatapultWaitDuration;
+        private float HumanToSeesawWaitDuration => Game.Config._HumanToSeesawWaitDuration;
+        private float WaitDurationBeforeNewHuman => Game.Config._WaitDurationBeforeNewHuman;
+        public int HumansToCreate { get; set; }
+        
         private void Awake()
         {
+            HumansToCreate = Game.Config._HumansToCreate;
+            
             StartCoroutine(CreateNewHumansRoutine());
             StartCoroutine(MoveHumansToCatapultRoutine());
             StartCoroutine(MoveHumansToSeesawRoutine());
@@ -45,15 +47,15 @@ namespace AwesomeGame
         
         private IEnumerator CreateNewHumansRoutine() 
         {
-            while (_HumansToCreate > 0)
+            while (HumansToCreate > 0)
             {
-                yield return new WaitForSeconds(_WaitDurationBeforeNewHuman);
+                yield return new WaitForSeconds(WaitDurationBeforeNewHuman);
 
-                _HumansToCreate--;
+                HumansToCreate--;
 
                 // Just randomizing what prefab is going to be created.
                 var number = Random.Range(0, 51);
-                var prefab = _ThinHumanPrefab; //number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
+                var prefab = number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
                 
                 var newHuman = Instantiate(prefab, _SpawnPos.position, Quaternion.identity);
                 newHuman.Team = _Team;
@@ -73,7 +75,7 @@ namespace AwesomeGame
 
         private void MoveHumanRandomly(Human human)
         {
-            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, _MinHumanSpeed, _MaxHumanSpeed);
+            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, MinHumanSpeed, MaxHumanSpeed);
 
             human.SetState(HumanState.RandomMove);
             StartCoroutine(human.MoveRandomLocation());
@@ -83,7 +85,7 @@ namespace AwesomeGame
         {
             while(true)
             {
-                yield return new WaitForSeconds(_HumanToCatapultWaitDuration);
+                yield return new WaitForSeconds(HumanToCatapultWaitDuration);
 
                 foreach (var human in _Humans.Where(human => human.State == HumanState.RandomMove))
                 {
@@ -97,7 +99,7 @@ namespace AwesomeGame
         {
             while(true)
             {
-                yield return new WaitForSeconds(_HumanToCatapultWaitDuration);
+                yield return new WaitForSeconds(HumanToCatapultWaitDuration);
 
                 foreach (var human in _Humans.Where(human => human.State == HumanState.OnOtherSide))
                 {
@@ -108,11 +110,11 @@ namespace AwesomeGame
 
         private void MoveHumanToNearestSeesaw(Human human)
         {
-            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, _MinHumanSpeed, _MaxHumanSpeed);
+            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, MinHumanSpeed, MaxHumanSpeed);
             var humanState = human.State;
             human.SetState(HumanState.IsMovingToSeesaw);
             
-            StartCoroutine(DoAfterCoroutine.DoAfter(_HumanToSeesawWaitDuration, () =>
+            StartCoroutine(DoAfterCoroutine.DoAfter(HumanToSeesawWaitDuration, () =>
             {
                 var humanPos = human.transform.position;
                 var nearestSeesawSeat = GetNearestSeesawSeat(humanPos);

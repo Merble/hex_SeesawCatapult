@@ -1,7 +1,8 @@
 using System.Linq;
+using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
 
-namespace AwesomeGame
+namespace SeesawCatapult
 {
     public class EnemyAI : MonoBehaviour
     {
@@ -9,10 +10,10 @@ namespace AwesomeGame
         [SerializeField] private Catapult _Catapult;
         [SerializeField] private PowerUpManager _PowerUpManager;
         [SerializeField] private SeesawManager _SeesawManager;
-        [Space] 
-        [SerializeField] private float _HumanThrowPointRadiusMultiplier;
-        [SerializeField] private int _HumanNumberToThrow;
-        [SerializeField] private float _HumanThrowWaitDuration;
+        
+        private float HumanThrowPointRadiusMultiplier => Game.Config._EnemyHumanThrowPointRadiusMultiplier;
+        private int HumanNumberToThrow => Game.Config._EnemyHumanNumberBeforeThrow;
+        private float HumanThrowWaitDuration => Game.Config._EnemyHumanThrowWaitDuration;
         
         public HumanManager RivalHumanManager { get; set; }
         
@@ -28,15 +29,15 @@ namespace AwesomeGame
     
         private void OnHumanArriveCatapult(Human human)
         {
-            if( (_Catapult.HumansOnCatapult.Count >= _HumanNumberToThrow) || (_HumanManager.HumansToCreate <= 0) )
-                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), _HumanThrowWaitDuration);
+            if( (_Catapult.HumansOnCatapult.Count >= HumanNumberToThrow) || (_HumanManager.HumansToCreate <= 0) )
+                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), HumanThrowWaitDuration);
         }
 
         private Vector3 FindProperPointForThrow()
         {
             Vector3 HumanThrowPointRadius(Vector3 pos)
             {
-                var humanThrowPointRadius = Random.insideUnitCircle * _HumanThrowPointRadiusMultiplier;
+                var humanThrowPointRadius = Random.insideUnitCircle * HumanThrowPointRadiusMultiplier;
 
                 return new Vector3(pos.x + humanThrowPointRadius.x, 0, pos.z + humanThrowPointRadius.y);
             }

@@ -9,14 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7ef08353bac4c67b474447f8043050, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d1b76640c46e4226b2c94085336c0b5, type: 3}
   m_Name: Level Manager
   m_EditorClassIdentifier: 
-  _LevelKey: com.hex.awesomegame.levelindex
   _IsLoop: 1
-  _LoopIndex: -1
+  _LoopIndex: 0
+  _ActivateAfterLoad: 0
   _LevelSceneNames:
   - Level 1
+  - Level 2
+  _LevelKey: com.hex.awesomegame.levelindex
   _SceneAssets:
   - {fileID: 102900000, guid: a571918f3444b430985111db8d18dc35, type: 3}
+  - {fileID: 102900000, guid: 28660ded3e5e345f38d213b095beb019, type: 3}
   _TestLevel: {fileID: 0}
+  _LoadLevelScene: 1
