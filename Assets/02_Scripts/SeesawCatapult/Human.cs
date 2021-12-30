@@ -179,7 +179,8 @@ namespace AwesomeGame
         {
             LeanTween.scale(gameObject, Vector3.one * _MaxScaleRate, _ScaleChangeDuration).setOnComplete(() =>
             {
-                _DestroyEffect.Play();
+                var destroyEffect = Instantiate(_DestroyEffect,transform.position, Quaternion.identity);
+                destroyEffect.Play();
                 Destroy(gameObject);
             });
         }

@@ -59,7 +59,7 @@ namespace AwesomeGame
                 if (isPlayerWin)
                     Debug.Log("Player Won");     // TODO: Player Wins
                 else
-                    Debug.Log("Player Won");     // TODO: Enemy Wins
+                    Debug.Log("Enemy Won");     // TODO: Enemy Wins
             }
             
             _isCountdownStop = false;

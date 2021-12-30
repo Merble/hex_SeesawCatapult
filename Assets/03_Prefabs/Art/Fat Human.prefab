@@ -1259,7 +1259,7 @@ MonoBehaviour:
   _Prefab: {fileID: 8831682615307059412}
   _TopPoint: {fileID: 6975790849070059859}
   _Animator: {fileID: 3701032028128859147}
-  _DestroyEffect: {fileID: 8635170528544909669, guid: 6cd8524404538034b865f6acc4a503e9, type: 3}
+  _DestroyEffect: {fileID: 4459160740054514069, guid: 154484b290a11074bb889397de479688, type: 3}
   _Type: 0
   _Team: 0
   _Mass: 2

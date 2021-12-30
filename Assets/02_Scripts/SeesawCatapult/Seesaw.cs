@@ -79,5 +79,10 @@ namespace AwesomeGame
 
             DidBalanceChange?.Invoke();
         }
+
+        public SeesawSeat GetSeesawSeatForEnemyAI()
+        {
+            return _EnemySeesawBranch.GetSeesawSeat();
+        }
     }
 }

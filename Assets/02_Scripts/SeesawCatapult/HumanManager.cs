@@ -53,7 +53,7 @@ namespace AwesomeGame
 
                 // Just randomizing what prefab is going to be created.
                 var number = Random.Range(0, 51);
-                var prefab = number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
+                var prefab = _ThinHumanPrefab; //number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
                 
                 var newHuman = Instantiate(prefab, _SpawnPos.position, Quaternion.identity);
                 newHuman.Team = _Team;

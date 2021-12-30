@@ -17,7 +17,7 @@ namespace Sirenix.Utilities
     /// </summary>
     internal static class EnsureOdinInspectorDefine
     {
-        private static readonly string[] DEFINES = new string[] { "ODIN_INSPECTOR", "ODIN_INSPECTOR_3" };
+        private const string DEFINE = "ODIN_INSPECTOR";
 
         [InitializeOnLoadMethod]
         private static void EnsureScriptingDefineSymbol()
@@ -32,24 +32,15 @@ namespace Sirenix.Utilities
             var definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(currentTarget).Trim();
             var defines = definesString.Split(';');
 
-            bool changed = false;
-
-            foreach (var define in DEFINES)
+            if (defines.Contains(DEFINE) == false)
             {
-                if (defines.Contains(define) == false)
+                if (definesString.EndsWith(";", StringComparison.InvariantCulture) == false)
                 {
-                    if (definesString.EndsWith(";", StringComparison.InvariantCulture) == false)
-                    {
-                        definesString += ";";
-                    }
-
-                    definesString += define;
-                    changed = true;
+                    definesString += ";";
                 }
-            }
 
-            if (changed)
-            {
+                definesString += DEFINE;
+
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(currentTarget, definesString);
             }
         }

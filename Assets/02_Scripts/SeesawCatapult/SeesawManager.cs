@@ -37,6 +37,11 @@ namespace AwesomeGame
                         
                         enemyWinCount++;
                         break;
+                    
+                    case SeesawState.Balance:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             DidBalanceChange?.Invoke(playerWinCount, enemyWinCount);
