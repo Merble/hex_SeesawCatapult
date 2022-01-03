@@ -18,6 +18,10 @@ MonoBehaviour:
   - {fileID: 4705125273175044244, guid: 6faef188526304a41b5983f4d5bf9833, type: 3}
   - {fileID: 2783173712832261506, guid: 8c70feef63f119948b7802d44eb58daf, type: 3}
   - {fileID: 1224608352183132994, guid: 50ef07b04dab17048b15071a9a74ea93, type: 3}
+  _MaxXOfBoard: 6
+  _MinXOfBoard: -6
+  _MaxZOfBoard: 10
+  _MinZOfBoard: -10
   HumanScaleChangeDuration: 1.5
   HumanMaxScaleRate: 1.7
   _WaitDurationBeforePowerUp: 6
