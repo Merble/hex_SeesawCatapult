@@ -16,18 +16,17 @@ namespace SeesawCatapult.ThisGame.Main
         
         private bool _isCountdownStop;
 
-        // private void Awake()
-        // {
-        //     _SeesawManager.DidBalanceChange += OnWinPoint;
-        //     _EnemyAI.RivalHumanManager = _Player.HumanManager;
-        // }
-
         protected override void DidStartGame(LevelHelper levelHelper)
         {
             levelHelper.SeesawManager.DidBalanceChange += OnWinPoint;
             levelHelper.EnemyAI.RivalHumanManager = levelHelper.Player.HumanManager;
             
             levelHelper.Player.Init(_Joystick);
+        }
+
+        protected override void WillStopGame(LevelHelper levelHelper, bool isSuccess)
+        {
+            
         }
 
         private void OnWinPoint(int playerPoint, int enemyPoint)
@@ -48,6 +47,7 @@ namespace SeesawCatapult.ThisGame.Main
         
         private IEnumerator CountdownTimer(int countdown, bool isPlayerWin)
         {
+            _CountdownText.gameObject.SetActive(true);
             
             while (countdown >= 0)
             {
@@ -64,14 +64,12 @@ namespace SeesawCatapult.ThisGame.Main
             
             if (countdown <= 0)
             {
-                if (isPlayerWin)
-                    Debug.Log("Player Won");     // TODO: Player Wins
-                else
-                    Debug.Log("Enemy Won");     // TODO: Enemy Wins
+                StopGame(isPlayerWin);
             }
             
             _isCountdownStop = false;
         }
+        
         // Use these Game Event methods 
         /*protected override void WillStartGame()
         {

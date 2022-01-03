@@ -16,12 +16,16 @@ namespace SeesawCatapult
         
         private float ThrowForce => Game.Config.CatapultThrowForce;
         private float DirectionValueY => Game.Config.HumanThrowDirectionValueY;
+        
+        private float MaxXOfBoard => Game.Config._MaxXOfBoard;
+        private float MinXOfBoard => Game.Config._MinXOfBoard;
+        private float MaxZOfBoard => Game.Config._MaxZOfBoard;
+        private float MinZOfBoard => Game.Config._MinZOfBoard;
 
         private readonly float _gravity = Math.Abs(Physics.gravity.y);
         private static readonly int ThrowAnimParam = Animator.StringToHash("Throw");
 
         public List<Human> HumansOnCatapult { get; } = new List<Human>();
-
         
         public void DidHumanCome(Human human)
         {
@@ -52,6 +56,9 @@ namespace SeesawCatapult
         
             var groundDirection = new Vector3(direction.x, 0, direction.y);
             var finishPos = transform.position + (distance * groundDirection);
+            
+            finishPos.x = Mathf.Clamp(finishPos.x, MinXOfBoard, MaxXOfBoard);
+            finishPos.z = Mathf.Clamp(finishPos.z, MinZOfBoard, MaxZOfBoard);
         
             return finishPos;
         }

@@ -1229,8 +1229,6 @@ Transform:
   - {fileID: 690263166}
   - {fileID: 163070212}
   - {fileID: 1962359806}
-  - {fileID: 1243539790}
-  - {fileID: 1448582285}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1239,36 +1237,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2441084713321316690, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
   m_PrefabInstance: {fileID: 1326057132}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1243539789
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1243539790}
-  m_Layer: 0
-  m_Name: Player Spawn Position
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1243539790
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243539789}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -11.96}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1011853097}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1283559228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1702,36 +1670,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 873853435, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
   m_PrefabInstance: {fileID: 1326057132}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1448582284
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1448582285}
-  m_Layer: 0
-  m_Name: Enemy Spawn Position
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1448582285
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448582284}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 11.82}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1011853097}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1520702295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,7 +1908,7 @@ MonoBehaviour:
     IsSuccess: 2
     Delay: 0
   - GameObject: {fileID: 1024717356}
-    IsEnabled: 0
+    IsEnabled: 1
     IsSuccess: 2
     Delay: 0
   _StartGameEvents:

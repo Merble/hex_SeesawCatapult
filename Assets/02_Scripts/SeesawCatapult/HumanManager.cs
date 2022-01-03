@@ -24,7 +24,7 @@ namespace SeesawCatapult
         [SerializeField] private float _MaxX;
         [SerializeField] private float _MinZ;
         [SerializeField] private float _MaxZ;
-
+        
         public Catapult Catapult { get; set; }
         
         private float MinHumanSpeed => Game.Config._MinHumanSpeed;

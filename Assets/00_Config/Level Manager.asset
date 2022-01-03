@@ -17,10 +17,8 @@ MonoBehaviour:
   _ActivateAfterLoad: 0
   _LevelSceneNames:
   - Level 1
-  - Level 2
   _LevelKey: com.hex.awesomegame.levelindex
   _SceneAssets:
   - {fileID: 102900000, guid: a571918f3444b430985111db8d18dc35, type: 3}
-  - {fileID: 102900000, guid: 28660ded3e5e345f38d213b095beb019, type: 3}
   _TestLevel: {fileID: 0}
   _LoadLevelScene: 1

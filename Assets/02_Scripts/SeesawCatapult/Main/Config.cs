@@ -13,6 +13,13 @@ namespace SeesawCatapult.Main
         public List<PowerUp> _PowerUpPrefabs; // PowerUpManager
         
         [Space]
+        // Player
+        public float _MaxXOfBoard;
+        public float _MinXOfBoard;
+        public float _MaxZOfBoard;
+        public float _MinZOfBoard;
+        
+        [Space]
         // Human
         public float HumanScaleChangeDuration = 1.5f;
         public float HumanMaxScaleRate = 1.7f;

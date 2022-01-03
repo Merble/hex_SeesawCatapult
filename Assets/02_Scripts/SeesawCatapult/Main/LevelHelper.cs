@@ -1,5 +1,3 @@
-using System;
-using SeesawCatapult.Enums;
 using HexGames;
 using UnityEngine;
 

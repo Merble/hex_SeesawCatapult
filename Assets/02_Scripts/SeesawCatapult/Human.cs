@@ -130,6 +130,7 @@ namespace SeesawCatapult
             
             var branch = seat._ParentBranch;
             cachedTransform.SetParent(branch._ParentSeesaw.transform);
+            branch.AddHuman(this);
 
             startPos = cachedTransform.localPosition;
             
@@ -144,7 +145,6 @@ namespace SeesawCatapult
                 })
                 .setOnComplete(() =>
                 {
-                    branch.AddHuman(this);
 
                     var pos = transform.position;
                     _state = HumanState.OnSeesaw;
