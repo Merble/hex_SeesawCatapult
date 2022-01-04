@@ -1261,10 +1261,8 @@ MonoBehaviour:
   _Animator: {fileID: 3701032028128859147}
   _DestroyEffect: {fileID: 4459160740054514069, guid: 154484b290a11074bb889397de479688, type: 3}
   _Type: 0
-  _Team: 0
+  _Team: 1
   _Mass: 2
-  _MaxScaleRate: 1.7
-  _ScaleChangeDuration: 1.5
 --- !u!95 &3701032028128859147
 Animator:
   serializedVersion: 3

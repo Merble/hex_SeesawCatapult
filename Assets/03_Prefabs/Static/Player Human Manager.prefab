@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ThinHumanPrefab: {fileID: 7075255488938131705, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
-  _FatHumanPrefab: {fileID: 8831682615307059412, guid: 6db4fc520918bc24b870c242232c9cb0, type: 3}
+  _FatHumanPrefab: {fileID: 8831682615307059412, guid: 5a0d27b946a71784db712c529243df58, type: 3}
   _SpawnPos: {fileID: 0}
   _Team: 0
   _Humans:

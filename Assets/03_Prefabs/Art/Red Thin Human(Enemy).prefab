@@ -117,7 +117,7 @@ MonoBehaviour:
   _Animator: {fileID: 8943841877240266091}
   _DestroyEffect: {fileID: 4459160740054514069, guid: 154484b290a11074bb889397de479688, type: 3}
   _Type: 1
-  _Team: 0
+  _Team: 1
   _Mass: 1
 --- !u!95 &8943841877240266091
 Animator:
