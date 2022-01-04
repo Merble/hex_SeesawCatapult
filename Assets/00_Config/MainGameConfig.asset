@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: MainGameConfig
   m_EditorClassIdentifier: 
   _PowerUpPrefabs:
-  - {fileID: 4700677673137113522, guid: 169605a4af567bd48a28d11cde8d25ff, type: 3}
-  - {fileID: 7558507078910039690, guid: 953a2ab9d534b5945a4cb523ea8f4cbc, type: 3}
-  - {fileID: 4705125273175044244, guid: 6faef188526304a41b5983f4d5bf9833, type: 3}
-  - {fileID: 2783173712832261506, guid: 8c70feef63f119948b7802d44eb58daf, type: 3}
-  - {fileID: 1224608352183132994, guid: 50ef07b04dab17048b15071a9a74ea93, type: 3}
+  - {fileID: 8909577356986816762, guid: 603543ad1ae808c40a2b76c4c5a04fc4, type: 3}
+  - {fileID: 7873743057471985333, guid: 38f90074f4f9540458bdb4787932316b, type: 3}
+  - {fileID: 5490743417658370220, guid: f63f980a173b01a488dc46fe735e8085, type: 3}
+  - {fileID: 7995546056008324337, guid: a1913c172f6ff774f88408f4bf70d298, type: 3}
+  - {fileID: 8192466190605722065, guid: fdde5c7cebfdfad45a8ec14f8bffd4f9, type: 3}
   HumanScaleChangeDuration: 1.5
   HumanMaxScaleRate: 1.7
   _WaitDurationBeforeNewPowerUp: 6
@@ -35,9 +35,9 @@ MonoBehaviour:
   _EnemyHumanThrowWaitDuration: 0.6
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
-  _HumanToCatapultWaitDuration: 2
+  _HumanToCatapultWaitDuration: 5
   _HumanToSeesawWaitDuration: 1
-  _WaitDurationBeforeNewHuman: 4
+  _WaitDurationBeforeNewHuman: 5
   _MassEffectOnSeesawBalance: 0.1
   _MaxRotationAngle: 25
   _RotationSpeed: 10

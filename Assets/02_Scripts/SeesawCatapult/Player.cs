@@ -1,4 +1,3 @@
-using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
 
 namespace SeesawCatapult

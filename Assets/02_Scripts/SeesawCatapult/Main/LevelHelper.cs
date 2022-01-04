@@ -1,5 +1,4 @@
 using HexGames;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace SeesawCatapult.ThisGame.Main
