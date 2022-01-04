@@ -13,13 +13,10 @@ namespace SeesawCatapult
         [SerializeField] private SeesawBranch _PlayerSeesawBranch;
         [SerializeField] private SeesawBranch _EnemySeesawBranch;
         [Space]
-        [SerializeField, ReadOnly]private SeesawState _State;
+        [SerializeField, ReadOnly] private SeesawState _State;
         [Space]
         [SerializeField, ReadOnly] private float _BalanceValue;
         
-        private float MassEffectOnBalance => Game.Config._MassEffectOnSeesawBalance;
-        private float MaxRotationAngle => Game.Config._MaxRotationAngle;   // Between (0, 1)
-        private float RotationSpeed => Game.Config._RotationSpeed;
         public SeesawState State => _State;
         
         private void Awake()
@@ -36,7 +33,8 @@ namespace SeesawCatapult
     
         private void BalanceChange(float mass, bool isPlayer)
         {
-            _BalanceValue += (isPlayer ? 1 : -1) * mass * MassEffectOnBalance;
+            //_BalanceValue += (isPlayer ? 1 : -1) * mass * MassEffectOnBalance;
+            _BalanceValue = ((_PlayerSeesawBranch.TotalMass - _EnemySeesawBranch.TotalMass) * Game.Config._MassEffectOnSeesawBalance) + .5f;
             _BalanceValue = Mathf.Clamp(_BalanceValue, 0, 1);
         
             RotateBoardToCurrentBalance();
@@ -44,7 +42,7 @@ namespace SeesawCatapult
 
         private void RotateBoardToCurrentBalance()
         {
-            var newAngle = Mathf.Lerp(-MaxRotationAngle, MaxRotationAngle, _BalanceValue);
+            var newAngle = Mathf.Lerp(-Game.Config._MaxRotationAngle, Game.Config._MaxRotationAngle, _BalanceValue);
             var angle = transform.rotation.eulerAngles.x;
 
             if (angle > 180)
@@ -52,11 +50,11 @@ namespace SeesawCatapult
                 angle -= 360;
             }
             
-            var angleDistance = Mathf.Abs(newAngle - angle) / RotationSpeed;
+            var duration = Mathf.Abs(newAngle - angle) / Game.Config._RotationSpeed;
             var rotationEuler = new Vector3(newAngle, 0, 0);
         
             LeanTween.cancel(gameObject);
-            LeanTween.rotate(gameObject, rotationEuler, angleDistance).setOnComplete(CheckBalanceAfterRotate);
+            LeanTween.rotate(gameObject, rotationEuler, duration).setOnComplete(CheckBalanceAfterRotate);
         }
 
         private void CheckBalanceAfterRotate()

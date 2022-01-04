@@ -18,19 +18,18 @@ MonoBehaviour:
   - {fileID: 4705125273175044244, guid: 6faef188526304a41b5983f4d5bf9833, type: 3}
   - {fileID: 2783173712832261506, guid: 8c70feef63f119948b7802d44eb58daf, type: 3}
   - {fileID: 1224608352183132994, guid: 50ef07b04dab17048b15071a9a74ea93, type: 3}
-  _MaxXOfBoard: 6
-  _MinXOfBoard: -6
-  _MaxZOfBoard: 10
-  _MinZOfBoard: -10
   HumanScaleChangeDuration: 1.5
   HumanMaxScaleRate: 1.7
-  _WaitDurationBeforePowerUp: 6
-  _PowerUpsToCreate: 5
+  _WaitDurationBeforeNewPowerUp: 6
   PowerUpHumanInstantiateRadius: 2
   PowerUpMinScaleRate: 0.15
   PowerUpScaleChangeDuration: 0.6
   CatapultThrowForce: 9
   HumanThrowDirectionValueY: 1.1
+  _MaxXOfBoard: 6
+  _MinXOfBoard: -6
+  _MaxZOfBoard: 10
+  _MinZOfBoard: -10
   _EnemyHumanThrowPointRadiusMultiplier: 1
   _EnemyHumanNumberBeforeThrow: 2
   _EnemyHumanThrowWaitDuration: 0.6
@@ -39,7 +38,6 @@ MonoBehaviour:
   _HumanToCatapultWaitDuration: 2
   _HumanToSeesawWaitDuration: 1
   _WaitDurationBeforeNewHuman: 4
-  _HumansToCreate: 6
   _MassEffectOnSeesawBalance: 0.1
   _MaxRotationAngle: 25
   _RotationSpeed: 10

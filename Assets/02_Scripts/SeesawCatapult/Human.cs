@@ -36,10 +36,7 @@ namespace SeesawCatapult
         private static readonly int SitAnimParam = Animator.StringToHash("Sit");
         private static readonly int FallAnimParam = Animator.StringToHash("Fall");
         private int? _randomMoveTweenId;
-        
-        private float MAXScale => Game.Config.HumanMaxScaleRate;
-        private float ScaleChangeDuration => Game.Config.HumanScaleChangeDuration;
-        
+
         public Human Prefab => _Prefab;
         public HumanType Type => _Type;
         public float Mass => _Mass;
@@ -97,13 +94,14 @@ namespace SeesawCatapult
         
             var startPos = transform.position;
             var catapultPos = catapult.GetSeatPosition();
+            catapult.SetSeatPosition(_TopPoint.localPosition.y);
             var moveDuration = Vector3.Distance(startPos, catapultPos) / _maxMoveSpeed;
             
             // Move to seat position
             LeanTween.value(gameObject, 0, 1, moveDuration)
                 .setOnUpdate(val =>
                 {
-                    var pos = Vector3.Lerp(startPos, catapult.GetSeatPosition(), val);
+                    var pos = Vector3.Lerp(startPos, catapultPos, val);
                     transform.position = pos;
                     transform.LookAt(catapultPos);
                 })
@@ -179,7 +177,7 @@ namespace SeesawCatapult
 
         public void DestroySelf()
         {
-            LeanTween.scale(gameObject, Vector3.one * MAXScale, ScaleChangeDuration).setOnComplete(() =>
+            LeanTween.scale(gameObject, Vector3.one * Game.Config.HumanMaxScaleRate, Game.Config.HumanScaleChangeDuration).setOnComplete(() =>
             {
                 var destroyEffect = Instantiate(_DestroyEffect,transform.position, Quaternion.identity);
                 destroyEffect.Play();

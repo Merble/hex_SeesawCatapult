@@ -10,12 +10,10 @@ namespace SeesawCatapult
         [SerializeField] private Catapult _Catapult;
         [SerializeField] private PowerUpManager _PowerUpManager;
         [SerializeField] private SeesawManager _SeesawManager;
-        
-        private float HumanThrowPointRadiusMultiplier => Game.Config._EnemyHumanThrowPointRadiusMultiplier;
-        private int HumanNumberToThrow => Game.Config._EnemyHumanNumberBeforeThrow;
-        private float HumanThrowWaitDuration => Game.Config._EnemyHumanThrowWaitDuration;
-        
+
         public HumanManager RivalHumanManager { get; set; }
+        public HumanManager HumanManager => _HumanManager;
+        public PowerUpManager PowerUpManager => _PowerUpManager;
         
         private void Awake()
         {
@@ -29,15 +27,15 @@ namespace SeesawCatapult
     
         private void OnHumanArriveCatapult(Human human)
         {
-            if( (_Catapult.HumansOnCatapult.Count >= HumanNumberToThrow) || (_HumanManager.HumansToCreate <= 0) )
-                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), HumanThrowWaitDuration);
+            if( (_Catapult.HumansOnCatapult.Count >= Game.Config._EnemyHumanNumberBeforeThrow) || (_HumanManager._HumansToCreate <= 0) )
+                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), Game.Config._EnemyHumanThrowWaitDuration);
         }
 
         private Vector3 FindProperPointForThrow()
         {
             Vector3 HumanThrowPointRadius(Vector3 pos)
             {
-                var humanThrowPointRadius = Random.insideUnitCircle * HumanThrowPointRadiusMultiplier;
+                var humanThrowPointRadius = Random.insideUnitCircle * Game.Config._EnemyHumanThrowPointRadiusMultiplier;
 
                 return new Vector3(pos.x + humanThrowPointRadius.x, 0, pos.z + humanThrowPointRadius.y);
             }

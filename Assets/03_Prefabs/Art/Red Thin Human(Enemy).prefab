@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 4092246747881920984}
   - component: {fileID: 3221314521690454170}
   m_Layer: 6
-  m_Name: Thin Human
+  m_Name: Red Thin Human(Enemy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,8 +119,6 @@ MonoBehaviour:
   _Type: 1
   _Team: 0
   _Mass: 1
-  _MaxScaleRate: 1.7
-  _ScaleChangeDuration: 1.5
 --- !u!95 &8943841877240266091
 Animator:
   serializedVersion: 3
@@ -501,11 +499,11 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f4e7bd74ff38bdc448c73dcbd4592b36, type: 2}
-  - {fileID: 2100000, guid: f4e7bd74ff38bdc448c73dcbd4592b36, type: 2}
-  - {fileID: 2100000, guid: f4e7bd74ff38bdc448c73dcbd4592b36, type: 2}
+  - {fileID: 2100000, guid: 84ccc0c648d270f41a9ee6529aac08a2, type: 2}
+  - {fileID: 2100000, guid: 84ccc0c648d270f41a9ee6529aac08a2, type: 2}
+  - {fileID: 2100000, guid: 84ccc0c648d270f41a9ee6529aac08a2, type: 2}
   - {fileID: 2100000, guid: 817282bd1f5afe14bb9b6b848e76a9ec, type: 2}
-  - {fileID: 2100000, guid: f4e7bd74ff38bdc448c73dcbd4592b36, type: 2}
+  - {fileID: 2100000, guid: 84ccc0c648d270f41a9ee6529aac08a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

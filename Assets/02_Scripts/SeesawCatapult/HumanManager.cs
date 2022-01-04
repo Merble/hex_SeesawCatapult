@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using SeesawCatapult.Enums;
 using SeesawCatapult.ThisGame.Main;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace SeesawCatapult
@@ -26,18 +28,11 @@ namespace SeesawCatapult
         [SerializeField] private float _MaxZ;
         
         public Catapult Catapult { get; set; }
-        
-        private float MinHumanSpeed => Game.Config._MinHumanSpeed;
-        private float MaxHumanSpeed => Game.Config._MaxHumanSpeed;
-        private float HumanToCatapultWaitDuration => Game.Config._HumanToCatapultWaitDuration;
-        private float HumanToSeesawWaitDuration => Game.Config._HumanToSeesawWaitDuration;
-        private float WaitDurationBeforeNewHuman => Game.Config._WaitDurationBeforeNewHuman;
-        public int HumansToCreate { get; set; }
+
+        [ReadOnly] public int _HumansToCreate;
         
         private void Awake()
         {
-            HumansToCreate = Game.Config._HumansToCreate;
-            
             StartCoroutine(CreateNewHumansRoutine());
             StartCoroutine(MoveHumansToCatapultRoutine());
             StartCoroutine(MoveHumansToSeesawRoutine());
@@ -47,13 +42,13 @@ namespace SeesawCatapult
         
         private IEnumerator CreateNewHumansRoutine() 
         {
-            while (HumansToCreate > 0)
+            while (_HumansToCreate > 0)
             {
-                yield return new WaitForSeconds(WaitDurationBeforeNewHuman);
+                yield return new WaitForSeconds(Game.Config._WaitDurationBeforeNewHuman);
 
-                HumansToCreate--;
+                _HumansToCreate--;
 
-                // Just randomizing what prefab is going to be created.
+                // Randomizing what prefab is going to be created.
                 var number = Random.Range(0, 51);
                 var prefab = number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
                 
@@ -75,7 +70,7 @@ namespace SeesawCatapult
 
         private void MoveHumanRandomly(Human human)
         {
-            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, MinHumanSpeed, MaxHumanSpeed);
+            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, Game.Config._MinHumanSpeed, Game.Config._MaxHumanSpeed);
 
             human.SetState(HumanState.RandomMove);
             StartCoroutine(human.MoveRandomLocation());
@@ -85,7 +80,7 @@ namespace SeesawCatapult
         {
             while(true)
             {
-                yield return new WaitForSeconds(HumanToCatapultWaitDuration);
+                yield return new WaitForSeconds(Game.Config._HumanToCatapultWaitDuration);
 
                 foreach (var human in _Humans.Where(human => human.State == HumanState.RandomMove))
                 {
@@ -99,7 +94,7 @@ namespace SeesawCatapult
         {
             while(true)
             {
-                yield return new WaitForSeconds(HumanToCatapultWaitDuration);
+                yield return new WaitForSeconds(Game.Config._HumanToCatapultWaitDuration);
 
                 foreach (var human in _Humans.Where(human => human.State == HumanState.OnOtherSide))
                 {
@@ -110,11 +105,11 @@ namespace SeesawCatapult
 
         private void MoveHumanToNearestSeesaw(Human human)
         {
-            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, MinHumanSpeed, MaxHumanSpeed);
+            human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, Game.Config._MinHumanSpeed, Game.Config._MaxHumanSpeed);
             var humanState = human.State;
             human.SetState(HumanState.IsMovingToSeesaw);
             
-            StartCoroutine(DoAfterCoroutine.DoAfter(HumanToSeesawWaitDuration, () =>
+            StartCoroutine(DoAfterCoroutine.DoAfter(Game.Config._HumanToSeesawWaitDuration, () =>
             {
                 var humanPos = human.transform.position;
                 var nearestSeesawSeat = GetNearestSeesawSeat(humanPos);

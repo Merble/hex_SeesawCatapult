@@ -10,9 +10,9 @@ namespace SeesawCatapult
         
         private Vector3 _seatPosition;
         
-        private int MaxHumanToSit => Game.Config._MaxHumanToSitOnSeat;
-        public bool IsSeatFull => _SatHumans >= MaxHumanToSit;
-
+        public bool IsSeatFull => _SatHumans >= Game.Config._MaxHumanToSitOnSeat;
+        
+        [HideInInspector]
         public SeesawBranch _ParentBranch;
         
         private void Awake()
@@ -39,6 +39,5 @@ namespace SeesawCatapult
             _SatHumans = 0;
             _seatPosition = transform.localPosition;
         }
-        
     }
 }

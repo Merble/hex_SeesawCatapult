@@ -1219,7 +1219,7 @@ GameObject:
   - component: {fileID: 9131718776379670884}
   - component: {fileID: 2813964834175785550}
   m_Layer: 6
-  m_Name: Fat Human
+  m_Name: Red Fat Human(Enemy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

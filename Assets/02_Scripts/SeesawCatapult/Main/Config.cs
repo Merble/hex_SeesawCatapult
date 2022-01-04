@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using HexGames;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SeesawCatapult.Main
 {
@@ -13,21 +14,13 @@ namespace SeesawCatapult.Main
         public List<PowerUp> _PowerUpPrefabs; // PowerUpManager
         
         [Space]
-        // Player
-        public float _MaxXOfBoard;
-        public float _MinXOfBoard;
-        public float _MaxZOfBoard;
-        public float _MinZOfBoard;
-        
-        [Space]
         // Human
         public float HumanScaleChangeDuration = 1.5f;
         public float HumanMaxScaleRate = 1.7f;
         
         [Space] 
         // PowerUp Manager
-        public float _WaitDurationBeforePowerUp = 6;
-        public int _PowerUpsToCreate = 5;
+        public float _WaitDurationBeforeNewPowerUp = 6;
         // PowerUp
         public float PowerUpHumanInstantiateRadius = 2;
         public float PowerUpMinScaleRate = .15f;
@@ -37,6 +30,10 @@ namespace SeesawCatapult.Main
         // Catapult
         public float CatapultThrowForce = 9;
         public float HumanThrowDirectionValueY = 1.1f;
+        public float _MaxXOfBoard;
+        public float _MinXOfBoard;
+        public float _MaxZOfBoard;
+        public float _MinZOfBoard;
         
         [Space]
         // EnemyAI
@@ -51,7 +48,6 @@ namespace SeesawCatapult.Main
         public float _HumanToCatapultWaitDuration = 2;
         public float _HumanToSeesawWaitDuration = 1;
         public float _WaitDurationBeforeNewHuman = 4;
-        public int _HumansToCreate = 6;
 
         [Space]
         // Seesaw

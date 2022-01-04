@@ -11,6 +11,8 @@ namespace SeesawCatapult
         [SerializeField] private PowerUpManager _PowerUpManager;
 
         public HumanManager HumanManager => _HumanManager;
+        public PowerUpManager PowerUpManager => _PowerUpManager;
+        
         private  VariableJoystick _joystick;
     
         public void Init(VariableJoystick joystick)

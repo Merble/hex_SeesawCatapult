@@ -13,9 +13,8 @@ namespace SeesawCatapult
         [SerializeField] private PowerUpType _PowerUpType;
         [Space]
         [SerializeField] private int _PowerUpEffectNumber;
-        
-        private float PowerUpMinScale => Game.Config.PowerUpMinScaleRate;
-        private float PowerUpScaleChangeDuration => Game.Config.PowerUpScaleChangeDuration;
+
+        private bool _isHit;
 
         public Team Team
         {
@@ -25,20 +24,23 @@ namespace SeesawCatapult
 
         private void OnTriggerEnter(Collider other)
         {
+            if (_isHit) return;
+            _isHit = true;
+            
             var human = other.GetComponentInParent<Human>();
         
             if (!human) return;
 
             if (human.Team != Team) return;
         
-            DidUsePowerUp?.Invoke(human, _PowerUpType, transform.position,_PowerUpEffectNumber);
+            DidUsePowerUp?.Invoke(human, _PowerUpType, transform.position, _PowerUpEffectNumber);
             
             DestroySelf();
         }
         
         private void DestroySelf()
         {
-            LeanTween.scale(gameObject, Vector3.one * PowerUpMinScale, PowerUpScaleChangeDuration).setOnComplete(() =>
+            LeanTween.scale(gameObject, Vector3.one * Game.Config.PowerUpMinScaleRate, Game.Config.PowerUpScaleChangeDuration).setOnComplete(() =>
             {
                 // TODO: Destroy Effect
                 Destroy(gameObject);

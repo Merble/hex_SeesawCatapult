@@ -16,6 +16,8 @@ namespace SeesawCatapult
         [Space]
         [SerializeField] private bool _IsPlayer;
 
+        public float TotalMass { get; set; }
+        
         public Seesaw _ParentSeesaw;
 
         private void Awake()
@@ -29,7 +31,8 @@ namespace SeesawCatapult
         public void AddHuman(Human human)
         {
             _Humans.Add(human);
-        
+            TotalMass += human.Mass;
+            
             DidMassChange?.Invoke(human.Mass, _IsPlayer);
         }
     
@@ -49,7 +52,8 @@ namespace SeesawCatapult
             {
                 seat.ClearSeat();
             }
-        
+
+            TotalMass = 0f;
             _Humans.Clear();
         }
     }

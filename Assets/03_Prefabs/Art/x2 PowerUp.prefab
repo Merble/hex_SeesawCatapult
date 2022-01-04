@@ -252,9 +252,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7812834254479442075}
+  - component: {fileID: 4700677673137113522}
   - component: {fileID: 7812834254479442072}
   - component: {fileID: 7812834254479442073}
-  - component: {fileID: 4700677673137113522}
   - component: {fileID: -8491017581951082840}
   m_Layer: 0
   m_Name: x2 PowerUp
@@ -289,6 +289,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4700677673137113522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812834254479442070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e942d4bb57bdebf489b71db8839704a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Team: 0
+  _PowerUpType: 0
+  _PowerUpEffectNumber: 2
 --- !u!33 &7812834254479442072
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -338,21 +353,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4700677673137113522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7812834254479442070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e942d4bb57bdebf489b71db8839704a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Team: 0
-  _PowerUpType: 0
-  _PowerUpEffectNumber: 2
 --- !u!65 &-8491017581951082840
 BoxCollider:
   m_ObjectHideFlags: 0
