@@ -43,8 +43,12 @@ namespace SeesawCatapult
             var losingSeesaws = _SeesawManager.GetLosingSeesawsForEnemy();
             if (losingSeesaws.Any())
             {
-                var pos =  losingSeesaws[Random.Range(0, losingSeesaws.Count)].GetSeesawSeatForEnemyAI().transform.position;
-                return HumanThrowPointRadius(pos);
+                var seat = losingSeesaws[Random.Range(0, losingSeesaws.Count)].GetSeesawSeatForEnemyAI();
+                if (seat != null)
+                {
+                    var pos =  seat.transform.position;
+                    return HumanThrowPointRadius(pos);
+                }
             }
             
             if (_PowerUpManager.PowerUps.Any())
@@ -56,8 +60,12 @@ namespace SeesawCatapult
             var balancedSeesaws = _SeesawManager.GetBalancedSeesaws();
             if (balancedSeesaws.Any())
             {
-                var pos =  balancedSeesaws[Random.Range(0, balancedSeesaws.Count)].GetSeesawSeatForEnemyAI().transform.position;
-                return HumanThrowPointRadius(pos);
+                var seat = balancedSeesaws[Random.Range(0, balancedSeesaws.Count)].GetSeesawSeatForEnemyAI();
+                if (seat != null)
+                {
+                    var pos =  seat.transform.position;
+                    return HumanThrowPointRadius(pos);
+                }
             }
 
             return RivalHumanManager.GetRandomPointOnBoard();

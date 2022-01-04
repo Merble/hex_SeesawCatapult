@@ -7,7 +7,7 @@ namespace SeesawCatapult
 {
     public class PowerUp : MonoBehaviour
     {
-        public event Action<Human, PowerUpType, Vector3, int> DidUsePowerUp;
+        public event Action<Human, PowerUp, int> DidUsePowerUp;
     
         [SerializeField] private Team _Team;
         [SerializeField] private PowerUpType _PowerUpType;
@@ -15,7 +15,8 @@ namespace SeesawCatapult
         [SerializeField] private int _PowerUpEffectNumber;
 
         private bool _isHit;
-
+        public PowerUpType PowerUpType => _PowerUpType;
+        
         public Team Team
         {
             get => _Team;
@@ -33,7 +34,7 @@ namespace SeesawCatapult
 
             if (human.Team != Team) return;
         
-            DidUsePowerUp?.Invoke(human, _PowerUpType, transform.position, _PowerUpEffectNumber);
+            DidUsePowerUp?.Invoke(human, this, _PowerUpEffectNumber);
             
             DestroySelf();
         }

@@ -48,27 +48,29 @@ namespace SeesawCatapult
                 // Some Settings
                 powerUp.DidUsePowerUp += OnPowerUpUse;
                 powerUp.Team = _Team;
-                PowerUps.Add(powerUp);
+                _PowerUps.Add(powerUp);
                 _PowerUpSpawnPositions.Remove(spawnPointTransform);
             }
         }
 
-        private void OnPowerUpUse(Human human, PowerUpType powerUpType, Vector3 powerUpPos, int powerUpEffectNumber)
+        private void OnPowerUpUse(Human human, PowerUp powerUp, int powerUpEffectNumber)
         {
             foreach (var humanGroup in HumanGroupList.Where(humanGroup => humanGroup.Contains(human)))
             {
-                switch (powerUpType)
+                switch (powerUp.PowerUpType)
                 {
                     case PowerUpType.Addition:
-                        AddHumans(humanGroup, powerUpPos, powerUpEffectNumber);
+                        AddHumans(humanGroup, powerUp.transform.position, powerUpEffectNumber);
                         break;
                     case PowerUpType.Multiplication:
-                        MultiplyHumans(humanGroup, powerUpPos, powerUpEffectNumber);
+                        MultiplyHumans(humanGroup, powerUp.transform.position, powerUpEffectNumber);
                         break;
                     default:
                         return;
                 }
             }
+            
+            _PowerUps.Remove(powerUp);
         }
         
         private void AddHumans(Human[] humanGroup, Vector3 powerUpPos, int powerUpEffectNumber)

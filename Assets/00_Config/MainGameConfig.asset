@@ -24,7 +24,7 @@ MonoBehaviour:
   PowerUpHumanInstantiateRadius: 2
   PowerUpMinScaleRate: 0.15
   PowerUpScaleChangeDuration: 0.6
-  CatapultThrowForce: 9
+  CatapultThrowForce: 10
   HumanThrowDirectionValueY: 1.1
   _MaxXOfBoard: 6
   _MinXOfBoard: -6
@@ -36,7 +36,7 @@ MonoBehaviour:
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
   _HumanToCatapultWaitDuration: 5
-  _HumanToSeesawWaitDuration: 1
+  _HumanToSeesawWaitDuration: 0.5
   _WaitDurationBeforeNewHuman: 5
   _MassEffectOnSeesawBalance: 0.1
   _MaxRotationAngle: 25

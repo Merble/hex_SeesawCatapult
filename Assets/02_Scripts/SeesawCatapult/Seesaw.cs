@@ -33,7 +33,6 @@ namespace SeesawCatapult
     
         private void BalanceChange(float mass, bool isPlayer)
         {
-            //_BalanceValue += (isPlayer ? 1 : -1) * mass * MassEffectOnBalance;
             _BalanceValue = ((_PlayerSeesawBranch.TotalMass - _EnemySeesawBranch.TotalMass) * Game.Config._MassEffectOnSeesawBalance) + .5f;
             _BalanceValue = Mathf.Clamp(_BalanceValue, 0, 1);
         

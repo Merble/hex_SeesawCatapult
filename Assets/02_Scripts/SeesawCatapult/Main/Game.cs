@@ -26,6 +26,8 @@ namespace SeesawCatapult.ThisGame.Main
 
         protected override void DidStartGame(LevelHelper levelHelper)
         {
+            _State = GameState.Balance;
+            
             levelHelper.SeesawManager.DidBalanceChange += OnBalanceChange;
             levelHelper.EnemyAI.RivalHumanManager = levelHelper.Player.HumanManager;
             
@@ -48,16 +50,18 @@ namespace SeesawCatapult.ThisGame.Main
                 return;
             }
             
-            var isPlayerAhead = playerPoint > enemyPoint;
+            /*var isPlayerAhead = playerPoint > enemyPoint;
             
             if ((_State == GameState.PlayerIsAhead) == isPlayerAhead) return;
                 
             _State = isPlayerAhead ? GameState.PlayerIsAhead : GameState.EnemyIsAhead;
+            
+            _CountdownText.gameObject.SetActive(false);
                 
             if(_countdownRoutine != null) StopCoroutine(_countdownRoutine);
-            _countdownRoutine = StartCoroutine(CountdownTimer(_CountdownDuration));
+            _countdownRoutine = StartCoroutine(CountdownTimer(_CountdownDuration));*/
             
-            /*if (playerPoint > enemyPoint)
+            if (playerPoint > enemyPoint)
             {
                 if (_State == GameState.PlayerIsAhead) return;
 
@@ -74,7 +78,7 @@ namespace SeesawCatapult.ThisGame.Main
                 
                 _State = GameState.EnemyIsAhead;
                 _countdownRoutine = StartCoroutine(CountdownTimer(_CountdownDuration));
-            }*/
+            }
         }
         
         private IEnumerator CountdownTimer(int countdown)
