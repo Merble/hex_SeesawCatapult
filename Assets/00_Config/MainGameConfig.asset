@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 8192466190605722065, guid: fdde5c7cebfdfad45a8ec14f8bffd4f9, type: 3}
   HumanScaleChangeDuration: 1.5
   HumanMaxScaleRate: 1.7
-  _WaitDurationBeforeNewPowerUp: 6
+  _WaitDurationBeforeNewPowerUp: 3
   PowerUpHumanInstantiateRadius: 2
   PowerUpMinScaleRate: 0.15
   PowerUpScaleChangeDuration: 0.6
@@ -35,9 +35,9 @@ MonoBehaviour:
   _EnemyHumanThrowWaitDuration: 0.6
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
-  _HumanToCatapultWaitDuration: 5
+  _HumanToCatapultWaitDuration: 0
   _HumanToSeesawWaitDuration: 0.5
-  _WaitDurationBeforeNewHuman: 5
+  _WaitDurationBeforeNewHuman: 0.65
   _MassEffectOnSeesawBalance: 0.1
   _MaxRotationAngle: 25
   _RotationSpeed: 10
