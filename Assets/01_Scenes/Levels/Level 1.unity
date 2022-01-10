@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196586753}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.78, y: -0.01, z: 7.5}
+  m_LocalPosition: {x: 1.78, y: 1.07, z: 5.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1005447395}
@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Fat Human(Enemy)
       objectReference: {fileID: 0}
+    - target: {fileID: 3701032028128859145, guid: 6db4fc520918bc24b870c242232c9cb0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db4fc520918bc24b870c242232c9cb0, type: 3}
 --- !u!114 &232856118 stripped
@@ -247,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.21
+      value: 1.76
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
       propertyPath: m_LocalPosition.y
@@ -255,7 +259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.61
+      value: -12.54
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: 14dc46a53426eca439a44962b6ad5b78, type: 3}
       propertyPath: m_LocalRotation.w
@@ -455,7 +459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &468265344
 Transform:
   m_ObjectHideFlags: 0
@@ -913,7 +917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: b4cec8b28b7b7c14a89f457db2669362, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.24
+      value: 4.71
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: b4cec8b28b7b7c14a89f457db2669362, type: 3}
       propertyPath: m_LocalPosition.y
@@ -921,7 +925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: b4cec8b28b7b7c14a89f457db2669362, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.67
+      value: 4.56
       objectReference: {fileID: 0}
     - target: {fileID: 8943841877240266092, guid: b4cec8b28b7b7c14a89f457db2669362, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1446,6 +1450,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue Fat Human(Player)
       objectReference: {fileID: 0}
+    - target: {fileID: 3701032028128859145, guid: 5a0d27b946a71784db712c529243df58, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a0d27b946a71784db712c529243df58, type: 3}
 --- !u!4 &1305397628 stripped
@@ -1749,7 +1757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394391724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.78, y: -0.01, z: -18.64}
+  m_LocalPosition: {x: 1.78, y: -0.01, z: -11.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1330469079}
