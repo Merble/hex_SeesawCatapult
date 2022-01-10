@@ -17,9 +17,10 @@ MonoBehaviour:
   - {fileID: 7873743057471985333, guid: 38f90074f4f9540458bdb4787932316b, type: 3}
   - {fileID: 5490743417658370220, guid: f63f980a173b01a488dc46fe735e8085, type: 3}
   - {fileID: 7995546056008324337, guid: a1913c172f6ff774f88408f4bf70d298, type: 3}
+  JoystickRadiusMultiplier: 2
   HumanScaleChangeDuration: 1.5
   HumanMaxScaleRate: 1.7
-  _WaitDurationBeforeNewPowerUp: 3
+  _WaitDurationBeforeNewPowerUp: 5
   PowerUpHumanInstantiateRadius: 2
   PowerUpMinScaleRate: 0.15
   PowerUpScaleChangeDuration: 0.6
@@ -34,9 +35,9 @@ MonoBehaviour:
   _EnemyHumanThrowWaitDuration: 0.6
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
-  _HumanToCatapultWaitDuration: 3
+  _HumanToCatapultWaitDuration: 0
   _HumanToSeesawWaitDuration: 0.5
-  _WaitDurationBeforeNewHuman: 4
+  _WaitDurationBeforeNewHuman: 3.5
   _MassEffectOnSeesawBalance: 0.1
   _MaxRotationAngle: 25
   _RotationSpeed: 10
