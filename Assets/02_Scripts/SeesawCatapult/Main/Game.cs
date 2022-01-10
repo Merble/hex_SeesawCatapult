@@ -16,6 +16,7 @@ namespace SeesawCatapult.ThisGame.Main
     public class Game: Game<Config, LevelHelper>
     {
         [SerializeField] private VariableJoystick _Joystick;
+        [SerializeField] private GameObject _CountdownCanvas;
         [SerializeField] private TextMeshProUGUI _CountdownText;
         [Space] 
         [SerializeField, ReadOnly] private GameState _State;
@@ -45,7 +46,7 @@ namespace SeesawCatapult.ThisGame.Main
             {
                 _State = GameState.Balance;
                 if(_countdownRoutine != null) StopCoroutine(_countdownRoutine);
-                _CountdownText.gameObject.SetActive(false);
+                _CountdownCanvas.gameObject.SetActive(false);
                 
                 return;
             }
@@ -83,7 +84,7 @@ namespace SeesawCatapult.ThisGame.Main
         
         private IEnumerator CountdownTimer(int countdown)
         {
-            _CountdownText.gameObject.SetActive(true);
+            _CountdownCanvas.gameObject.SetActive(true);
             
             while (countdown >= 0)
             {
@@ -94,7 +95,7 @@ namespace SeesawCatapult.ThisGame.Main
                 countdown--;
             }
 
-            _CountdownText.gameObject.SetActive(false);
+            _CountdownCanvas.gameObject.SetActive(false);
 
             var isPlayerWin = _State == GameState.PlayerIsAhead;
             

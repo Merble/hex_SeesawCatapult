@@ -89,8 +89,13 @@ namespace SeesawCatapult
         
         public Vector3 GetSeatPosition()
         {
+            return _CatapultSeat.position;
+        }
+        public Vector3 WhereToSit()
+        {
             return _seatPosition;
         }
+        
         
         private void ClearSeat()
         {

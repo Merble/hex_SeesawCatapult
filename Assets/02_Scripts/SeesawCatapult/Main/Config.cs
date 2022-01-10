@@ -13,6 +13,10 @@ namespace SeesawCatapult.Main
         public List<PowerUp> _PowerUpPrefabs; // PowerUpManager
         
         [Space]
+        // Joystick
+        public float JoystickRadiusMultiplier = 1f;
+        
+        [Space]
         // Human
         public float HumanScaleChangeDuration = 1.5f;
         public float HumanMaxScaleRate = 1.7f;

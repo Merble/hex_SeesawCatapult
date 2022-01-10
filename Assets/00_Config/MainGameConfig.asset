@@ -34,9 +34,9 @@ MonoBehaviour:
   _EnemyHumanThrowWaitDuration: 0.6
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
-  _HumanToCatapultWaitDuration: 0
+  _HumanToCatapultWaitDuration: 3
   _HumanToSeesawWaitDuration: 0.5
-  _WaitDurationBeforeNewHuman: 3
+  _WaitDurationBeforeNewHuman: 4
   _MassEffectOnSeesawBalance: 0.1
   _MaxRotationAngle: 25
   _RotationSpeed: 10

@@ -62,7 +62,7 @@ namespace SeesawCatapult
                 var position = transform.position;
                 var posX = Random.Range(_minX, _maxX);
                 var posZ = Random.Range(_minZ, _maxZ);
-                _moveSpot = new Vector3(posX, position.y, posZ);
+                _moveSpot = new Vector3(posX, 0, posZ);
 
                 var moveSpeed = Random.Range(_minMoveSpeed, _maxMoveSpeed);
                 var moveDuration = Vector3.Distance(position, _moveSpot) / moveSpeed;
@@ -94,6 +94,7 @@ namespace SeesawCatapult
         
             var startPos = transform.position;
             var catapultPos = catapult.GetSeatPosition();
+            var catapultSeatPos = catapult.WhereToSit();
             catapult.SetSeatPosition(_TopPoint.localPosition.y);
             var moveDuration = Vector3.Distance(startPos, catapultPos) / _maxMoveSpeed;
             
@@ -110,6 +111,7 @@ namespace SeesawCatapult
                     _Animator.SetTrigger(SitAnimParam);
                     transform.LookAt(Vector3.back);
                     catapult.DidHumanCome(this);
+                    transform.position = catapultSeatPos;
                 });
         }
         

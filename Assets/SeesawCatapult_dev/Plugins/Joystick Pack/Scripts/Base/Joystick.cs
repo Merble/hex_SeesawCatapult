@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -72,7 +73,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             cam = canvas.worldCamera;
 
         Vector2 position = RectTransformUtility.WorldToScreenPoint(cam, background.position);
-        Vector2 radius = background.sizeDelta / 2;
+        Vector2 radius = background.sizeDelta * Game.Config.JoystickRadiusMultiplier;
         input = (eventData.position - position) / (radius * canvas.scaleFactor);
         FormatInput();
         HandleInput(input.magnitude, input.normalized, radius, cam);

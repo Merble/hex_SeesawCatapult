@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196586753}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.78, y: 1.07, z: 5.52}
+  m_LocalPosition: {x: 1.78, y: -0.68, z: 10.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1005447395}
@@ -571,11 +571,11 @@ PrefabInstance:
       objectReference: {fileID: 1394391725}
     - target: {fileID: 6517505752244942272, guid: 995b0f1b5fc966b479d9add576a524c2, type: 3}
       propertyPath: _HumansToCreate
-      value: 6
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6517505752244942272, guid: 995b0f1b5fc966b479d9add576a524c2, type: 3}
       propertyPath: _Humans.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6517505752244942272, guid: 995b0f1b5fc966b479d9add576a524c2, type: 3}
       propertyPath: _Humans.Array.data[0]
@@ -1757,7 +1757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394391724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.78, y: -0.01, z: -11.92}
+  m_LocalPosition: {x: 1.78, y: -0.66, z: -20.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1330469079}
@@ -1850,6 +1850,86 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1005447395}
     m_Modifications:
+    - target: {fileID: 142481127758534249, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 294679075750776147, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265836238258792571, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278603384520509455, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505232323650073680, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558215982689144768, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798786111230123658, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1805773663371341129, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856880341458535054, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2499821557668695366, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661263095505378093, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141799352805917973, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149563838094821551, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231352991269478987, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334844078682716918, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5935907477563422031, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263305293375470340, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590386037600509557, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7055473025093323287, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686270043439036479, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7978170346390898832, guid: 22b62564083a01c479615de38f25fb75, type: 3}
       propertyPath: m_Name
       value: Enemy PowerUp Manager
@@ -1946,6 +2026,10 @@ PrefabInstance:
       propertyPath: _PowerUpSpawnPositions.Array.data[18]
       value: 
       objectReference: {fileID: 1682543537}
+    - target: {fileID: 8250264147243234551, guid: 22b62564083a01c479615de38f25fb75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22b62564083a01c479615de38f25fb75, type: 3}
 --- !u!4 &1682543535 stripped
@@ -2309,7 +2393,11 @@ PrefabInstance:
       objectReference: {fileID: 196586754}
     - target: {fileID: 6763104668407104551, guid: fead1c1407d43ab499709a40a1416345, type: 3}
       propertyPath: _HumansToCreate
-      value: 6
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6763104668407104551, guid: fead1c1407d43ab499709a40a1416345, type: 3}
+      propertyPath: _Humans.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6763104668407104551, guid: fead1c1407d43ab499709a40a1416345, type: 3}
       propertyPath: _Humans.Array.data[0]
