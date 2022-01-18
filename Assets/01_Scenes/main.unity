@@ -429,11 +429,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3881087803549984439, guid: ec536a7718376554185e4a856d5ae230, type: 3}
       propertyPath: handleRange
-      value: 1
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 3881087803549984439, guid: ec536a7718376554185e4a856d5ae230, type: 3}
       propertyPath: moveThreshold
-      value: 4.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3881087803815115470, guid: ec536a7718376554185e4a856d5ae230, type: 3}
       propertyPath: m_Sprite
@@ -840,11 +840,11 @@ MonoBehaviour:
   horizonColor: {r: 0, g: 0.7490196, b: 1, a: 1}
   horizonDistance: 0.8
   shoreFade: 0
-  shoreColor: {r: 0, g: 1, b: 0.3079186, a: 0}
+  shoreColor: {r: 0, g: 1, b: 0.30791664, a: 0}
   shoreStrength: 0
   shoreBlend: 0
   shoreDepth: 0
-  waveColor: {r: 0, g: 0.0118965, b: 0.18859145, a: 0}
+  waveColor: {r: 0, g: 0.0118965, b: 0.1885896, a: 0}
   underwaterColor: {r: 0, g: 0, b: 0, a: 0}
   underwaterColorStrength: 0
   underwaterRefractionStrength: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
   surfaceFoamCutoff: 1
   surfaceFoamDistortion: 0
   surfaceFoamBlend: 1
-  surfaceFoamColor1: {r: 0.42909735, g: 0.8097486, b: 1, a: 0.21960784}
+  surfaceFoamColor1: {r: 0.4290954, g: 0.8097486, b: 1, a: 0.21960784}
   surfaceFoamColor2: {r: 0, g: 0.44543076, b: 0.8113207, a: 0.7294118}
   surfaceFoamMovement: {x: 0.7, y: 0, z: 0.47, w: 0.01}
   surfaceFoamDirection1: 0.7
@@ -1022,7 +1022,7 @@ MonoBehaviour:
   _CountdownCanvas: {fileID: 1028278557}
   _CountdownText: {fileID: 877872412}
   _State: 0
-  _CountdownDuration: 60
+  _CountdownDuration: 8
 --- !u!4 &673258098
 Transform:
   m_ObjectHideFlags: 0
@@ -2337,13 +2337,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805005506}
-  m_LocalRotation: {x: 0.55703115, y: -0, z: -0, w: 0.8304916}
-  m_LocalPosition: {x: 0, y: 26, z: -13.89}
+  m_LocalRotation: {x: 0.5567659, y: -0.02582622, z: 0.01732245, w: 0.8300871}
+  m_LocalPosition: {x: 0.92000014, y: 23.81, z: -13.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 67.701, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 67.702, y: -3.564, z: 0}
 --- !u!1 &1884463539
 GameObject:
   m_ObjectHideFlags: 0
