@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PowerUpPrefabs:
   - {fileID: 8909577356986816762, guid: 603543ad1ae808c40a2b76c4c5a04fc4, type: 3}
-  - {fileID: 7873743057471985333, guid: 38f90074f4f9540458bdb4787932316b, type: 3}
-  - {fileID: 5490743417658370220, guid: f63f980a173b01a488dc46fe735e8085, type: 3}
-  - {fileID: 7995546056008324337, guid: a1913c172f6ff774f88408f4bf70d298, type: 3}
   JoystickRadiusMultiplier: 2
   HumanScaleChangeDuration: 1.5
   HumanMaxScaleRate: 1.7

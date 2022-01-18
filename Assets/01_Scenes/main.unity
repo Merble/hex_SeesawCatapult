@@ -840,11 +840,11 @@ MonoBehaviour:
   horizonColor: {r: 0, g: 0.7490196, b: 1, a: 1}
   horizonDistance: 0.8
   shoreFade: 0
-  shoreColor: {r: 0, g: 1, b: 0.30791664, a: 0}
+  shoreColor: {r: 0, g: 1, b: 0.30791837, a: 0}
   shoreStrength: 0
   shoreBlend: 0
   shoreDepth: 0
-  waveColor: {r: 0, g: 0.0118965, b: 0.1885896, a: 0}
+  waveColor: {r: 0, g: 0.0118965, b: 0.18859124, a: 0}
   underwaterColor: {r: 0, g: 0, b: 0, a: 0}
   underwaterColorStrength: 0
   underwaterRefractionStrength: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
   surfaceFoamCutoff: 1
   surfaceFoamDistortion: 0
   surfaceFoamBlend: 1
-  surfaceFoamColor1: {r: 0.4290954, g: 0.8097486, b: 1, a: 0.21960784}
+  surfaceFoamColor1: {r: 0.42909712, g: 0.8097486, b: 1, a: 0.21960784}
   surfaceFoamColor2: {r: 0, g: 0.44543076, b: 0.8113207, a: 0.7294118}
   surfaceFoamMovement: {x: 0.7, y: 0, z: 0.47, w: 0.01}
   surfaceFoamDirection1: 0.7
@@ -2337,13 +2337,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805005506}
-  m_LocalRotation: {x: 0.5567659, y: -0.02582622, z: 0.01732245, w: 0.8300871}
-  m_LocalPosition: {x: 0.92000014, y: 23.81, z: -13.89}
+  m_LocalRotation: {x: 0.5570351, y: 0, z: 0, w: 0.830489}
+  m_LocalPosition: {x: 0, y: 23.81, z: -13.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 67.702, y: -3.564, z: 0}
+  m_LocalEulerAnglesHint: {x: 67.702, y: 0, z: 0}
 --- !u!1 &1884463539
 GameObject:
   m_ObjectHideFlags: 0
