@@ -5468,7 +5468,7 @@ PrefabInstance:
     - target: {fileID: 3275426342301279729, guid: 9e8057ed137414fa5bb859a049a122e3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 944181482358587744, guid: 91a7dfbce3a734d93b1d51895928be28, type: 2}
+      objectReference: {fileID: 944181482358587744, guid: 57c0be7169a024d49a1bfcdb40278868, type: 2}
     - target: {fileID: 6256198734523188466, guid: 9e8057ed137414fa5bb859a049a122e3, type: 3}
       propertyPath: m_Name
       value: Gate Frame +5
