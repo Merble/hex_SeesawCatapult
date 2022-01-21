@@ -21,4 +21,4 @@ MonoBehaviour:
   _SceneAssets:
   - {fileID: 102900000, guid: a571918f3444b430985111db8d18dc35, type: 3}
   _TestLevel: {fileID: 0}
-  _LoadLevelScene: 1
+  _LoadLevelScene: 0

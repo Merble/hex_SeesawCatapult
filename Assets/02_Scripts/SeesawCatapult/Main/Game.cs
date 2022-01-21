@@ -51,17 +51,6 @@ namespace SeesawCatapult.ThisGame.Main
                 return;
             }
             
-            /*var isPlayerAhead = playerPoint > enemyPoint;
-            
-            if ((_State == GameState.PlayerIsAhead) == isPlayerAhead) return;
-                
-            _State = isPlayerAhead ? GameState.PlayerIsAhead : GameState.EnemyIsAhead;
-            
-            _CountdownText.gameObject.SetActive(false);
-                
-            if(_countdownRoutine != null) StopCoroutine(_countdownRoutine);
-            _countdownRoutine = StartCoroutine(CountdownTimer(_CountdownDuration));*/
-            
             if (playerPoint > enemyPoint)
             {
                 if (_State == GameState.PlayerIsAhead) return;

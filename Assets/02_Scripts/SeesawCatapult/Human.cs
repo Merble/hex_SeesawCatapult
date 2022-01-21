@@ -93,9 +93,15 @@ namespace SeesawCatapult
             if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
         
             var startPos = transform.position;
-            var catapultPos = catapult.GetSeatPosition();
-            var catapultSeatPos = catapult.WhereToSit();
-            catapult.SetSeatPosition(_TopPoint.localPosition.y);
+            var catapultSeat = catapult.GetSeatPosition();
+            if (!catapultSeat)
+            {
+                _state = HumanState.RandomMove;
+                StartCoroutine(MoveRandomLocation());
+                return;
+            }
+            catapultSeat.SetIsSeatFull(true);
+            var catapultPos = catapultSeat.transform.position;
             var moveDuration = Vector3.Distance(startPos, catapultPos) / _maxMoveSpeed;
             
             // Move to seat position
@@ -111,7 +117,6 @@ namespace SeesawCatapult
                     _Animator.SetTrigger(SitAnimParam);
                     transform.LookAt(Vector3.back);
                     catapult.DidHumanCome(this);
-                    transform.position = catapultSeatPos;
                 });
         }
         
@@ -145,7 +150,6 @@ namespace SeesawCatapult
                 })
                 .setOnComplete(() =>
                 {
-
                     var pos = transform.position;
                     _state = HumanState.OnSeesaw;
                     transform.LookAt(new Vector3(pos.x, pos.y ,0));

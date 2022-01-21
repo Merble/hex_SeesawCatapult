@@ -263,7 +263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _CatapultAnimator: {fileID: 675358946605190293}
-  _CatapultSeat: {fileID: 3707197897450612335}
+  _CatapultSeats:
+  - {fileID: 4175390360095784396}
 --- !u!1 &8646217772828261426
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8646217772828261437}
+  - component: {fileID: 4175390360095784396}
   - component: {fileID: 8646217772828261436}
   - component: {fileID: 8646217772828261427}
   m_Layer: 0
@@ -296,6 +298,18 @@ Transform:
   m_Father: {fileID: 6433572589010548002}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &4175390360095784396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646217772828261426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75bd836cb48d834c8f7f0d1ca0a981c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &8646217772828261436
 MeshFilter:
   m_ObjectHideFlags: 0

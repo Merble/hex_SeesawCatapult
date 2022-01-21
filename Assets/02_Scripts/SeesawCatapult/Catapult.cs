@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SeesawCatapult.Enums;
 using SeesawCatapult.ThisGame.Main;
 using UnityEngine;
@@ -10,12 +11,12 @@ namespace SeesawCatapult
     {
         public event Action<Human> HumanDidComeToCatapult;
         public event Action<Human[]> DidThrowHumans;
+        public event Action DidSeatsFilledUp;
+        public event Action DidSeatsGotEmpty;
         
         [SerializeField] private Animator _CatapultAnimator;
-        [SerializeField] private Transform _CatapultSeat;
-        
-        private Vector3 _seatPosition;
-        
+        [SerializeField] private List<CatapultSeat> _CatapultSeats;
+
         private float ThrowForce => Game.Config.CatapultThrowForce;
         private float DirectionValueY => Game.Config.HumanThrowDirectionValueY;
         
@@ -24,17 +25,11 @@ namespace SeesawCatapult
 
         public List<Human> HumansOnCatapult { get; } = new List<Human>();
         
-        private void Awake()
-        {
-            _seatPosition = _CatapultSeat.position;
-        }
-        
         public void DidHumanCome(Human human)
         {
             human.SetState(HumanState.OnCatapult);
-
             HumansOnCatapult.Add(human);
-            
+            CheckIfSeatsAreFull();
             HumanDidComeToCatapult?.Invoke(human);
         }
 
@@ -51,6 +46,7 @@ namespace SeesawCatapult
 
             ClearSeat();
         }
+        
         public Vector3 FindTrajectoryFinishPosition(Vector2 direction)
         {
             var forceY = DirectionValueY * ThrowForce;
@@ -82,25 +78,26 @@ namespace SeesawCatapult
             return direction;
         }
         
-        public void SetSeatPosition(float newY)
+        public CatapultSeat GetSeatPosition()
         {
-            _seatPosition += new Vector3(0, newY, 0);
+            return _CatapultSeats.FirstOrDefault(catapultSeat => !catapultSeat.IsSeatFull());
         }
-        
-        public Vector3 GetSeatPosition()
+
+        private void CheckIfSeatsAreFull()
         {
-            return _CatapultSeat.position;
+            if(!_CatapultSeats.FirstOrDefault(catapultSeat => !catapultSeat.IsSeatFull()))
+                DidSeatsFilledUp?.Invoke();
         }
-        public Vector3 WhereToSit()
-        {
-            return _seatPosition;
-        }
-        
         
         private void ClearSeat()
         {
             HumansOnCatapult.Clear();
-            _seatPosition = _CatapultSeat.position;
+            foreach (var catapultSeat in _CatapultSeats)
+            {
+                catapultSeat.SetIsSeatFull(false);
+            }
+
+            DidSeatsGotEmpty?.Invoke();
         }
     }
 }

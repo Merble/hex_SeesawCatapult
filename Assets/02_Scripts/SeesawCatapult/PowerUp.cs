@@ -17,12 +17,6 @@ namespace SeesawCatapult
         private bool _isHit;
         public PowerUpType PowerUpType => _PowerUpType;
         
-        public Team Team
-        {
-            get => _Team;
-            set => _Team = value;
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (_isHit) return;
@@ -31,8 +25,6 @@ namespace SeesawCatapult
             var human = other.GetComponentInParent<Human>();
         
             if (!human) return;
-
-            if (human.Team != Team) return;
         
             DidUsePowerUp?.Invoke(human, this, _PowerUpEffectNumber);
             
@@ -43,7 +35,6 @@ namespace SeesawCatapult
         {
             LeanTween.scale(gameObject, Vector3.one * Game.Config.PowerUpMinScaleRate, Game.Config.PowerUpScaleChangeDuration).setOnComplete(() =>
             {
-                // TODO: Destroy Effect
                 Destroy(gameObject);
             });
         }

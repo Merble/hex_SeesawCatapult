@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using SeesawCatapult.Enums;
 using SeesawCatapult.ThisGame.Main;
-using Sirenix.OdinInspector;
+using Unity.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace SeesawCatapult
 {
-    public class PowerUpManager : MonoBehaviour
+    public class PowerUpCreator : MonoBehaviour
     {
+        
         public event Action<List<Human>> DidInstantiateHumans;
 
         [SerializeField] private List<PowerUp> _PowerUps = new List<PowerUp>();

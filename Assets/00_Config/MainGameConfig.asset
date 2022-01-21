@@ -32,13 +32,13 @@ MonoBehaviour:
   _MaxZOfBoard: 10
   _MinZOfBoard: -10
   _EnemyHumanThrowPointRadiusMultiplier: 1
-  _EnemyHumanNumberBeforeThrow: 2
+  _EnemyHumanNumberBeforeThrow: 1
   _EnemyHumanThrowWaitDuration: 0.6
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
-  _HumanToCatapultWaitDuration: 0
+  _HumanToCatapultWaitDuration: 5
   _HumanToSeesawWaitDuration: 0.5
-  _WaitDurationBeforeNewHuman: 3.5
+  _WaitDurationBeforeNewHuman: 3
   _MassEffectOnSeesawBalance: 0.1
   _MaxRotationAngle: 25
   _RotationSpeed: 10

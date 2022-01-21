@@ -28,6 +28,7 @@ namespace SeesawCatapult
             };
 
             _Catapult.DidThrowHumans += humans => { _PowerUpManager.HumanGroupList.Add(humans); };
+            _Catapult.DidSeatsFilledUp += () => { _HumanManager.SetIsCatapultAvailable(false) ;};
 
             _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }

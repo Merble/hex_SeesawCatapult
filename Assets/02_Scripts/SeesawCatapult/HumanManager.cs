@@ -25,7 +25,8 @@ namespace SeesawCatapult
         [SerializeField] private float _MaxX;
         [SerializeField] private float _MinZ;
         [SerializeField] private float _MaxZ;
-        
+
+        public bool _isCatapultAvailable = true;
         public Catapult Catapult { get; set; }
 
         [ReadOnly] public int _HumansToCreate;
@@ -39,11 +40,14 @@ namespace SeesawCatapult
             MoveAllHumansRandomly();
         }
         
-        private IEnumerator CreateNewHumansRoutine() 
+        private IEnumerator CreateNewHumansRoutine()
         {
+            var duration = Game.Config._WaitDurationBeforeNewHuman;
             while (_HumansToCreate > 0)
             {
-                yield return new WaitForSeconds(Game.Config._WaitDurationBeforeNewHuman);
+                yield return new WaitForSeconds(duration / 2);
+                if(!_isCatapultAvailable) continue;
+                yield return new WaitForSeconds(duration / 2);
 
                 _HumansToCreate--;
 
@@ -77,10 +81,13 @@ namespace SeesawCatapult
 
         private IEnumerator MoveHumansToCatapultRoutine()
         {
+            var duration = Game.Config._HumanToCatapultWaitDuration;
             while(true)
             {
-                yield return new WaitForSeconds(Game.Config._HumanToCatapultWaitDuration);
-
+                yield return new WaitForSeconds(duration / 2);
+                if(!_isCatapultAvailable) continue;
+                yield return new WaitForSeconds(duration / 2);
+                
                 foreach (var human in _Humans.Where(human => human.State == HumanState.RandomMove))
                 {
                     human.MoveToCatapult(Catapult);
@@ -159,6 +166,11 @@ namespace SeesawCatapult
         public void AddHumans(List<Human> humans)
         {
             _Humans.AddRange(humans);
+        }
+
+        public void SetIsCatapultAvailable(bool isAvailable)
+        {
+            _isCatapultAvailable = isAvailable;
         }
     }
 }
