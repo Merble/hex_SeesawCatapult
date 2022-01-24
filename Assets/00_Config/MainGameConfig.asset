@@ -19,6 +19,10 @@ MonoBehaviour:
   - {fileID: 7995546056008324337, guid: a1913c172f6ff774f88408f4bf70d298, type: 3}
   - {fileID: 8192466190605722065, guid: fdde5c7cebfdfad45a8ec14f8bffd4f9, type: 3}
   JoystickRadiusMultiplier: 2
+  TrajectoryDotNumber: 40
+  TrajectoryDotSpacing: 0.05
+  TrajectoryDotMinScale: 0.15
+  TrajectoryDotMaxScale: 0.4
   HumanScaleChangeDuration: 1.5
   HumanMaxScaleRate: 1.7
   _WaitDurationBeforeNewPowerUp: 5

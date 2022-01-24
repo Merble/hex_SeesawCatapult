@@ -50,7 +50,7 @@ namespace SeesawCatapult
         public Vector3 FindTrajectoryFinishPosition(Vector2 direction)
         {
             var forceY = DirectionValueY * ThrowForce;
-            var time = (forceY * 2) /_gravity;
+            var time = (forceY * 2f) /_gravity;
             var distance = time * direction.magnitude * ThrowForce;
         
             var groundDirection = new Vector3(direction.x, 0, direction.y);

@@ -840,11 +840,11 @@ MonoBehaviour:
   horizonColor: {r: 0, g: 0.7490196, b: 1, a: 1}
   horizonDistance: 0.8
   shoreFade: 0
-  shoreColor: {r: 0, g: 1, b: 0.3079158, a: 0}
+  shoreColor: {r: 0, g: 1, b: 0.30791146, a: 0}
   shoreStrength: 0
   shoreBlend: 0
   shoreDepth: 0
-  waveColor: {r: 0, g: 0.0118965, b: 0.1885888, a: 0}
+  waveColor: {r: 0, g: 0.0118965, b: 0.18858469, a: 0}
   underwaterColor: {r: 0, g: 0, b: 0, a: 0}
   underwaterColorStrength: 0
   underwaterRefractionStrength: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
   surfaceFoamCutoff: 1
   surfaceFoamDistortion: 0
   surfaceFoamBlend: 1
-  surfaceFoamColor1: {r: 0.42909455, g: 0.8097486, b: 1, a: 0.21960784}
+  surfaceFoamColor1: {r: 0.4290902, g: 0.8097486, b: 1, a: 0.21960784}
   surfaceFoamColor2: {r: 0, g: 0.44543076, b: 0.8113207, a: 0.7294118}
   surfaceFoamMovement: {x: 0.7, y: 0, z: 0.47, w: 0.01}
   surfaceFoamDirection1: 0.7
@@ -928,7 +928,7 @@ MeshCollider:
   m_GameObject: {fileID: 615806847}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -1021,8 +1021,9 @@ MonoBehaviour:
   _Joystick: {fileID: 284913668}
   _CountdownCanvas: {fileID: 1028278557}
   _CountdownText: {fileID: 877872412}
+  _BaseColor: {fileID: 595465554}
   _State: 0
-  _CountdownDuration: 500
+  _CountdownDuration: 8
 --- !u!4 &673258098
 Transform:
   m_ObjectHideFlags: 0
@@ -1081,7 +1082,7 @@ MeshCollider:
   m_GameObject: {fileID: 687137065}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -1259,7 +1260,7 @@ MeshCollider:
   m_GameObject: {fileID: 741007116}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -2620,7 +2621,7 @@ MeshCollider:
   m_GameObject: {fileID: 1989660566}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30

@@ -40,7 +40,6 @@ namespace SeesawCatapult
         public Human Prefab => _Prefab;
         public HumanType Type => _Type;
         public float Mass => _Mass;
-
         public HumanState State => _state;
 
         public Team Team
@@ -202,6 +201,19 @@ namespace SeesawCatapult
         {
             _Rigidbody.isKinematic = !isPhysics;
             _CapsuleCollider.enabled = isPhysics;
+        }
+
+        public Vector3 GetCurrentVelocity()
+        {
+            return _Rigidbody.velocity;
+        }
+
+        public void SetNewHuman(Vector3 velocity)
+        {
+            var magnitude = velocity.magnitude;
+            var normalizedVector = velocity.normalized;
+            
+            Throw(normalizedVector * magnitude);
         }
     }
 }

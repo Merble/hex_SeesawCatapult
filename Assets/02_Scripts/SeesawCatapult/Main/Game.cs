@@ -4,6 +4,7 @@ using SeesawCatapult.Main;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SeesawCatapult.ThisGame.Main
 {
@@ -18,6 +19,7 @@ namespace SeesawCatapult.ThisGame.Main
         [SerializeField] private VariableJoystick _Joystick;
         [SerializeField] private GameObject _CountdownCanvas;
         [SerializeField] private TextMeshProUGUI _CountdownText;
+        [SerializeField] private Image _BaseColor;
         [Space] 
         [SerializeField, ReadOnly] private GameState _State;
         [Space]
@@ -58,7 +60,8 @@ namespace SeesawCatapult.ThisGame.Main
                 if (_countdownRoutine != null) StopCoroutine(_countdownRoutine);
 
                 _State = GameState.PlayerIsAhead;
-                _countdownRoutine = StartCoroutine(CountdownTimer(_CountdownDuration));
+                _countdownRoutine = StartCoroutine(CountdownTimerRoutine(_CountdownDuration));
+                _BaseColor.color = Config.PlayerColor;
             }
             else if(playerPoint < enemyPoint)
             {
@@ -67,11 +70,12 @@ namespace SeesawCatapult.ThisGame.Main
                 if(_countdownRoutine != null) StopCoroutine(_countdownRoutine);
                 
                 _State = GameState.EnemyIsAhead;
-                _countdownRoutine = StartCoroutine(CountdownTimer(_CountdownDuration));
+                _countdownRoutine = StartCoroutine(CountdownTimerRoutine(_CountdownDuration));
+                _BaseColor.color = Config.EnemyColor;
             }
         }
         
-        private IEnumerator CountdownTimer(int countdown)
+        private IEnumerator CountdownTimerRoutine(int countdown)
         {
             _CountdownCanvas.gameObject.SetActive(true);
             

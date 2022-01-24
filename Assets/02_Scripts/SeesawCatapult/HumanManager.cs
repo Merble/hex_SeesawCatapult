@@ -26,7 +26,7 @@ namespace SeesawCatapult
         [SerializeField] private float _MinZ;
         [SerializeField] private float _MaxZ;
 
-        public bool _isCatapultAvailable = true;
+        private bool _isCatapultAvailable = true;
         public Catapult Catapult { get; set; }
 
         [ReadOnly] public int _HumansToCreate;

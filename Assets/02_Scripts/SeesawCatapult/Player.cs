@@ -5,12 +5,13 @@ namespace SeesawCatapult
     public class Player : MonoBehaviour
     {
         [SerializeField] private HumanManager _HumanManager;
+        [SerializeField] private PowerUpManager _PowerUpManager;
         [SerializeField] private Catapult _Catapult;
         [SerializeField] private GameObject _Indicator;
-        [SerializeField] private PowerUpManager _PowerUpManager;
+        [SerializeField] private Trajectory _Trajectory;
+        
 
         public HumanManager HumanManager => _HumanManager;
-        public PowerUpManager PowerUpManager => _PowerUpManager;
         
         private  VariableJoystick _joystick;
     
@@ -19,12 +20,12 @@ namespace SeesawCatapult
             _joystick = joystick;
             _HumanManager.Catapult = _Catapult;
      
-            _joystick.DragDidStart += () => { _Indicator.SetActive(true); };
+            _joystick.DragDidStart += () => { _Trajectory.ShowTrajectory(); };
             _joystick.DidDrag += OnDrag;
             _joystick.DragDidEnd += direction =>
             {
                 _Catapult.ThrowHumansByDirection(-direction);
-                _Indicator.SetActive(false);
+                _Trajectory.HideTrajectory();
             };
 
             _Catapult.DidThrowHumans += humans => { _PowerUpManager.HumanGroupList.Add(humans); };
@@ -34,9 +35,15 @@ namespace SeesawCatapult
         }
     
         private void OnDrag(Vector2 direction)
-        { 
-            var finishPos = _Catapult.FindTrajectoryFinishPosition(-direction);
-            _Indicator.transform.position = new Vector3(finishPos.x, _Indicator.transform.position.y, finishPos.z);
+        {
+            _Trajectory.UpdateDots(-direction);
+            //var finishPos = _Catapult.FindTrajectoryFinishPosition(-direction);
+            //_Indicator.transform.position = new Vector3(finishPos.x, _Indicator.transform.position.y, finishPos.z);
+        }
+
+        private void OnDestroy()
+        {
+            
         }
     }
 }

@@ -12,9 +12,21 @@ namespace SeesawCatapult.Main
         // Lists
         public List<PowerUp> _PowerUpPrefabs; // PowerUpManager
         
+        // Countdown Base Color
+        [Space]
+        public Color PlayerColor = Color.blue;
+        public Color EnemyColor = Color.red;
+        
         [Space]
         // Joystick
         public float JoystickRadiusMultiplier = 1f;
+
+        [Space]
+        // Trajectory
+        public int TrajectoryDotNumber = 30;
+        public float TrajectoryDotSpacing = 0.05f;
+        public float TrajectoryDotMinScale = .2f;
+        public float TrajectoryDotMaxScale = 1f;
         
         [Space]
         // Human

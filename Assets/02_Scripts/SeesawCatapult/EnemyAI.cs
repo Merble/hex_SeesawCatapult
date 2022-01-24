@@ -13,7 +13,6 @@ namespace SeesawCatapult
 
         public HumanManager RivalHumanManager { get; set; }
         public HumanManager HumanManager => _HumanManager;
-        public PowerUpManager PowerUpManager => _PowerUpManager;
         
         private void Awake()
         {
@@ -53,11 +52,11 @@ namespace SeesawCatapult
                 }
             }
             
-            if (_PowerUpManager.PowerUps.Any())
-            {
-                var pos = _PowerUpManager.PowerUps[Random.Range(0, _PowerUpManager.PowerUps.Count)].transform.position;
-                return HumanThrowPointRadius(pos);
-            }
+            // if (_PowerUpManager.PowerUps.Any())
+            // {
+            //     var pos = _PowerUpManager.PowerUps[Random.Range(0, _PowerUpManager.PowerUps.Count)].transform.position;
+            //     return HumanThrowPointRadius(pos);
+            // }
 
             var balancedSeesaws = _SeesawManager.GetBalancedSeesaws();
             if (balancedSeesaws.Any())
