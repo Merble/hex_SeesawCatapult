@@ -37,7 +37,8 @@ namespace SeesawCatapult
                 var prefab = PowerUpPrefabs[Random.Range(0, PowerUpPrefabs.Count)];
                 var spawnPointTransform = _PowerUpSpawnPositions[Random.Range(0, _PowerUpSpawnPositions.Count)];
                 
-                var powerUp = Instantiate(prefab, spawnPointTransform.position, Quaternion.identity);
+                //var powerUp = Instantiate(prefab, spawnPointTransform.position, Quaternion.identity);
+                var powerUp = prefab.InstantiateInLevel(spawnPointTransform.position);
                 
                 // Some Settings
                 powerUp.DidUsePowerUp += OnPowerUpUse;

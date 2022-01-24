@@ -84,7 +84,8 @@ namespace SeesawCatapult
         {
             var pos = Random.insideUnitCircle * Game.Config.PowerUpHumanInstantiateRadius;
             var newPos = new Vector3(powerUpPos.x + pos.x, humanPrefab.transform.position.y, powerUpPos.z + pos.y);
-            var newHuman = Instantiate(humanPrefab, newPos, Quaternion.identity);
+            //var newHuman = Instantiate(humanPrefab, newPos, Quaternion.identity);
+            var newHuman = humanPrefab.InstantiateInLevel(newPos);
 
             newHuman.SetNewHuman(velocity);
             

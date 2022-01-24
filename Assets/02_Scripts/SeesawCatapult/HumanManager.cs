@@ -55,7 +55,8 @@ namespace SeesawCatapult
                 var number = Random.Range(0, 51);
                 var prefab = number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
                 
-                var newHuman = Instantiate(prefab, _SpawnPos.position, Quaternion.identity);
+                //var newHuman = Instantiate(prefab, _SpawnPos.position, Quaternion.identity);
+                var newHuman = prefab.InstantiateInLevel(_SpawnPos.position);
                 newHuman.Team = _Team;
             
                 _Humans.Add(newHuman);
