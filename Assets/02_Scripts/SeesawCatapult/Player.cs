@@ -7,7 +7,6 @@ namespace SeesawCatapult
         [SerializeField] private HumanManager _HumanManager;
         [SerializeField] private PowerUpManager _PowerUpManager;
         [SerializeField] private Catapult _Catapult;
-        [SerializeField] private GameObject _Indicator;
         [SerializeField] private Trajectory _Trajectory;
         
 
@@ -30,6 +29,7 @@ namespace SeesawCatapult
 
             _Catapult.DidThrowHumans += humans => { _PowerUpManager.HumanGroupList.Add(humans); };
             _Catapult.DidSeatsFilledUp += () => { _HumanManager.SetIsCatapultAvailable(false) ;};
+            _Catapult.DidSeatsGotEmpty += () => { _HumanManager.SetIsCatapultAvailable(true); };
 
             _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }

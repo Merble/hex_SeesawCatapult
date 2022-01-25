@@ -840,11 +840,11 @@ MonoBehaviour:
   horizonColor: {r: 0, g: 0.7490196, b: 1, a: 1}
   horizonDistance: 0.8
   shoreFade: 0
-  shoreColor: {r: 0, g: 1, b: 0.30791146, a: 0}
+  shoreColor: {r: 0, g: 1, b: 0.3079097, a: 0}
   shoreStrength: 0
   shoreBlend: 0
   shoreDepth: 0
-  waveColor: {r: 0, g: 0.0118965, b: 0.18858469, a: 0}
+  waveColor: {r: 0, g: 0.0118965, b: 0.18858302, a: 0}
   underwaterColor: {r: 0, g: 0, b: 0, a: 0}
   underwaterColorStrength: 0
   underwaterRefractionStrength: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
   surfaceFoamCutoff: 1
   surfaceFoamDistortion: 0
   surfaceFoamBlend: 1
-  surfaceFoamColor1: {r: 0.4290902, g: 0.8097486, b: 1, a: 0.21960784}
+  surfaceFoamColor1: {r: 0.42908844, g: 0.8097486, b: 1, a: 0.21960784}
   surfaceFoamColor2: {r: 0, g: 0.44543076, b: 0.8113207, a: 0.7294118}
   surfaceFoamMovement: {x: 0.7, y: 0, z: 0.47, w: 0.01}
   surfaceFoamDirection1: 0.7
@@ -1011,19 +1011,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26fbdde21a54a6fa36847ff51d7b338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WorkingTitle: 
+  Identifier: SeesawCatapult
   _SceneLevelManager: {fileID: 11400000, guid: a33de5b1af2a34e03b424ddef92ff771, type: 2}
-  _UnloadSceneAfterStop: 1
   _Config: {fileID: 11400000, guid: ea97d4cbbdf94449db4b9b08020cd404, type: 2}
   _GameEvents: {fileID: 1884463540}
   _TutorialManager: {fileID: 0}
+  _FakeScene: {fileID: 0}
   _StartGameButton: {fileID: 2094956467}
+  _UnloadSceneAfterStop: 1
   _Joystick: {fileID: 284913668}
   _CountdownCanvas: {fileID: 1028278557}
   _CountdownText: {fileID: 877872412}
   _BaseColor: {fileID: 595465554}
   _State: 0
-  _CountdownDuration: 8
+  _CountdownDuration: 15
 --- !u!4 &673258098
 Transform:
   m_ObjectHideFlags: 0

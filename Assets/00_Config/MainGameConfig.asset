@@ -18,8 +18,10 @@ MonoBehaviour:
   - {fileID: 5490743417658370220, guid: f63f980a173b01a488dc46fe735e8085, type: 3}
   - {fileID: 7995546056008324337, guid: a1913c172f6ff774f88408f4bf70d298, type: 3}
   - {fileID: 8192466190605722065, guid: fdde5c7cebfdfad45a8ec14f8bffd4f9, type: 3}
+  PlayerColor: {r: 0, g: 0, b: 1, a: 1}
+  EnemyColor: {r: 1, g: 0, b: 0, a: 1}
   JoystickRadiusMultiplier: 2
-  TrajectoryDotNumber: 40
+  TrajectoryDotNumber: 30
   TrajectoryDotSpacing: 0.05
   TrajectoryDotMinScale: 0.15
   TrajectoryDotMaxScale: 0.4
