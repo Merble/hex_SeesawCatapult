@@ -19,13 +19,9 @@ namespace SeesawCatapult
             _joystick = joystick;
             _HumanManager.Catapult = _Catapult;
      
-            _joystick.DragDidStart += () => { _Trajectory.ShowTrajectory(); };
+            _joystick.DragDidStart += OnJoystickOnDragDidStart;
             _joystick.DidDrag += OnDrag;
-            _joystick.DragDidEnd += direction =>
-            {
-                _Catapult.ThrowHumansByDirection(-direction);
-                _Trajectory.HideTrajectory();
-            };
+            _joystick.DragDidEnd += OnJoystickOnDragDidEnd;
 
             _Catapult.DidThrowHumans += humans => { _PowerUpManager.HumanGroupList.Add(humans); };
             _Catapult.DidSeatsFilledUp += () => { _HumanManager.SetIsCatapultAvailable(false) ;};
@@ -33,7 +29,18 @@ namespace SeesawCatapult
 
             _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }
-    
+
+        private void OnJoystickOnDragDidEnd(Vector2 direction)
+        {
+            _Catapult.ThrowHumansByDirection(-direction);
+            _Trajectory.HideTrajectory();
+        }
+
+        private void OnJoystickOnDragDidStart()
+        {
+            _Trajectory.ShowTrajectory();
+        }
+
         private void OnDrag(Vector2 direction)
         {
             _Trajectory.UpdateDots(-direction);
@@ -43,7 +50,9 @@ namespace SeesawCatapult
 
         private void OnDestroy()
         {
-            
+            _joystick.DragDidStart -= OnJoystickOnDragDidStart;
+            _joystick.DidDrag -= OnDrag;
+            _joystick.DragDidEnd -= OnJoystickOnDragDidEnd;
         }
     }
 }
