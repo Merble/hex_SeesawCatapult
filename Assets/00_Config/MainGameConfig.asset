@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bd5a19f6564bb58f94f1b97aa6ee42, type: 3}
   m_Name: MainGameConfig
   m_EditorClassIdentifier: 
+  _DefaultTimeScale: 1
   _PowerUpPrefabs:
   - {fileID: 8909577356986816762, guid: 603543ad1ae808c40a2b76c4c5a04fc4, type: 3}
   - {fileID: 7873743057471985333, guid: 38f90074f4f9540458bdb4787932316b, type: 3}
@@ -42,7 +43,7 @@ MonoBehaviour:
   _EnemyHumanThrowWaitDuration: 0.6
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
-  _HumanToCatapultWaitDuration: 5
+  _HumanToCatapultWaitDuration: 0
   _HumanToSeesawWaitDuration: 0.5
   _WaitDurationBeforeNewHuman: 3
   _MassEffectOnSeesawBalance: 0.1
