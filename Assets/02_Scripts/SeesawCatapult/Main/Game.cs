@@ -14,7 +14,7 @@ namespace SeesawCatapult.ThisGame.Main
         PlayerIsAhead,
         EnemyIsAhead
     }
-    public class Game: Game<Config, LevelHelper>
+    public class Game: GameGenericBase<Config, LevelHelper, LevelInitData>
     {
         [SerializeField] private VariableJoystick _Joystick;
         [SerializeField] private GameObject _CountdownCanvas;

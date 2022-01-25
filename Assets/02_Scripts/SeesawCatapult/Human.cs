@@ -184,7 +184,8 @@ namespace SeesawCatapult
         {
             LeanTween.scale(gameObject, Vector3.one * Game.Config.HumanMaxScaleRate, Game.Config.HumanScaleChangeDuration).setOnComplete(() =>
             {
-                var destroyEffect = Instantiate(_DestroyEffect,transform.position, Quaternion.identity);
+                // var destroyEffect = Instantiate(_DestroyEffect,transform.position, Quaternion.identity);
+                var destroyEffect = _DestroyEffect.InstantiateInLevel(transform.position);
                 destroyEffect.Play();
                 Destroy(gameObject);
             });

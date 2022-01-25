@@ -1,4 +1,6 @@
 using System;
+using GameStructure;
+using HexGames;
 using SeesawCatapult.Enums;
 using SeesawCatapult.ThisGame.Main;
 using UnityEngine;

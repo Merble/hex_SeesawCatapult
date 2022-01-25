@@ -1,9 +1,11 @@
+using Boilerplate.GameSystem;
 using HexGames;
+using SeesawCatapult.Main;
 using UnityEngine;
 
 namespace SeesawCatapult.ThisGame.Main
 {
-    public class LevelHelper: LevelHelperBase
+    public class LevelHelper: LevelHelperGenericBase<LevelInitData>
     {
 
         [SerializeField] private Player _Player;
