@@ -53,7 +53,7 @@ namespace SeesawCatapult
             SetIsPhysics(false);
         }
         
-        public IEnumerator MoveRandomLocation()
+        public IEnumerator MoveRandomLocationRoutine()
         {
             _Animator.SetTrigger(RunAnimParam);
             while (_state == HumanState.RandomMove)
@@ -92,15 +92,15 @@ namespace SeesawCatapult
             if(_randomMoveTweenId != null) LeanTween.cancel(_randomMoveTweenId.Value);
         
             var startPos = transform.position;
-            var catapultSeat = catapult.GetSeatPosition();
+            var catapultSeat = catapult.GetAvailableSeat();
             if (!catapultSeat)
             {
                 _state = HumanState.RandomMove;
-                StartCoroutine(MoveRandomLocation());
+                StartCoroutine(MoveRandomLocationRoutine());
                 return;
             }
             catapultSeat.SetIsSeatFull(true);
-            var catapultPos = catapultSeat.transform.position;
+            var catapultPos = catapultSeat.DefaultPosition;
             var moveDuration = Vector3.Distance(startPos, catapultPos) / _maxMoveSpeed;
             
             // Move to seat position
@@ -174,7 +174,7 @@ namespace SeesawCatapult
             if (board.Team != Team)
             {
                 _state = HumanState.RandomMove;
-                StartCoroutine(MoveRandomLocation());
+                StartCoroutine(MoveRandomLocationRoutine());
             }
             else
                 _state = HumanState.OnOtherSide;
@@ -200,6 +200,8 @@ namespace SeesawCatapult
         
         private void SetIsPhysics(bool isPhysics)
         {
+            if (!_Rigidbody)
+                _Rigidbody = GetComponent<Rigidbody>();
             _Rigidbody.isKinematic = !isPhysics;
             _CapsuleCollider.enabled = isPhysics;
         }

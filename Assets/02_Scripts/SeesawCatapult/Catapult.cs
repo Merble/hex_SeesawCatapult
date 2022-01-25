@@ -47,7 +47,7 @@ namespace SeesawCatapult
             ClearSeat();
         }
         
-        public Vector3 FindTrajectoryFinishPosition(Vector2 direction)
+        /*public Vector3 FindTrajectoryFinishPosition(Vector2 direction)
         {
             var forceY = DirectionValueY * ThrowForce;
             var time = (forceY * 2f) /_gravity;
@@ -60,8 +60,8 @@ namespace SeesawCatapult
             finishPos.z = Mathf.Clamp(finishPos.z, Game.Config._MinZOfBoard, Game.Config._MaxZOfBoard);
         
             return finishPos;
-        }
-    
+        }*/
+        
         public void ThrowHumansByPosition(Vector3 position, float waitTime)
         {
             var direction = FindDirectionFromFinishPosition(position);
@@ -78,7 +78,7 @@ namespace SeesawCatapult
             return direction;
         }
         
-        public CatapultSeat GetSeatPosition()
+        public CatapultSeat GetAvailableSeat()
         {
             return _CatapultSeats.FirstOrDefault(catapultSeat => !catapultSeat.IsSeatFull());
         }

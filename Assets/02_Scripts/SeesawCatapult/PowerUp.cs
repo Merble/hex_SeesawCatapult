@@ -9,15 +9,15 @@ namespace SeesawCatapult
 {
     public class PowerUp : MonoBehaviour
     {
-        public event Action<Human, PowerUp, int> DidUsePowerUp;
-    
-        [SerializeField] private Team _Team;
+        public event Action<Human, PowerUp> DidUsePowerUp;
+        
         [SerializeField] private PowerUpType _PowerUpType;
         [Space]
         [SerializeField] private int _PowerUpEffectNumber;
 
         private bool _isHit;
         public PowerUpType PowerUpType => _PowerUpType;
+        public int PowerUpEffectNumber => _PowerUpEffectNumber;
         
         private void OnTriggerEnter(Collider other)
         {
@@ -28,7 +28,7 @@ namespace SeesawCatapult
         
             if (!human) return;
         
-            DidUsePowerUp?.Invoke(human, this, _PowerUpEffectNumber);
+            DidUsePowerUp?.Invoke(human, this);
             
             DestroySelf();
         }

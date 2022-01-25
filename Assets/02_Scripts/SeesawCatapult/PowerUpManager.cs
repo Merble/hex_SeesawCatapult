@@ -14,17 +14,19 @@ namespace SeesawCatapult
 
         public List<Human[]> HumanGroupList { get; } = new List<Human[]>();
 
-       public void OnPowerUpUse(Human human, PowerUp powerUp, int powerUpEffectNumber)
-        {
+       public void OnPowerUpUse(Human human, PowerUp powerUp)
+       {
+           var effectPower = powerUp.PowerUpEffectNumber;
+           
             foreach (var humanGroup in HumanGroupList.Where(humanGroup => humanGroup.Contains(human)))
             {
                 switch (powerUp.PowerUpType)
                 {
                     case PowerUpType.Addition:
-                        AddHumans(humanGroup, powerUp.transform.position, powerUpEffectNumber, human.GetCurrentVelocity());
+                        AddHumans(humanGroup, powerUp.transform.position, effectPower, human.GetCurrentVelocity());
                         break;
                     case PowerUpType.Multiplication:
-                        MultiplyHumans(humanGroup, powerUp.transform.position, powerUpEffectNumber, human.GetCurrentVelocity());
+                        MultiplyHumans(humanGroup, powerUp.transform.position, effectPower, human.GetCurrentVelocity());
                         break;
                     default:
                         return;
@@ -32,7 +34,7 @@ namespace SeesawCatapult
             }
         }
         
-        private void AddHumans(Human[] humanGroup, Vector3 powerUpPos, int powerUpEffectNumber, Vector3 velocity)
+        private void AddHumans(Human[] humanGroup, Vector3 powerUpPos, int effectPower, Vector3 velocity)
         {
             var instantiatedHumans = new List<Human>();
         
@@ -48,7 +50,7 @@ namespace SeesawCatapult
                 humanPrefab = human.Prefab;
             }
         
-            for (var i = 0; i < powerUpEffectNumber; i++)
+            for (var i = 0; i < effectPower; i++)
             {
                 if (humanPrefab is null) continue;
             
@@ -58,7 +60,7 @@ namespace SeesawCatapult
             DidInstantiateHumans?.Invoke(instantiatedHumans);
         }
     
-        private void MultiplyHumans(Human[] humanGroup, Vector3 powerUpPos,int powerUpEffectNumber, Vector3 velocity)
+        private void MultiplyHumans(Human[] humanGroup, Vector3 powerUpPos,int effectPower, Vector3 velocity)
         {
             var instantiatedHumans = new List<Human>();
         
@@ -69,7 +71,7 @@ namespace SeesawCatapult
             {
                 // Multiply and instantiate at pos
                 var count = humanGroup.Count(human => human.Prefab == humanPrefab);
-                var instantiateCount = count * (powerUpEffectNumber - 1);
+                var instantiateCount = count * (effectPower - 1);
             
                 for (var i = 0; i < instantiateCount; i++)
                 {
@@ -84,7 +86,6 @@ namespace SeesawCatapult
         {
             var pos = Random.insideUnitCircle * Game.Config.PowerUpHumanInstantiateRadius;
             var newPos = new Vector3(powerUpPos.x + pos.x, humanPrefab.transform.position.y, powerUpPos.z + pos.y);
-            //var newHuman = Instantiate(humanPrefab, newPos, Quaternion.identity);
             var newHuman = humanPrefab.InstantiateInLevel(newPos);
 
             newHuman.SetNewHuman(velocity);

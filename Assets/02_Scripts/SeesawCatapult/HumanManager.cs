@@ -26,7 +26,7 @@ namespace SeesawCatapult
         [SerializeField] private float _MinZ;
         [SerializeField] private float _MaxZ;
 
-        public bool _isCatapultAvailable = true;
+        private bool _isCatapultAvailable = true;
         public Catapult Catapult { get; set; }
 
         [ReadOnly] public int _HumansToCreate;
@@ -55,7 +55,6 @@ namespace SeesawCatapult
                 var number = Random.Range(0, 51);
                 var prefab = number % 5 == 0 ? _FatHumanPrefab : _ThinHumanPrefab;
                 
-                //var newHuman = Instantiate(prefab, _SpawnPos.position, Quaternion.identity);
                 var newHuman = prefab.InstantiateInLevel(_SpawnPos.position);
                 newHuman.Team = _Team;
             
@@ -77,7 +76,7 @@ namespace SeesawCatapult
             human.SetMinAndMaxValues(_MinX, _MaxX, _MinZ, _MaxZ, Game.Config._MinHumanSpeed, Game.Config._MaxHumanSpeed);
 
             human.SetState(HumanState.RandomMove);
-            StartCoroutine(human.MoveRandomLocation());
+            StartCoroutine(human.MoveRandomLocationRoutine());
         }
 
         private IEnumerator MoveHumansToCatapultRoutine()
@@ -133,8 +132,8 @@ namespace SeesawCatapult
 
         private SeesawSeat GetNearestSeesawSeat(Vector3 humanPos)
         {
-            var availableSeats = CheckAvailableSeats();
             SeesawSeat nearestSeat = null;
+            var availableSeats = CheckAvailableSeats();
             var closestDistanceSqr = Mathf.Infinity;
         
             foreach(var seat in availableSeats)

@@ -30,12 +30,6 @@ namespace SeesawCatapult
             _PowerUpManager.DidInstantiateHumans += humans => _HumanManager.AddHumans(humans);
         }
 
-        private void OnJoystickOnDragDidEnd(Vector2 direction)
-        {
-            _Catapult.ThrowHumansByDirection(-direction);
-            _Trajectory.HideTrajectory();
-        }
-
         private void OnJoystickOnDragDidStart()
         {
             _Trajectory.ShowTrajectory();
@@ -47,7 +41,13 @@ namespace SeesawCatapult
             //var finishPos = _Catapult.FindTrajectoryFinishPosition(-direction);
             //_Indicator.transform.position = new Vector3(finishPos.x, _Indicator.transform.position.y, finishPos.z);
         }
-
+        
+        private void OnJoystickOnDragDidEnd(Vector2 direction)
+        {
+            _Catapult.ThrowHumansByDirection(-direction);
+            _Trajectory.HideTrajectory();
+        }
+        
         private void OnDestroy()
         {
             _joystick.DragDidStart -= OnJoystickOnDragDidStart;

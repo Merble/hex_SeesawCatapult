@@ -37,7 +37,6 @@ namespace SeesawCatapult
                 var prefab = PowerUpPrefabs[Random.Range(0, PowerUpPrefabs.Count)];
                 var spawnPointTransform = _PowerUpSpawnPositions[Random.Range(0, _PowerUpSpawnPositions.Count)];
                 
-                //var powerUp = Instantiate(prefab, spawnPointTransform.position, Quaternion.identity);
                 var powerUp = prefab.InstantiateInLevel(spawnPointTransform.position);
                 
                 // Some Settings
@@ -47,14 +46,14 @@ namespace SeesawCatapult
             }
         }
 
-        private void OnPowerUpUse(Human human, PowerUp powerUp, int powerUpEffectNumber)
+        private void OnPowerUpUse(Human human, PowerUp powerUp)
         {
             var isPlayer = human.Team == Team.PlayerTeam;
             
             if(isPlayer)
-                _PlayerPowerUpManager.OnPowerUpUse(human, powerUp, powerUpEffectNumber);
+                _PlayerPowerUpManager.OnPowerUpUse(human, powerUp);
             else
-                _EnemyPowerUpManager.OnPowerUpUse(human, powerUp, powerUpEffectNumber);
+                _EnemyPowerUpManager.OnPowerUpUse(human, powerUp);
         }
     }
 }
