@@ -221,7 +221,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 944181482358587744, guid: 91a7dfbce3a734d93b1d51895928be28, type: 2}
+  - {fileID: 944181482358587744, guid: d44cd11b1f72346ffa6b7a66d15758e8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -265,8 +265,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: +1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 91a7dfbce3a734d93b1d51895928be28, type: 2}
-  m_sharedMaterial: {fileID: 944181482358587744, guid: 91a7dfbce3a734d93b1d51895928be28, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d44cd11b1f72346ffa6b7a66d15758e8, type: 2}
+  m_sharedMaterial: {fileID: 944181482358587744, guid: d44cd11b1f72346ffa6b7a66d15758e8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -543,7 +543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e942d4bb57bdebf489b71db8839704a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Team: 0
   _PowerUpType: 1
   _PowerUpEffectNumber: 1
 --- !u!65 &2295181223630329828
