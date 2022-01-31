@@ -9,7 +9,6 @@ namespace SeesawCatapult
         [SerializeField] private Catapult _Catapult;
         [SerializeField] private Trajectory _Trajectory;
         
-
         public HumanManager HumanManager => _HumanManager;
         
         private  VariableJoystick _joystick;

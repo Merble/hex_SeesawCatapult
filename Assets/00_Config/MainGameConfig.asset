@@ -12,15 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bd5a19f6564bb58f94f1b97aa6ee42, type: 3}
   m_Name: MainGameConfig
   m_EditorClassIdentifier: 
-  _DefaultTimeScale: 1
+  _DefaultTimeScale: 1.123
   _PowerUpPrefabs:
   - {fileID: 8909577356986816762, guid: 603543ad1ae808c40a2b76c4c5a04fc4, type: 3}
   - {fileID: 7873743057471985333, guid: 38f90074f4f9540458bdb4787932316b, type: 3}
   - {fileID: 5490743417658370220, guid: f63f980a173b01a488dc46fe735e8085, type: 3}
   - {fileID: 7995546056008324337, guid: a1913c172f6ff774f88408f4bf70d298, type: 3}
   - {fileID: 8192466190605722065, guid: fdde5c7cebfdfad45a8ec14f8bffd4f9, type: 3}
-  PlayerColor: {r: 0, g: 0, b: 1, a: 1}
-  EnemyColor: {r: 1, g: 0, b: 0, a: 1}
+  CountdownBgPlayerColor: {r: 0, g: 0, b: 1, a: 1}
+  CountdownBgEnemyColor: {r: 1, g: 0, b: 0, a: 1}
+  CountdownBgNeutralColor: {r: 1, g: 1, b: 1, a: 1}
+  PlayerWinBarWeakColor: {r: 0, g: 1, b: 1, a: 1}
+  PlayerWinBarStrongColor: {r: 0, g: 0, b: 1, a: 1}
+  EnemyWinBarWeakColor: {r: 0.9622642, g: 0.30411178, b: 0.30411178, a: 1}
+  EnemyWinBarStrongColor: {r: 1, g: 0, b: 0, a: 1}
+  WinBarLerpSpeed: 1
   JoystickRadiusMultiplier: 2
   TrajectoryDotNumber: 30
   TrajectoryDotSpacing: 0.05
@@ -40,7 +46,6 @@ MonoBehaviour:
   _MinZOfBoard: -10
   _EnemyHumanThrowPointRadiusMultiplier: 1
   _EnemyHumanNumberBeforeThrow: 1
-  _EnemyHumanThrowWaitDuration: 0.6
   _MinHumanSpeed: 2
   _MaxHumanSpeed: 6
   _HumanToCatapultWaitDuration: 0

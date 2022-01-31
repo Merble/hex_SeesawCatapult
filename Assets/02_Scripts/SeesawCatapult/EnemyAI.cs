@@ -14,6 +14,8 @@ namespace SeesawCatapult
         public HumanManager RivalHumanManager { get; set; }
         public HumanManager HumanManager => _HumanManager;
         
+        public float HumanThrowWaitDuration { get; set; }
+
         private void Awake()
         {
             _HumanManager.Catapult = _Catapult;
@@ -29,7 +31,7 @@ namespace SeesawCatapult
         private void OnHumanArriveCatapult(Human human)
         {
             if( (_Catapult.HumansOnCatapult.Count >= Game.Config._EnemyHumanNumberBeforeThrow) || (_HumanManager._HumansToCreate <= 0) )
-                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), Game.Config._EnemyHumanThrowWaitDuration);
+                _Catapult.ThrowHumansByPosition(FindProperPointForThrow(), HumanThrowWaitDuration);
         }
 
         private Vector3 FindProperPointForThrow()
