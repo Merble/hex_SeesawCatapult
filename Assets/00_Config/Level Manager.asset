@@ -16,9 +16,27 @@ MonoBehaviour:
   _LoopIndex: 0
   _ActivateAfterLoad: 0
   _LevelSceneNames:
-  - Demo_Level
+  - Level 1
+  - Level 2
+  - Level 3
+  - Level 4
+  - Level 5
+  - Level 6
+  - Level 7
+  - Level 8
+  - Level 9
+  - Level 10
   _LevelKey: com.hex.awesomegame.levelindex
   _SceneAssets:
-  - {fileID: 102900000, guid: d6eee324ddce410478cebe28df07bd62, type: 3}
-  _TestLevel: {fileID: 102900000, guid: d6eee324ddce410478cebe28df07bd62, type: 3}
+  - {fileID: 102900000, guid: 39a99f11893548249875ccdf5c876105, type: 3}
+  - {fileID: 102900000, guid: 087d2814de409ce48bc6b95f298d936e, type: 3}
+  - {fileID: 102900000, guid: 1b79d7a63aa119747bb32f725248135c, type: 3}
+  - {fileID: 102900000, guid: fc45e839a3e9fbf44b47a856b6e89866, type: 3}
+  - {fileID: 102900000, guid: 659764d75c019a34abb870597cf0021d, type: 3}
+  - {fileID: 102900000, guid: 68f9d353eb166354782c36d9fa48e2df, type: 3}
+  - {fileID: 102900000, guid: 4bcbac3bb7ca66a4c81efe1ea77cfde0, type: 3}
+  - {fileID: 102900000, guid: 990a73b40c162c545a625b70994bbff3, type: 3}
+  - {fileID: 102900000, guid: 7b151c9da75b7ed45b60f5bc8cc35bdf, type: 3}
+  - {fileID: 102900000, guid: 82b832f34a54c8049a9b28b3b7534881, type: 3}
+  _TestLevel: {fileID: 102900000, guid: 087d2814de409ce48bc6b95f298d936e, type: 3}
   _LoadLevelScene: 1

@@ -401,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 549829690496060844, guid: 52e4871d7eee7456584fc79fd73ed1ef, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -37.14
+      value: -140
       objectReference: {fileID: 0}
     - target: {fileID: 549829690496060844, guid: 52e4871d7eee7456584fc79fd73ed1ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -968,11 +968,11 @@ MonoBehaviour:
   horizonColor: {r: 0, g: 0.7490196, b: 1, a: 1}
   horizonDistance: 0.8
   shoreFade: 0
-  shoreColor: {r: 0, g: 1, b: 0.30790663, a: 0}
+  shoreColor: {r: 0, g: 1, b: 0.3079082, a: 0}
   shoreStrength: 0
   shoreBlend: 0
   shoreDepth: 0
-  waveColor: {r: 0, g: 0.0118965, b: 0.1885801, a: 0}
+  waveColor: {r: 0, g: 0.0118965, b: 0.18858159, a: 0}
   underwaterColor: {r: 0, g: 0, b: 0, a: 0}
   underwaterColorStrength: 0
   underwaterRefractionStrength: 0
@@ -981,7 +981,7 @@ MonoBehaviour:
   surfaceFoamCutoff: 1
   surfaceFoamDistortion: 0
   surfaceFoamBlend: 1
-  surfaceFoamColor1: {r: 0.42908537, g: 0.8097486, b: 1, a: 0.21960784}
+  surfaceFoamColor1: {r: 0.42908692, g: 0.8097486, b: 1, a: 0.21960784}
   surfaceFoamColor2: {r: 0, g: 0.44543076, b: 0.8113207, a: 0.7294118}
   surfaceFoamMovement: {x: 0.7, y: 0, z: 0.47, w: 0.01}
   surfaceFoamDirection1: 0.7
@@ -2059,6 +2059,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 622826831469076645, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5019734959906653969, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
       propertyPath: m_Name
       value: MainCanvas
@@ -2535,13 +2539,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805005506}
-  m_LocalRotation: {x: 0.5363882, y: -0, z: -0, w: 0.84397143}
-  m_LocalPosition: {x: 0, y: 17.51, z: -13.84}
+  m_LocalRotation: {x: 0.60743123, y: -0, z: -0, w: 0.79437226}
+  m_LocalPosition: {x: 0, y: 24.49, z: -7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 64.876, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 74.808, y: 0, z: 0}
 --- !u!1 &1884463539
 GameObject:
   m_ObjectHideFlags: 0
