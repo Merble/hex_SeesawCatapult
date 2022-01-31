@@ -2937,6 +2937,7 @@ MonoBehaviour:
   _EnemyAI: {fileID: 1301922046}
   _SeesawManager: {fileID: 1312822458}
   _PowerUpCreator: {fileID: 1429869333}
+  _EnemyHumanThrowWaitDuration: 0.6
   _PowerUpsToCreate: 5
   _HumansToCreate: 100
 --- !u!4 &1723869953
