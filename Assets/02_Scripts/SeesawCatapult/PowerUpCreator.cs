@@ -42,7 +42,6 @@ namespace SeesawCatapult
                 // Some Settings
                 powerUp.DidUsePowerUp += OnPowerUpUse;
                 _PowerUps.Add(powerUp);
-                _PowerUpSpawnPositions.Remove(spawnPointTransform);
             }
         }
 

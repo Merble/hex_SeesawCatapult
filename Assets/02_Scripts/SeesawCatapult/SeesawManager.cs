@@ -11,6 +11,8 @@ namespace SeesawCatapult
         public event Action<int, int> DidBalanceChange;
         
         [SerializeField] private List<Seesaw> _Seesaws;
+
+        public int SeesawCount => _Seesaws.Count;
         
         private void Awake()
         {

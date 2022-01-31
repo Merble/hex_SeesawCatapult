@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using HexGames;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SeesawCatapult.Main
 {
@@ -14,8 +15,15 @@ namespace SeesawCatapult.Main
         
         // Countdown Base Color
         [Space]
-        public Color PlayerColor = Color.blue;
-        public Color EnemyColor = Color.red;
+        public Color CountdownBgPlayerColor = Color.blue;
+        public Color CountdownBgEnemyColor = Color.red;
+        public Color CountdownBgNeutralColor = Color.white;
+        [Space] 
+        public Color PlayerWinBarWeakColor = Color.cyan;
+        public Color PlayerWinBarStrongColor = Color.blue;
+        public Color EnemyWinBarWeakColor = Color.red;
+        public Color EnemyWinBarStrongColor = Color.red;
+        public float WinBarLerpSpeed = 1f;
         
         [Space]
         // Joystick
@@ -54,7 +62,6 @@ namespace SeesawCatapult.Main
         // EnemyAI
         public float _EnemyHumanThrowPointRadiusMultiplier = 1;
         public int _EnemyHumanNumberBeforeThrow = 2;
-        public float _EnemyHumanThrowWaitDuration = .6f;
         
         [Space]
         // Human Manager
