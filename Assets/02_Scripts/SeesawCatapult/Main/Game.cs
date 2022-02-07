@@ -43,9 +43,19 @@ namespace SeesawCatapult.ThisGame.Main
             _State = GameState.Balance;
             
             levelHelper.SeesawManager.DidBalanceChange += OnBalanceChange;
+            levelHelper.SeesawManager.DidGameStuck += OnGameStuckSituation;
+            
             levelHelper.EnemyAI.RivalHumanManager = levelHelper.Player.HumanManager;
             
             levelHelper.Player.Init(_Joystick);
+        }
+
+        private void OnGameStuckSituation()
+        {
+            // TODO:
+            _playerWinPoint = 0;
+            _enemyWinPoint = 0;
+            AdjustCountdown(_playerWinPoint, _enemyWinPoint);
         }
 
         private void Update()
@@ -133,23 +143,5 @@ namespace SeesawCatapult.ThisGame.Main
             
             StopGame(isPlayerWin);
         }
-        
-        // Use these Game Event methods 
-        /*protected override void WillStartGame()
-        {
-        }
-
-        protected override void DidStartGame(LevelHelper levelHelper)
-        {
-        }
-
-        protected override void WillStopGame(LevelHelper levelHelper, bool isSuccess)
-        {
-        }
-
-        protected override void DidStopGame(bool isSuccess)
-        {
-        }
-        */
     }
 }
