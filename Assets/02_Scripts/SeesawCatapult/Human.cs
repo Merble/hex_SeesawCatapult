@@ -133,7 +133,8 @@ namespace SeesawCatapult
             var moveDuration = Vector3.Distance(startPos, seatPos) / _maxMoveSpeed;
             
             var branch = seat._ParentBranch;
-            cachedTransform.SetParent(branch._ParentSeesaw.transform);
+            var seesaw = branch.ParentSeesaw;
+            cachedTransform.SetParent(seesaw.transform);
             branch.AddHuman(this);
 
             startPos = cachedTransform.localPosition;
@@ -153,6 +154,7 @@ namespace SeesawCatapult
                     _state = HumanState.OnSeesaw;
                     transform.LookAt(new Vector3(pos.x, pos.y ,0));
                     _Animator.SetTrigger(SitAnimParam);
+                    seesaw.CheckSeesawSituation();
                 });
         }
     

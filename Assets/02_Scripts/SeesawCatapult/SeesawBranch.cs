@@ -16,9 +16,9 @@ namespace SeesawCatapult
         [Space]
         [SerializeField] private bool _IsPlayer;
 
-        public float TotalMass { get; set; }
+        public float TotalMass { get; private set; }
         
-        public Seesaw _ParentSeesaw;
+        public Seesaw ParentSeesaw { get; set; }
 
         private void Awake()
         {

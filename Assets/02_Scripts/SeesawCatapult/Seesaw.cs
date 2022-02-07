@@ -9,6 +9,7 @@ namespace SeesawCatapult
     public class Seesaw : MonoBehaviour
     {
         public event Action DidBalanceChange;
+        public event Action DidSeesawStuck;
     
         [SerializeField] private SeesawBranch _PlayerSeesawBranch;
         [SerializeField] private SeesawBranch _EnemySeesawBranch;
@@ -16,19 +17,21 @@ namespace SeesawCatapult
         [SerializeField, ReadOnly] private SeesawState _State;
         [Space]
         [SerializeField, ReadOnly] private float _BalanceValue;
+
+        private float _balancePoint = .5f;
         
         public SeesawState State => _State;
         
         private void Awake()
         {
             _State = SeesawState.Balance;
-            _BalanceValue = .5f;
+            _BalanceValue = _balancePoint;
         
             _PlayerSeesawBranch.DidMassChange += BalanceChange;
             _EnemySeesawBranch.DidMassChange += BalanceChange;
 
-            _PlayerSeesawBranch._ParentSeesaw = this;
-            _EnemySeesawBranch._ParentSeesaw = this;
+            _PlayerSeesawBranch.ParentSeesaw = this;
+            _EnemySeesawBranch.ParentSeesaw = this;
         }
     
         private void BalanceChange(float mass, bool isPlayer)
@@ -58,11 +61,11 @@ namespace SeesawCatapult
 
         private void CheckBalanceAfterRotate()
         {
-            if (_BalanceValue > .5f)
+            if (_BalanceValue > _balancePoint)
             {
                 _State = SeesawState.PlayerWins;
             }
-            else if (_BalanceValue < .5f)
+            else if (_BalanceValue < _balancePoint)
             {
                 _State = SeesawState.EnemyWins;
             }
@@ -79,9 +82,29 @@ namespace SeesawCatapult
             DidBalanceChange?.Invoke();
         }
 
+        public void CheckSeesawSituation()
+        {
+            if (_PlayerSeesawBranch.GetSeesawSeat() != null || _EnemySeesawBranch.GetSeesawSeat() != null) return;
+            
+            _State = SeesawState.Stuck;
+            DidSeesawStuck?.Invoke();
+        }
+
         public SeesawSeat GetSeesawSeatForEnemyAI()
         {
             return _EnemySeesawBranch.GetSeesawSeat();
+        }
+
+        public void ResetSeesaw()
+        {
+            _State = SeesawState.Balance;
+            
+            _PlayerSeesawBranch.ClearSeats();
+            _EnemySeesawBranch.ClearSeats();
+
+            _BalanceValue = _balancePoint;
+            
+            RotateBoardToCurrentBalance();
         }
     }
 }

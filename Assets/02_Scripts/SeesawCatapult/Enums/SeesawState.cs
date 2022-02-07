@@ -4,6 +4,7 @@
     {
         Balance,
         PlayerWins,
-        EnemyWins
+        EnemyWins,
+        Stuck
     }
 }
