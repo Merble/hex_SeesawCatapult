@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.1707913, b: 0.74833024, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.15619522, b: 0.71797097, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -692,8 +692,65 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &394136569
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 165288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_Name
+      value: GameAnalytics
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465288, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9d27d37bab3c447b8eb7a2a6756e952, type: 3}
 --- !u!1 &501352582
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,11 +1025,11 @@ MonoBehaviour:
   horizonColor: {r: 0, g: 0.7490196, b: 1, a: 1}
   horizonDistance: 0.8
   shoreFade: 0
-  shoreColor: {r: 0, g: 1, b: 0.3079082, a: 0}
+  shoreColor: {r: 0, g: 1, b: 0.30790883, a: 0}
   shoreStrength: 0
   shoreBlend: 0
   shoreDepth: 0
-  waveColor: {r: 0, g: 0.0118965, b: 0.18858159, a: 0}
+  waveColor: {r: 0, g: 0.0118965, b: 0.18858218, a: 0}
   underwaterColor: {r: 0, g: 0, b: 0, a: 0}
   underwaterColorStrength: 0
   underwaterRefractionStrength: 0
@@ -981,7 +1038,7 @@ MonoBehaviour:
   surfaceFoamCutoff: 1
   surfaceFoamDistortion: 0
   surfaceFoamBlend: 1
-  surfaceFoamColor1: {r: 0.42908692, g: 0.8097486, b: 1, a: 0.21960784}
+  surfaceFoamColor1: {r: 0.42908755, g: 0.8097486, b: 1, a: 0.21960784}
   surfaceFoamColor2: {r: 0, g: 0.44543076, b: 0.8113207, a: 0.7294118}
   surfaceFoamMovement: {x: 0.7, y: 0, z: 0.47, w: 0.01}
   surfaceFoamDirection1: 0.7
@@ -1154,8 +1211,8 @@ MonoBehaviour:
   _PlayerWinBar: {fileID: 926822659}
   _EnemyWinBar: {fileID: 2116250750}
   _State: 0
-  _CountdownDuration: 50
-  _CountdownBgColorChange: 0
+  _CountdownDuration: 8
+  _CountdownBgColorChange: 1
 --- !u!4 &673258098
 Transform:
   m_ObjectHideFlags: 0
@@ -1170,7 +1227,7 @@ Transform:
   - {fileID: 1884463541}
   - {fileID: 138421363}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &687137065
 GameObject:
@@ -1487,7 +1544,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &877872411
 GameObject:
@@ -1768,11 +1825,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1024717356 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2441084713321316690, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
-  m_PrefabInstance: {fileID: 1326057132}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1028278557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,7 +2030,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 110.05899, y: 0, z: 0}
 --- !u!1001 &1326057132
 PrefabInstance:
@@ -2062,6 +2114,10 @@ PrefabInstance:
     - target: {fileID: 622826831469076645, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2441084713321316690, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5019734959906653969, guid: 48da83a8c61cdf94fb1cee7678201e55, type: 3}
       propertyPath: m_Name
@@ -2544,7 +2600,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 74.808, y: 0, z: 0}
 --- !u!1 &1884463539
 GameObject:
@@ -2582,10 +2638,6 @@ MonoBehaviour:
     Delay: 0
   - GameObject: {fileID: 1326057134}
     IsEnabled: 0
-    IsSuccess: 2
-    Delay: 0
-  - GameObject: {fileID: 1024717356}
-    IsEnabled: 1
     IsSuccess: 2
     Delay: 0
   _StartGameEvents:

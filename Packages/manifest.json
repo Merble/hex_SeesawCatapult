@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.alpdoganurut.gamepack": "https://github.com/alpdogan1/GamePack.git",
     "com.unity.cinemachine": "2.6.4",
     "com.unity.device-simulator": "3.0.1-preview",
     "com.unity.ide.rider": "2.0.7",
